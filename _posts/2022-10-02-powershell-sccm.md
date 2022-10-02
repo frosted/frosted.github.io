@@ -100,7 +100,7 @@ You can leverage this function in several ways.
 This is not persistent, so if you close your session, you will need to dot-source your script again.  To dot-source a script is simple. From your PowerShell console, type a dot (.) and a space before the your script path.
 ```powershell
 # Assuming my script was saved under c:\_code\
-. C:\_code\Connect_MECM
+. C:\_code\Connect_MECM.ps1
 ```
 
 All functions and variables created in dot-sourced script are now in the current scope.
