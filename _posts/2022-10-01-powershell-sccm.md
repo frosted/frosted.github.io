@@ -20,12 +20,13 @@ This is probably the easiest way to do it if you already have the console open (
 
 ## The way I do it
 I don't always have the console open, but my PowerShell console or VS Code is *always open*, so this eliminates the clicky steps for me.    At the end of the day, that's why I do things in PowerShell - to get more (results) for less (effort).  You *could* just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code:
-```
+```powershell
 Function Connect-MECM
 {
     #paste code here
 }
 ```
+
 You can leverage this function in several ways.
 1. Dot-source then call the function (meh)
 2. Import PowerShell module in PowerShell profile (yeah)
@@ -36,6 +37,7 @@ This is not persistent, so if you close your session, you will need to dot-sourc
 # Assuming my script was saved under c:\_code\
 . C:\_code\Connect_MECM
 ```
+
 All functions and variables created in dot-sourced script are now in the current scope.
 
 > Tip: dot-source functions allows you to easily call the code again.  In this case, let's say you had switch your current working location from site to the system drive, you can easily reconnect to your CMSite drive by calling the `Connect_MECM` function.
@@ -46,6 +48,7 @@ I have functions in a custom module that are always available to me because I've
 # Assuming your current location is where the psm1 file is saved
 . .\MECM.psm1
 ```
+
 This is a lot to digest, so I'll go over this in a future article.  For now, know that this option exists and start to think of ways you might want to group your functions into a module for importing at a later date.
 
 ## What Now?
@@ -54,10 +57,12 @@ Run this code to return the device object for your system, assuming your system 
 ```powershell
 Get-CMDevice -Name $env:ComputerName
 ```
+
 Yeah, I know... so what, right?  Take a look at all the attributes in the device object returned and think about how you may be able to leverage this on a larger scale.  For instance, If you wanted to list systems missing the ConfigMgr client, you would run the following.
 ```powershell
 Get-CMDevice -Fast | Where-Object IsClient -eq $false | Select-Object Name
 ```
+
 In the next article, we'll look at doing some cool things with the ConfigurationManager module.  Until then, play around.  See what cmdlets are available.
 ```
 Get-Command -Module ConfigurationManager

@@ -23,13 +23,13 @@ timezone: America/Toronto
 
 title: frosted                         # the main title
 
-tagline: A text-focused Jekyll theme   # it will display as the sub-title
+tagline: Making ops easy.   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
+  Sharing ideas to make operational activities easier.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: ''
+url: 'https://frosted.github.io'
 
 github:
   username: frosted             # change to your github username
