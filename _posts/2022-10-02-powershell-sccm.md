@@ -19,13 +19,8 @@ This is probably the easiest way to do it if you already have the console open (
 3. Once PowerShell ISE loads, you'll notice you're at a prompt with your site code.
 
 ## The way I do it
-I don't always have the console open, but my PowerShell console or VS Code is *always open*, so this eliminates the clicky steps for me.    At the end of the day, that's why I do things in PowerShell - to get more (results) for less (effort).  You *could* just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code:
-```powershell
-Function Connect-MECM
-{
-    #paste code here
-}
-```
+I don't always have the console open, but my PowerShell console or VS Code is *always open*, so this eliminates the clicky steps for me.    At the end of the day, that's why I do things in PowerShell - to get more (results) for less (effort).  You *could* just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code: https://github.com/frosted/PoSH/blob/master/Connect_Functions.ps1 
+
 
 You can leverage this function in several ways.
 1. Dot-source then call the function (meh)
