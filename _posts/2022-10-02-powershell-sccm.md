@@ -53,7 +53,7 @@ This is a lot to digest, so I'll go over this in a future article.  For now, kno
 ## What Now?
 You are now connected to your site via PowerShell.  Now you can leverage the power of the ConfigurationManager module.  Before we get into the nitty-gritty, let's run a simple command.
 Run this code to return the device object for your system, assuming your system is managed.
-```
+```powershell
 Get-CMDevice -Name $env:ComputerName
 ```
 
