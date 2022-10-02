@@ -4,7 +4,7 @@ date: 2022-10-02 00:08:00 +0500
 categories: [Endpoint Management]
 tags: [configmgr, powershell, getting started]     # TAG names should always be lowercase
 ---
-The moment I decided to go all-in with PowerShell, moving away from my gooey dependency, was a turning-point in my career.  In this series of how-to articles, I hope to share with you some of the first steps that got me excited about moving my operational efforts into a PowerShell console.  In no time, you'll be automating compliance reports, component health emails, complicated deployments from intake (e.g. csv) defining deployment parameters, collection creation, scheduling availabity and deadlines, user experience, etc.  If these steps are familiar to you, especially if you support a large environment, you're well aware of the hours it can take to set up a complicated deployment.  This can be reduced to minutes, all the while reducing (if not eliminating) errors.   
+  In this series of how-to articles, I hope to share with you some of the first steps that got me excited about moving my operational efforts into a PowerShell console.  In no time, you'll be automating compliance reports, component health emails, complicated deployments from intake (e.g. csv) defining deployment parameters, collection creation, scheduling availabity and deadlines, user experience, etc.  If these steps are familiar to you, especially if you support a large environment, you're well aware of the hours it can take to set up a complicated deployment.  This can be reduced to minutes, all the while minimizing (if not eliminating) errors.   
 
 > Tip: You do not need to do any of this from a server.  I've run into a lot of admins that like to do ConfigMgr work from the Site Server, or SQL work from the SQL Server.  I haven't heard a good reason yet that would prevent you from doing day-to-day operational work remotely, from your client system.  
 
@@ -69,7 +69,7 @@ Get-Command -Module ConfigurationManager
 ```
 
 ## Summary
-This is just the tip of the iceberg.  If you're just starting out, my advice is to explore how to do everything in PowerShell.  Need to create a collection?  Do it in PowerShell.  Need to delete a device?  Do it in PowerShell.  You'll be slow painful at first, but you'll grow faster and more confident with daily exposure.  Make the commitment to yourself to replace mouse-clicks with code, you won't regret it. 
+This is just the tip of the iceberg.  If you're just starting out, my advice is to explore how to do everything in PowerShell.  Need to create a collection?  Do it in PowerShell.  Need to delete a device?  Do it in PowerShell.  It will be slow and painful at first, but you'll grow faster and more confident with daily exposure.  Make the commitment to yourself to replace mouse-clicks with code, you won't regret it. 
 
 
 
