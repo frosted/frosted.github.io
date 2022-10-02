@@ -19,8 +19,78 @@ This is probably the easiest way to do it if you already have the console open (
 3. Once PowerShell ISE loads, you'll notice you're at a prompt with your site code.
 
 ## The way I do it
-I don't always have the console open, but my PowerShell console or VS Code is *always open*, so this eliminates the clicky steps for me.    At the end of the day, that's why I do things in PowerShell - to get more (results) for less (effort).  You *could* just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code: https://github.com/frosted/PoSH/blob/master/Connect_Functions.ps1 
+I don't always have the console open, but my PowerShell console or VS Code is *always open*, so this eliminates the clicky steps for me.    At the end of the day, that's why I do things in PowerShell - to get more (results) for less (effort).  You *could* just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code: [Connect_Functions.ps1](https://github.com/frosted/PoSH/blob/master/Connect_Functions.ps1)
+```powershell
+Function Connect-MECM
+{    
+    [CmdletBinding()]
+    Param 
+    (
+        [Parameter(Mandatory=$false)][string]$ProviderMachineName=$Script:SMSProvider
+    )
+    Begin
+    {
+        Function Get-MECMSiteCode
+        {
 
+            Param 
+            (
+                [Parameter(Mandatory=$true)][string]$SMSProvider
+            )
+
+            $wqlQuery = “SELECT * FROM SMS_ProviderLocation”
+            $a = Get-WmiObject -Query $wqlQuery -Namespace “root\sms” -ComputerName $SMSProvider
+            $a | ForEach-Object {
+                if($_.ProviderForLocalSite)
+                    {
+                        $script:SiteCode = $_.SiteCode
+                    }
+            }
+            return $SiteCode
+        }
+    }
+    Process
+    {
+        Try
+        {
+            # Site configuration
+     
+            $SiteCode = Get-MECMSiteCode -SMSProvider $ProviderMachineName
+
+            # Customizations
+            $initParams = @{}
+            #$initParams.Add("Verbose", $true) # Uncomment this line to enable verbose logging
+            #$initParams.Add("ErrorAction", "Stop") # Uncomment this line to stop the script on any errors
+
+            # Do not change anything below this line
+
+            # Import the ConfigurationManager.psd1 module 
+            if((Get-Module ConfigurationManager) -eq $null) {
+                Import-Module "$($ENV:SMS_ADMIN_UI_PATH)\..\ConfigurationManager.psd1" @initParams 
+            }
+
+            # Connect to the site's drive if it is not already present
+            if((Get-PSDrive -Name $SiteCode -PSProvider CMSite -ErrorAction SilentlyContinue) -eq $null) {
+                New-PSDrive -Name $SiteCode -PSProvider CMSite -Root $ProviderMachineName @initParams
+            }
+
+            # Set the current location to be the site code.
+            Set-Location "$($SiteCode):\" @initParams
+        }
+        Catch
+        {
+            Write-Error "$($_.Exception.Message) - Line Number: $($_.InvocationInfo.ScriptLineNumber)"
+        }
+    }
+    End
+    {
+        If ( (Get-Location | Select-Object -ExpandProperty Provider) -like '*CMSite*')
+        {
+            Write-Output 'Connection Successful'
+        }
+    }
+}
+```
 
 You can leverage this function in several ways.
 1. Dot-source then call the function (meh)
