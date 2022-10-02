@@ -83,7 +83,7 @@ theme_mode: dark  # [light|dark]
 img_cdn: https://frosted.github.io/assets/img
 
 # the avatar on sidebar, support local or CORS resources
-avatar: /avatar.gif
+avatar: /avatar.png
 
 # boolean type, the global switch for ToC in posts.
 toc: true
