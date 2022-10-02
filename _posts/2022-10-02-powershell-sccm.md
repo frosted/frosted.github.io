@@ -21,12 +21,13 @@ This is probably the easiest way to do it if you already have the console open (
 3. Once PowerShell ISE loads, you'll notice you're at a prompt with your site code.
 
 ## The way I do it
-I don't always have the console open, but my PowerShell console is *always open*, so this step remove the need of having the console open.  At the end of the day, that's why I do things in PowerShell - to get more (results) for less (effort).  You *could* just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code:
-
-`Function Connect-MECM
+I don't always have the console open, but my PowerShell console or VS Code is *always open*, so this eliminates the clicky steps for me.    At the end of the day, that's why I do things in PowerShell - to get more (results) for less (effort).  You *could* just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code:
+```
+Function Connect-MECM
 {
     #paste code here
-}`
+}
+```
 You can leverage this function in several ways.
 1. Dot-source then call the function (meh)
 2. Import PowerShell module in PowerShell profile (yeah)
@@ -35,7 +36,7 @@ You can leverage this function in several ways.
 To dot-source a script is simple. From your PowerShell console, type a dot (.) and a space before the your script path.
 ```
 # Assuming my script was saved under c:\_code\
-PS C:\Users\frosted> . C:\_code\Connect_MECM
+. C:\_code\Connect_MECM
 ```
 All functions and variables created in dot-sourced script are now in the current scope.
 
@@ -45,7 +46,7 @@ All functions and variables created in dot-sourced script are now in the current
 I have functions in a custom module that are always available to me because I've imported them in my Windows PowerShell Profile using the `Import-Module` cmdlet. 
 ```
 # Assuming your current location is where the psm1 file is saved
-PS C:\_code> . C:\_code\MECM.psm1
+. .\MECM.psm1
 ```
 This is a lot to digest, so I'll go over this in a future article.  For now, know that this option exists and start to think of ways you might want to group your functions into a module for importing at a later date.
 
@@ -53,7 +54,7 @@ This is a lot to digest, so I'll go over this in a future article.  For now, kno
 You are now connected to your site via PowerShell.  Now you can leverage the power of the ConfigurationManager module.  Before we get into the nitty-gritty, let's run a simple command.
 Run this code to return the device object for your system, assuming your system is managed.
 ```
-PS C:\Users\frosted> Get-CMDevice -Name $env:ComputerName
+Get-CMDevice -Name $env:ComputerName
 ```
 
 
