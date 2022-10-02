@@ -6,11 +6,7 @@ tags: [configmgr, powershell, getting started]     # TAG names should always be 
 ---
 The moment I decided to go all-in with PowerShell, moving away from my gooey dependency, was a turning-point in my career.  In this series of how-to articles, I hope to share with you some of the first steps that got me excited about moving my operational efforts into a PowerShell console.  In no time, you'll be automating compliance reports, component health emails, complicated deployments from intake (e.g. csv) defining deployment parameters, collection creation, scheduling availabity and deadlines, user experience, etc.  If these steps are familiar to you, especially if you support a large environment, you're well aware of the hours it can take to set up a complicated deployment.  This can be reduced to minutes, all the while reducing (if not eliminating) errors.   
 
-This might be a good time to break/prevent some (what I view as) bad habits.
-- Thou shalt not RDP and work from a site server
-- Thou shalt not RDP and work from a system server
-- Thou shalt not RDP and work from a SQL server
-- Thou shalt not run code untested (-WhatIf)
+> Tip: You do not need to do any of this from a server.  I've run into a lot of admins that like to do ConfigMgr work from the Site Server, or SQL work from the SQL Server.  I haven't heard a good reason yet that would prevent you from doing day-to-day operational work remotely, from your client system.  
 
 In this article I hope to show you how to:
 - Connect to your site via Windows PowerShell (console way)
