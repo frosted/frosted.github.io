@@ -9,19 +9,19 @@ In this article I hope to show you how to:
 - Create a function to connect to site
 
 Before that, our commandments
-- Thou shallt not RDP and work from a site server
-- Thou shallt not RDP and work from a system server
-- Thou shallt not RDP and work from a SQL server
-- Thou shallt not run code untested (-WhatIf)
+- Thou shalt not RDP and work from a site server
+- Thou shalt not RDP and work from a system server
+- Thou shalt not RDP and work from a SQL server
+- Thou shalt not run code untested (-WhatIf)
 
 ## The way of the console
-This is probably the easiest way to do it if you already have the console open and the way most people do it.  You will of course need to open the console:
+This is probably the easiest way to do it if you already have the console open (and the way most people do it), but that doesn't mean it has to be the way you do it.  You will of course need to open the console:
 1. Select the upper-left white arrow 
 2. Choose Connect via Windows PowerShell ISE
 3. Once PowerShell ISE loads, you'll notice you're at a prompt with your site code.
 
 ## The way I do it
-I don't always have the console open, but my PowerShell console is always open.  I can connect to site as fast or faster than you can through the console.  At the end of the day, that why I do things in PowerShell - to do more through less effort.  You ##could## just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code:
+I don't always have the console open, but my PowerShell console is *always open*, so this step remove the need of having the console open.  At the end of the day, that's why I do things in PowerShell - to get more (results) for less (effort).  You *could* just take the script that already resides in your environment (it's the script that runs when you follow the console way above), or you can use the following code:
 
 `Function Connect-MECM
 {
