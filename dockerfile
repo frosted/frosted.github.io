@@ -4,7 +4,7 @@
 
 # Create a Jekyll container from a Ruby Alpine image
 
-FROM nginx:stable-alpine
+FROM ruby:2.7-alpine3.15
 
 # Add Jekyll dependencies to Alpine
 RUN apk update
