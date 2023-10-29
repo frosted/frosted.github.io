@@ -39,11 +39,11 @@ Before you start managing MECM with PowerShell, make sure you have the following
 
 ## Connecting to MECM
 
-Before you can manage MECM with PowerShell, you need to establish a connection to your MECM server. You can do this using the `Connect-CMMServer` cmdlet:
+Before you can manage MECM with PowerShell, you must run commands from the Configuration Manager drive, named after your site code.  I have found that it doesn't always connect to the CM drive after importing the module.  If this happens, connect to your drive using set-location :
 
 ```powershell
-# Replace 'MECMServer' with your MECM server's name
-Connect-CMMServer -SiteCode "PS1" -Server "MECMServer"
+# Replace 'PS1' with your MECM Site Code
+Set-Location "PS1" 
 ```
 
 This command will prompt you for your credentials. After providing your credentials, you'll be connected to your MECM site.
@@ -87,10 +87,10 @@ This command creates a software update group named "Monthly Updates."
 Schedule the deployment of a software update group:
 
 ```powershell
-Set-CMSchedule -ScheduleID "PS1" -OfferedSchedule "01/31/2023 03:00:00" -DeploymentType Available
+Set-CMSchedule -ScheduleID "PS1" -OfferedSchedule "10/31/2023 03:00:00" -DeploymentType Available
 ```
 
-This schedules a deployment of the software update group with ID "PS1" for January 31, 2023, at 3:00 AM.
+This schedules a deployment of the software update group with ID "PS1" for October 31, 2023, at 3:00 AM.
 
 ## Conclusion
 
