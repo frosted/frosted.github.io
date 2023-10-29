@@ -1,6 +1,6 @@
 ---
 title: Configuration Manager Module - Getting Started
-date: 2023-10-29 19:08:00 +0500
+date: 2023-10-28 20:55:00 +0500
 categories: [Endpoint Management]
 tags: [configmgr, powershell, getting started]     # TAG names should always be lowercase
 ---
