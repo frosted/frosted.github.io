@@ -46,8 +46,6 @@ Before you can manage MECM with PowerShell, you must run commands from the Confi
 Set-Location "PS1" 
 ```
 
-This command will prompt you for your credentials. After providing your credentials, you'll be connected to your MECM site.
-
 ## Common MECM PowerShell Tasks
 
 Let's look at some common tasks you can perform with PowerShell in MECM.
