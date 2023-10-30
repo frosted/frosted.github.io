@@ -6,7 +6,7 @@ tags: [general]     # TAG names should always be lowercase
 ---
 # Embracing PowerShell and the EAC Journey
 
-*Hello there! I'm Ed Frost, a senior consultant at a prominent IT consulting firm. I've been involved in the field of information technology since 2006, and my professional focus has consistently revolved around endpoint management. It wasn't until around 2019 when I made a pivotal decision to fully embrace PowerShell, breaking free from my reliance on graphical user interfaces. This choice marked a significant turning point in my career, opening the door to continuous learning and a wealth of opportunities for professional growth. At the outset, this journey might seem like a daunting whirlwind of uncertainty, but don't fret. Stick with it, find a supportive companion, and let's dive into the world of EAC - Everything As Code!*
+*Hello there! I'm Ed Frost, a senior consultant at a large IT consulting firm. I've been involved in the field of information technology since 2006, and my professional focus has consistently revolved around endpoint management. It wasn't until around 2019 when I made a pivotal decision to fully embrace PowerShell, breaking free from my reliance on graphical user interfaces. This choice marked a significant turning point in my career, opening the door to continuous learning and a wealth of opportunities for professional growth. At the outset, this journey might seem like a daunting whirlwind of uncertainty, but don't fret. Stick with it, find a supportive companion, and let's dive into the world of EAC - Everything As Code!*
 
 ---
 
