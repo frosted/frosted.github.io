@@ -120,6 +120,16 @@ When you run `Connect-MgGraph`, PowerShell establishes a secure connection to Mi
 
 3. **Network and Firewall Restrictions**: In corporate environments, network restrictions might prevent the connection. Make sure your environment allows access to Microsoft Graph endpoints.
 
+4. **Script Performance Concerns**: Instead of importing the entire `Microsoft.Graph` module, improve script performance by only importing what you need. For example, if you're working with Intune devices, use:
+
+   ```powershell
+   Import-Module Microsoft.Graph.DeviceManagement
+   ```
+
+   This keeps your session lighter, speeds up your scripts, and helps avoid command conflicts. Use `Find-Module -Name Microsoft.Graph.*` to explore specific modules.
+
+
+
 ### Conclusion
 
 Connecting to Intune with PowerShell is your first step toward automating tasks and managing Intune more efficiently. With this setup, you’re now ready to explore a wide range of automation possibilities.
