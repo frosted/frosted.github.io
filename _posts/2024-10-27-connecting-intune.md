@@ -128,6 +128,16 @@ When you run `Connect-MgGraph`, PowerShell establishes a secure connection to Mi
 
    This keeps your session lighter, speeds up your scripts, and helps avoid command conflicts. Use `Find-Module -Name Microsoft.Graph.*` to explore specific modules.
 
+5. **Untrusted Repository**: This happens when a PowerShell repository (like PSGallery) is not set to a trusted installation policy, which prevents installing modules directly from it. You can resolve this by changing the `InstallationPolicy` to `Trusted` for the specified repository.
+
+   ```powershell
+   Get-PSRepository  | Where-Object InstallationPolicy -eq 'Untrusted' | ForEach-Object { Set-PSRepository -Name $_.Name -InstallationPolicy Trusted }
+   ```
+
+   The `InstallationPolicy` should now show as `Trusted`.
+
+This will allow you to install modules from the specified repository without further prompts or errors.
+
 
 
 ### Conclusion
