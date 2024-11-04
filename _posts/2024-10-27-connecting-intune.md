@@ -136,10 +136,6 @@ When you run `Connect-MgGraph`, PowerShell establishes a secure connection to Mi
 
    The `InstallationPolicy` should now show as `Trusted`.
 
-This will allow you to install modules from the specified repository without further prompts or errors.
-
-
-
 ### Conclusion
 
 Connecting to Intune with PowerShell is your first step toward automating tasks and managing Intune more efficiently. With this setup, you’re now ready to explore a wide range of automation possibilities.
