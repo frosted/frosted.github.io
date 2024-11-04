@@ -1,5 +1,5 @@
 ---
-title: Getting Started with PowerShell for Intune: Connecting to Intune
+title: Getting Started with PowerShell for Intune - Connecting to Intune
 date: 2024-10-27 19:03:00 +0500
 categories: [Endpoint Management]
 tags: [intune, powershell, graph]     # TAG names should always be lowercase
