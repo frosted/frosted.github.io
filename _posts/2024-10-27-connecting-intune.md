@@ -1,8 +1,10 @@
 ---
 title: Getting Started with PowerShell for Intune - Connecting to Intune
 date: 2024-10-27 19:03:00 +0500
-categories: [Endpoint Management]
+categories: [Foundational Series]
 tags: [intune, powershell, graph]     # TAG names should always be lowercase
+icon: fas fa-info-circle
+order: 4
 ---
 
 ### Introduction
@@ -78,7 +80,8 @@ Some common permissions required for Intune management tasks include:
 - **DeviceManagementManagedDevices.ReadWrite.All**: Read and write access to managed devices in Intune.
 - **DeviceManagementConfiguration.ReadWrite.All**: Manage configurations and settings in Intune.
 
-> **Tip**: If you don’t have the right permissions, contact your administrator to adjust your role in the Azure portal.
+> If you don’t have the right permissions, contact your administrator to adjust your role in the Azure portal.
+{: .prompt-tip }
 
 ### Step 4: Test Your Connection to Intune
 
