@@ -1,7 +1,7 @@
 ---
 title: Automate Device Cleanup in Microsoft Intune with PowerShell
 date: 2024-11-03 20:13:00 +0500
-categories: [Endpoint Management]
+categories: [Foundational Series]
 tags: [intune, powershell, graph]     # TAG names should always be lowercase
 ---
 
