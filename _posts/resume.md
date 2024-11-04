@@ -1,3 +1,10 @@
+---
+Title: CV
+date: 2024-11-04 10:07:00 +0500
+categories: [Professional Development]
+tags: [cv]     # TAG names should always be lowercase
+---
+
 ```markdown
 # Ed Frost
 
