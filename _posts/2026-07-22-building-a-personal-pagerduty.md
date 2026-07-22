@@ -194,7 +194,7 @@ This quick validation prevents silent failures later when the script runs unatte
 
 Here is what a real Telegram notification looks like:
 
-![telegram notification](../assets/img/2026-07-22_screenshot112800.png)
+![telegram notification](/assets/img/2026-07-22_screenshot112800.png)
 
 ### Troubleshooting Tips
 
