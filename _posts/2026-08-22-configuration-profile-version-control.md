@@ -1,6 +1,6 @@
 ---
 title: Configuration Profile Version Control
-date: 2026-08-22 09:01:00 +0500
+date: 2026-08-22 09:02:00 +0500
 categories: [Foundational Series]
 tags: [powershell, graph, intune, api]     # TAG names should always be lowercase
 ---
