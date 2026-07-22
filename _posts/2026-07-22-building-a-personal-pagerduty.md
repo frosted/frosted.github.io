@@ -1,6 +1,6 @@
 ---
 title: Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram
-date: 2026-07-22 15:12:00 +0500
+date: 2026-07-22 15:14:00 +0500
 categories: [API Integrations]
 tags: [powershell, api]     # TAG names should always be lowercase
 ---
