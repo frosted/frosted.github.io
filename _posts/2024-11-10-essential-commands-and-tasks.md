@@ -9,6 +9,8 @@ tags: [intune, powershell, graph]     # TAG names should always be lowercase
 
 Now that we’ve covered the basics of connecting to Microsoft Intune with PowerShell, it’s time to dive into managing Intune resources. In this post, I’ll introduce essential PowerShell commands for managing devices, configurations, and policies. By the end, you’ll have a toolkit of commands to simplify your day-to-day Intune administration tasks.
 
+All examples in this article use the current Microsoft Graph PowerShell SDK cmdlets.
+
 ### Why Manage Intune with PowerShell?
 
 While the Intune admin portal offers a robust UI, PowerShell allows you to automate repetitive tasks and handle complex scenarios efficiently. Whether you’re managing hundreds or thousands of devices, automating with PowerShell helps you keep the environment consistent, secure, and up-to-date.
@@ -33,18 +35,18 @@ Let’s start with some core commands to manage devices in Intune. Here’s how 
    To get a list of all managed devices:
 
    ```powershell
-   $devices = Get-MgDeviceManagementManagedDevice
+   $devices = Get-MgDeviceManagementManagedDevice -All
    $devices | ForEach-Object { Write-Host $_.DeviceName }
    ```
 
-   This command retrieves all devices and displays each device’s name. You can adjust this output to show other properties like `DeviceType`, `OperatingSystem`, or `ComplianceState`.
+   This command retrieves all pages of devices and displays each device’s name. You can adjust this output to show other properties like `DeviceType`, `OperatingSystem`, or `ComplianceState`.
 
 2. **Retrieve a Specific Device**:
 
    To get details about a single device, specify its unique identifier (Device ID):
 
    ```powershell
-   $deviceId = "<YourDeviceID>"
+   $deviceId = "YOUR_DEVICE_ID"
    $device = Get-MgDeviceManagementManagedDevice -ManagedDeviceId $deviceId
    Write-Host "Device Name: $($device.DeviceName)"
    Write-Host "Compliance State: $($device.ComplianceState)"
@@ -57,15 +59,21 @@ Let’s start with some core commands to manage devices in Intune. Here’s how 
    - **Restart a Device**:
 
      ```powershell
-     Invoke-MgDeviceManagementManagedDeviceRestart -ManagedDeviceId $deviceId
-     Write-Host "Restart command sent to device $($device.DeviceName)"
+       Restart-MgDeviceManagementManagedDeviceNow -ManagedDeviceId $deviceId
+       Write-Host "Reboot command sent to device $deviceId"
      ```
 
    - **Wipe a Device**:
 
      ```powershell
-     Invoke-MgDeviceManagementManagedDeviceWipe -ManagedDeviceId $deviceId
-     Write-Host "Wipe command sent to device $($device.DeviceName)"
+       $wipeParams = @{
+             keepEnrollmentData = $false
+             keepUserData = $false
+             persistEsimDataPlan = $false
+       }
+
+       Clear-MgDeviceManagementManagedDevice -ManagedDeviceId $deviceId -BodyParameter $wipeParams
+       Write-Host "Wipe command sent to device $deviceId"
      ```
 
    These commands help enforce security and troubleshooting remotely across your device fleet.
@@ -79,7 +87,7 @@ Device configurations in Intune allow you to enforce settings on managed devices
    To see all configurations applied within Intune:
 
    ```powershell
-   $configs = Get-MgDeviceManagementDeviceConfiguration
+   $configs = Get-MgDeviceManagementDeviceConfiguration -All
    $configs | ForEach-Object { Write-Host $_.DisplayName }
    ```
 
@@ -88,7 +96,7 @@ Device configurations in Intune allow you to enforce settings on managed devices
    To view details of a specific configuration, specify the configuration’s ID:
 
    ```powershell
-   $configId = "<YourConfigID>"
+   $configId = "YOUR_CONFIG_ID"
    $config = Get-MgDeviceManagementDeviceConfiguration -DeviceConfigurationId $configId
    Write-Host "Configuration Name: $($config.DisplayName)"
    Write-Host "Description: $($config.Description)"
@@ -96,15 +104,19 @@ Device configurations in Intune allow you to enforce settings on managed devices
 
 3. **Assign a Configuration to a Group**:
 
-   To assign a device configuration to a specific Azure AD group, use this command:
+   To assign a device configuration to a specific Microsoft Entra ID group, use this command:
 
    ```powershell
+   $groupId = "YOUR_GROUP_ID"
+
    $assignment = @{
        "@odata.type" = "#microsoft.graph.deviceConfigurationAssignment"
        "target" = @{
-           "groupId" = "<YourGroupID>"
+           "@odata.type" = "#microsoft.graph.groupAssignmentTarget"
+           "groupId" = $groupId
        }
    }
+
    New-MgDeviceManagementDeviceConfigurationAssignment -DeviceConfigurationId $configId -BodyParameter $assignment
    Write-Host "Configuration assigned to group."
    ```
@@ -118,7 +130,7 @@ Applications can also be managed directly through PowerShell, including adding, 
 1. **List All Applications**:
 
    ```powershell
-   $apps = Get-MgDeviceAppManagementMobileApps
+   $apps = Get-MgDeviceAppManagementMobileApp -All
    $apps | ForEach-Object { Write-Host $_.DisplayName }
    ```
 
@@ -126,46 +138,52 @@ Applications can also be managed directly through PowerShell, including adding, 
 
 2. **Add a New Application**:
 
-   Here’s an example of adding a Windows Line-of-Business (LOB) app. You’ll need the app package file path.
+   Here’s an example of adding a web app (one of the simplest app types to create through Graph).
 
    ```powershell
    $app = @{
-       "displayName" = "YourAppName"
+       "@odata.type" = "#microsoft.graph.webApp"
+       "displayName" = "Contoso Intranet"
+       "publisher" = "Contoso"
+       "appUrl" = "https://intranet.contoso.com"
+       "informationUrl" = "https://intranet.contoso.com/help"
        "isFeatured" = $false
-       "largeIcon" = @{
-           "@odata.type" = "microsoft.graph.mimeContent"
-           "type" = "image/png"
-           "value" = "Base64EncodedIcon"
-       }
-       "publisher" = "YourPublisher"
-       "isRequired" = $true
    }
-   New-MgDeviceAppManagementMobileApps -BodyParameter $app
+
+   New-MgDeviceAppManagementMobileApp -BodyParameter $app
    Write-Host "Application added."
    ```
 
-3. **Assign an App to a Group**:
+3. **Assign an App**:
 
-   To assign an app to an Azure AD group, specify the app and group IDs:
+   App-assignment settings can vary by app type. The following example is the documented Microsoft Graph sample payload, which you can use as a known-good template.
 
    ```powershell
-   $appId = "<YourAppID>"
-   $groupId = "<YourGroupID>"
-   New-MgDeviceAppManagementMobileAppAssignment -MobileAppId $appId -BodyParameter @{
+   $appId = "YOUR_APP_ID"
+
+   $appAssignment = @{
+       "@odata.type" = "#microsoft.graph.mobileAppAssignment"
+       "intent" = "required"
        "target" = @{
-           "groupId" = $groupId
+           "@odata.type" = "#microsoft.graph.allLicensedUsersAssignmentTarget"
+       }
+       "settings" = @{
+           "@odata.type" = "#microsoft.graph.windowsUniversalAppXAppAssignmentSettings"
+           "useDeviceContext" = $true
        }
    }
-   Write-Host "App assigned to group."
+
+   New-MgDeviceAppManagementMobileAppAssignment -MobileAppId $appId -BodyParameter $appAssignment
+   Write-Host "App assignment created."
    ```
 
 ### Summary of Common Intune Management Commands
 
 Here’s a quick reference for commands covered:
 
-- **Devices**: `Get-MgDeviceManagementManagedDevice`, `Invoke-MgDeviceManagementManagedDeviceRestart`, `Invoke-MgDeviceManagementManagedDeviceWipe`
+- **Devices**: `Get-MgDeviceManagementManagedDevice`, `Restart-MgDeviceManagementManagedDeviceNow`, `Clear-MgDeviceManagementManagedDevice`
 - **Configurations**: `Get-MgDeviceManagementDeviceConfiguration`, `New-MgDeviceManagementDeviceConfigurationAssignment`
-- **Applications**: `Get-MgDeviceAppManagementMobileApps`, `New-MgDeviceAppManagementMobileAppAssignment`
+- **Applications**: `Get-MgDeviceAppManagementMobileApp`, `New-MgDeviceAppManagementMobileApp`, `New-MgDeviceAppManagementMobileAppAssignment`
 
 ### Conclusion
 
