@@ -16,10 +16,12 @@ In this post, I’ll show you a PowerShell script that uses the Microsoft Graph 
 To follow along, ensure you have:
 
 - **Microsoft Graph PowerShell SDK (v2+)**: Install with `Install-Module Microsoft.Graph -Scope CurrentUser`.
-- **Required delegated permissions**: `DeviceManagementManagedDevices.Read.All` (read) and `DeviceManagementManagedDevices.ReadWrite.All` (delete).
+- **Required delegated permissions**:
+    - Reporting only: `DeviceManagementManagedDevices.Read.All`
+    - Deletions: `DeviceManagementManagedDevices.Read.All` and `DeviceManagementManagedDevices.ReadWrite.All`
 - **Administrator role**: Intune Administrator (or an equivalent role) in Microsoft Entra ID.
 
-Use least-privilege access whenever possible: if you only need reporting, connect with read-only scope; only use read/write scope when you’re actually performing deletions.
+Use least-privilege access whenever possible: connect with read-only scope for inventory/reporting, and request read/write only when you intend to remove Intune managed device records.
 
 ### Script: Cleaning Up Inactive Devices
 
@@ -37,12 +39,18 @@ function Invoke-IntuneInactiveDeviceCleanup {
     param(
         [Parameter()]
         [ValidateRange(1, 3650)]
-        [int]$InactivityThresholdDays = 90
+        [int]$InactivityThresholdDays = 90,
+
+        [Parameter()]
+        [switch]$DeleteInactiveDevices
     )
 
-    # Connect to Microsoft Graph with delegated permissions.
-    # Use read-only scope for reporting-only runs.
-    Connect-MgGraph -Scopes "DeviceManagementManagedDevices.Read.All","DeviceManagementManagedDevices.ReadWrite.All"
+    # Connect to Microsoft Graph with least-privilege scopes.
+    $scopes = @("DeviceManagementManagedDevices.Read.All")
+    if ($DeleteInactiveDevices) {
+        $scopes += "DeviceManagementManagedDevices.ReadWrite.All"
+    }
+    Connect-MgGraph -Scopes $scopes
 
     # Optional: confirm the current Graph context
     Get-MgContext
@@ -82,9 +90,15 @@ function Invoke-IntuneInactiveDeviceCleanup {
         return
     }
 
+    if (-not $DeleteInactiveDevices) {
+        Write-Host "Reporting mode: no deletions were attempted." -ForegroundColor Cyan
+        Write-Host "Re-run with -DeleteInactiveDevices to remove records." -ForegroundColor Cyan
+        return
+    }
+
     foreach ($device in $inactiveDevices) {
         try {
-            if ($PSCmdlet.ShouldProcess($device.DeviceName, "Delete device from Intune")) {
+            if ($PSCmdlet.ShouldProcess($device.DeviceName, "Delete Intune managed device record")) {
                 Remove-MgDeviceManagementManagedDevice -ManagedDeviceId $device.Id -ErrorAction Stop
                 Write-Host "Deleted $($device.DeviceName)" -ForegroundColor Green
             }
@@ -95,16 +109,19 @@ function Invoke-IntuneInactiveDeviceCleanup {
     }
 }
 
-# Preview only (recommended first run)
-Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 -WhatIf
+# Reporting only (read scope)
+Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90
+
+# Preview deletions with WhatIf (read + read/write scopes)
+Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 -DeleteInactiveDevices -WhatIf
 
 # Perform actual deletions after review
-# Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90
+# Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 -DeleteInactiveDevices
 ```
 
 ### Explanation
 
-1. **Connect to Microsoft Graph**: We authenticate using `Connect-MgGraph` with delegated scopes for managed device read and delete actions.
+1. **Connect to Microsoft Graph**: We authenticate using `Connect-MgGraph` with delegated scopes based on intent. Reporting uses read scope; deletion mode adds read/write scope.
    
 2. **Define Inactivity Threshold**: In this case, we set a threshold of 90 days, but this can be customized based on your organization’s needs.
 
@@ -112,7 +129,7 @@ Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 -WhatIf
 
 4. **Filter Inactive Devices**: We compare `LastSyncDateTime` (the last successful Intune synchronization) to the cutoff date. We also separate devices with null sync values so they can be reviewed safely.
 
-5. **Delete Inactive Devices Safely**: The function supports PowerShell's built-in `-WhatIf` through `SupportsShouldProcess`, and deletion runs with `try/catch` for reliability.
+5. **Delete Inactive Devices Safely**: The function supports PowerShell's built-in `-WhatIf` through `SupportsShouldProcess`, uses precise action text for deleting Intune managed device records, and keeps `try/catch` for reliability.
 
 ### Outcome
 
