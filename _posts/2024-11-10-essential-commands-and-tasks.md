@@ -1,5 +1,5 @@
 ---
-Title: Managing Intune Resources with PowerShell - Essential Commands and Tasks
+title: Managing Intune Resources with PowerShell - Essential Commands and Tasks
 date: 2024-11-10 16:03:00 +0500
 categories: [Foundational Series]
 tags: [intune, powershell, graph]     # TAG names should always be lowercase
