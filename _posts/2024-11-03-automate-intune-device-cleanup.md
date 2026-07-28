@@ -28,79 +28,78 @@ Here’s a beginner-friendly script to identify devices inactive for 90 days or 
 - Microsoft Graph PowerShell SDK cmdlets
 - Retrieval of all managed devices
 - Validation for devices that have no `LastSyncDateTime`
-- A `-WhatIf` safety mechanism before deletion
+- A native `-WhatIf` safety mechanism before deletion
 - Error handling with `try/catch`
 
 ```powershell
-# Connect to Microsoft Graph with delegated permissions
-# Use read-only scope for reporting runs when you do not plan to delete.
-Connect-MgGraph -Scopes "DeviceManagementManagedDevices.Read.All","DeviceManagementManagedDevices.ReadWrite.All"
+function Invoke-IntuneInactiveDeviceCleanup {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+    param(
+        [Parameter()]
+        [ValidateRange(1, 3650)]
+        [int]$InactivityThresholdDays = 90
+    )
 
-# Optional: confirm the current Graph context
-Get-MgContext
+    # Connect to Microsoft Graph with delegated permissions.
+    # Use read-only scope for reporting-only runs.
+    Connect-MgGraph -Scopes "DeviceManagementManagedDevices.Read.All","DeviceManagementManagedDevices.ReadWrite.All"
 
-# Define the inactivity threshold (in days)
-$inactivityThreshold = 90
-$cutoffDate = (Get-Date).AddDays(-$inactivityThreshold)
+    # Optional: confirm the current Graph context
+    Get-MgContext
 
-# Safety switch: keep as $true to preview deletions first
-$whatIfMode = $true
+    $cutoffDate = (Get-Date).AddDays(-$InactivityThresholdDays)
 
-try {
-    # Retrieve all managed devices from Intune
-    $devices = Get-MgDeviceManagementManagedDevice -All
-}
-catch {
-    Write-Error "Failed to retrieve managed devices. $_"
-    return
-}
-
-# Split devices into those with and without LastSyncDateTime
-$devicesWithNoSync = @($devices | Where-Object { -not $_.LastSyncDateTime })
-$inactiveDevices = @($devices | Where-Object {
-    $_.LastSyncDateTime -and ([datetime]$_.LastSyncDateTime -lt $cutoffDate)
-})
-
-if ($devicesWithNoSync.Count -gt 0) {
-    Write-Host "Devices with no LastSyncDateTime (review manually):" -ForegroundColor Cyan
-    $devicesWithNoSync | ForEach-Object {
-        Write-Host " - $($_.DeviceName)"
+    try {
+        # Retrieve all managed devices from Intune
+        $devices = Get-MgDeviceManagementManagedDevice -All
     }
-    Write-Host ""
-}
+    catch {
+        Write-Error "Failed to retrieve managed devices. $_"
+        return
+    }
 
-# Display inactive devices before deletion
-Write-Host "Devices inactive for over $inactivityThreshold days:" -ForegroundColor Yellow
-$inactiveDevices | ForEach-Object {
-    Write-Host "$($_.DeviceName) - Last Sync: $($_.LastSyncDateTime)"
-}
+    # Split devices into those with and without LastSyncDateTime
+    $devicesWithNoSync = @($devices | Where-Object { -not $_.LastSyncDateTime })
+    $inactiveDevices = @($devices | Where-Object {
+        $_.LastSyncDateTime -and ([datetime]$_.LastSyncDateTime -lt $cutoffDate)
+    })
 
-# Confirm deletion of inactive devices
-if ($inactiveDevices.Count -gt 0) {
-    $confirmation = Read-Host "Do you want to delete these devices? (Y/N)"
-    
-    if ($confirmation -eq 'Y') {
-        # Delete each inactive device
-        $inactiveDevices | ForEach-Object {
-            try {
-                Remove-MgDeviceManagementManagedDevice -ManagedDeviceId $_.Id -WhatIf:$whatIfMode -ErrorAction Stop
-                if ($whatIfMode) {
-                    Write-Host "WhatIf: Would delete $($_.DeviceName)" -ForegroundColor Yellow
-                }
-                else {
-                    Write-Host "Deleted $($_.DeviceName)" -ForegroundColor Green
-                }
-            }
-            catch {
-                Write-Warning "Failed to delete $($_.DeviceName). $_"
+    if ($devicesWithNoSync.Count -gt 0) {
+        Write-Host "Devices with no LastSyncDateTime (review manually):" -ForegroundColor Cyan
+        $devicesWithNoSync | ForEach-Object {
+            Write-Host " - $($_.DeviceName)"
+        }
+        Write-Host ""
+    }
+
+    Write-Host "Devices inactive for over $InactivityThresholdDays days:" -ForegroundColor Yellow
+    $inactiveDevices | ForEach-Object {
+        Write-Host "$($_.DeviceName) - Last Sync: $($_.LastSyncDateTime)"
+    }
+
+    if ($inactiveDevices.Count -eq 0) {
+        Write-Host "No inactive devices found." -ForegroundColor Green
+        return
+    }
+
+    foreach ($device in $inactiveDevices) {
+        try {
+            if ($PSCmdlet.ShouldProcess($device.DeviceName, "Delete device from Intune")) {
+                Remove-MgDeviceManagementManagedDevice -ManagedDeviceId $device.Id -ErrorAction Stop
+                Write-Host "Deleted $($device.DeviceName)" -ForegroundColor Green
             }
         }
-    } else {
-        Write-Host "Operation canceled." -ForegroundColor Red
+        catch {
+            Write-Warning "Failed to delete $($device.DeviceName). $_"
+        }
     }
-} else {
-    Write-Host "No inactive devices found." -ForegroundColor Green
 }
+
+# Preview only (recommended first run)
+Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 -WhatIf
+
+# Perform actual deletions after review
+# Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90
 ```
 
 ### Explanation
@@ -113,7 +112,7 @@ if ($inactiveDevices.Count -gt 0) {
 
 4. **Filter Inactive Devices**: We compare `LastSyncDateTime` (the last successful Intune synchronization) to the cutoff date. We also separate devices with null sync values so they can be reviewed safely.
 
-5. **Delete Inactive Devices Safely**: After confirmation, deletion runs with `try/catch` for reliability and supports `WhatIf` mode for a safe preview before actual removal.
+5. **Delete Inactive Devices Safely**: The function supports PowerShell's built-in `-WhatIf` through `SupportsShouldProcess`, and deletion runs with `try/catch` for reliability.
 
 ### Outcome
 
