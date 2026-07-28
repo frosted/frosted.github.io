@@ -143,10 +143,10 @@ Applications can also be managed directly through PowerShell, including adding, 
    ```powershell
    $app = @{
        "@odata.type" = "#microsoft.graph.webApp"
-       "displayName" = "Contoso Intranet"
-       "publisher" = "Contoso"
-       "appUrl" = "https://intranet.contoso.com"
-       "informationUrl" = "https://intranet.contoso.com/help"
+         "displayName" = "Frosted"
+         "publisher" = "Ed Frost"
+         "appUrl" = "https://frosted.github.io"
+         "informationUrl" = "https://frosted.github.io"
        "isFeatured" = $false
    }
 
