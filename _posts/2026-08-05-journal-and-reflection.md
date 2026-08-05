@@ -43,16 +43,18 @@ tags: [journal]     # TAG names should always be lowercase
 * [Insert a minor task you are proud of finally wrapping up]
 
 #### 📝 Running Daily Log
-* Team planning meeting: DB brought up the need to retire the InstallSoftware.ps1 script.  As expected, push-back from FL.  NC suggested we retain the data stored in JSON files for some sort of automation in the future.  I don't really understand the logic here, but we can keep it in mind.  Personally, I don't want to have to maintain this file.
-* ThreatLocker project meeting: DB asked for performance metrics across all the three stages of this deployment.
+* Team planning meeting 
+  * DB brought up the need to retire the InstallSoftware.ps1 script.  As expected, push-back from FL.  NC suggested we retain the data stored in JSON files for some sort of automation in the future.  I don't really understand the logic here, but we can keep it in mind.  Personally, I don't want to have to maintain this file.
+  * DB eluded to there needing to be changes to the way we handle QA testing - mentioning the bottleneck in the way we do things today.
+* ThreatLocker project meeting
+  * DB asked for performance metrics across all the three stages of this deployment.
   * Deployment stages:
     * Pre-switch (Carbon Black baseline)
     * Co-existence (ThreatLocker in Learning Mode)
     * Post-switch (ThreatLocker Enforce)
   * Due by EOW
-* 
 
 #### 🎯 Tomorrow's Top 3 Priorities
 1. **[Priority 1]** - Test PXE responder and secure boot issue.
 2. **[Priority 2]** - Performance metering script.
-3. **[Priority 3]** - Memory management BSOD - Enable kernal dumps.
+3. **[Priority 3]** - Run final secure boot CB report for Dave
