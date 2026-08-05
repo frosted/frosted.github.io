@@ -39,16 +39,21 @@ tags: [journal]     # TAG names should always be lowercase
 ### [Date: Wednesday, August 5, 2026]
 
 #### 🏆 Today's Accomplishments & Wins
-* [Insert concrete win or major completed milestone from today]
+* I started this daily work journal
 * [Insert positive feedback received, a breakthrough, or a roadblock cleared]
 * [Insert a minor task you are proud of finally wrapping up]
 
 #### 📝 Running Daily Log
-* [Quick bullet on internal/external meetings held and key outcomes]
-* [Notes on ongoing deep-work tasks, active research, or documentation edits]
-* [Decisions made, minor conversations, or raw ideas to remember later]
+* Team planning meeting: DB brought up the need to retire the InstallSoftware.ps1 script.  As expected, push-back from FL.  NC suggested we retain the data stored in JSON files for some sort of automation in the future.  I don't really understand the logic here, but we can keep it in mind.  Personally, I don't want to have to maintain this file.
+* ThreatLocker project meeting: DB asked for performance metrics across all the three stages of this deployment.
+  * Deployment stages:
+    * Pre-switch (Carbon Black baseline)
+    * Co-existence (ThreatLocker in Learning Mode)
+    * Post-switch (ThreatLocker Enforce)
+  * Due by EOW
+* 
 
 #### 🎯 Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Crucial, non-negotiable morning focus item.
-2. **[Priority 2]** - Secondary actionable task or follow-up.
-3. **[Priority 3]** - Quick administrative win or meeting preparation task.
+1. **[Priority 1]** - Test PXE responder and secure boot issue.
+2. **[Priority 2]** - Performance metering script.
+3. **[Priority 3]** - Memory management BSOD - Enable kernal dumps.
