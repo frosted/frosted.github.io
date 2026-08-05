@@ -7,15 +7,13 @@ tags: [journal]     # TAG names should always be lowercase
 ---
 
 # Daily Work Journal & Reflection
+<!--
 
 > **💡 HOW TO USE THIS JOURNAL:**
 > 1. Complete this every day 15 minutes before logging off.
 > 2. Keep entries in reverse chronological order (paste new dates at the very top).
 > 3. Limit tomorrow's priorities strictly to 3 items to avoid burnout.
 
-## 2026
-
-<!--
 ---Copy and paste region
 ### [Date: Wednesday, August 5, 2026]
 
@@ -35,6 +33,7 @@ tags: [journal]     # TAG names should always be lowercase
 3. **[Priority 3]** - Quick administrative win or meeting preparation task.
 ---End Copy and paste region
 -->
+## 2026
 
 ### [Date: Wednesday, August 5, 2026]
 
