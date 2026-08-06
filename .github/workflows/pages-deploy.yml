@@ -49,14 +49,7 @@ jobs:
         run: |
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            # Move into the root build folder
-            cd _site
-            
-            # Fix: Add "raw." to the beginning of the domain URL
-            curl -sSL https://githubusercontent.com -o protect.js
-            
-            # Execute encryption locally on the files in this directory
-            node protect.js
+            npx github:cesar-guillen/Chirpy-Page-Protector-Plugin
           fi
         env:
           JEKYLL_ENV: "production"
