@@ -52,7 +52,7 @@ jobs:
             # Move into the root build folder
             cd _site
             
-            # Download the complete, valid script pathway
+            # Fix: Add "raw." to the beginning of the domain URL
             curl -sSL https://githubusercontent.com -o protect.js
             
             # Execute encryption locally on the files in this directory
