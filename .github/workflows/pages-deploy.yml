@@ -49,15 +49,12 @@ jobs:
         run: |
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            # Define the exact post file path 
             TARGET_FILE="_site/posts/journal-and-reflection/index.html"
             
             if [ -f "$TARGET_FILE" ]; then
               echo "Encrypting matching target file: $TARGET_FILE"
-              
-              # Run StatiCrypt with the native '--embed' flag
-              # This cleanly wraps the login box in your existing theme styles
-              npx staticrypt "$TARGET_FILE" -p "$PROTECTOR_PASSWORD" --embed true -o "$TARGET_FILE"
+              # Fixed: Removed --embed true so the secure login page replaces the broken theme container
+              npx staticrypt "$TARGET_FILE" -p "$PROTECTOR_PASSWORD" -o "$TARGET_FILE"
             else
               echo "Error: Target file not found at $TARGET_FILE"
             fi
