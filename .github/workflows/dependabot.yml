@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # Maintain your GitHub Actions (Targets Node.js runtime updates)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Maintain your Ruby dependencies (Gemfile and Gemfile.lock)
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
