@@ -7,6 +7,7 @@ feed: false
 categories: [Private]
 tags: [journal]
 ---
+
 <!--
 
 > **💡 HOW TO USE THIS JOURNAL:**
