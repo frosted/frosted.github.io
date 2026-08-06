@@ -36,7 +36,7 @@ tags: [journal]
 ### [Date: Wednesday, August 5, 2026]
 
 #### Today's Accomplishments & Wins
-* I started this daily journal
+* I started this daily journal, added it to my blog and encrypted it
 * PXE Responder has been enabled in QA to mitigate the PXE boot issues observed after Microsoft's Secure Boot certificate updates. We are currently validating the results, and regardless of the outcome, this change modernizes our PXE boot configuration.
 
 #### Running Daily Log
@@ -54,4 +54,4 @@ tags: [journal]
 #### Tomorrow's Top 3 Priorities
 1. **[Priority 1]** - Test PXE responder and secure boot issue.
 2. **[Priority 2]** - Performance metering script.
-3. **[Priority 3]** - Run final secure boot CB report for Dave
+3. **[Priority 3]** - Run final secure boot baseline report for Dave
