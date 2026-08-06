@@ -92,7 +92,15 @@ jobs:
 
             echo "Encrypting: $target"
             tmp_dir="$(mktemp -d)"
-            npx --yes staticrypt@3 "$target" -p "$PROTECTOR_PASSWORD" -d "$tmp_dir"
+            STATICRYPT_PASSWORD="$PROTECTOR_PASSWORD" npx --yes staticrypt@3 "$target" \
+              -d "$tmp_dir" \
+              -t ".github/staticrypt/password_template.html" \
+              --template-title "Protected Post" \
+              --template-instructions "Enter your password to view this post." \
+              --template-button "Unlock" \
+              --template-placeholder "Password" \
+              --template-error "Incorrect password." \
+              --template-remember "Remember on this browser"
 
             tmp_out="$(find "$tmp_dir" -type f \( -name "index.html" -o -name "*.html" \) | head -n 1)"
             if [ -z "$tmp_out" ] || [ ! -f "$tmp_out" ]; then
