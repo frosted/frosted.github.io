@@ -2,6 +2,7 @@
 title: Daily Work Journal and Reflection
 date: 2026-08-05 09:00:00 +0500
 hidden: true
+encrypted: true
 categories: [Private]
 tags: [journal]     # TAG names should always be lowercase
 ---
