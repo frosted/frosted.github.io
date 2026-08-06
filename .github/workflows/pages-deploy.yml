@@ -47,14 +47,16 @@ jobs:
 
       - name: Build site
         run: |
+          # 1. Compile the site using Chirpy's exact destination path parameters
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
+          
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            # Direct project root targeting (No "cd _site" command)
-            TARGET_FILE="./_site/posts/journal-and-reflection/index.html"
+            # 2. Automatically trace the exact compiled folder destination path
+            TARGET_FILE="_site${{ steps.pages.outputs.base_path }}/posts/journal-and-reflection/index.html"
             
             if [ -f "$TARGET_FILE" ]; then
               echo "Encrypting matching target file: $TARGET_FILE"
-              # Overwrite the page directly inside the global directory framework
+              # 3. Encrypt the file inline using absolute tool pathways
               npx staticrypt "$TARGET_FILE" -p "$PROTECTOR_PASSWORD" -o "$TARGET_FILE"
             else
               echo "Error: Target file not found at $TARGET_FILE"
