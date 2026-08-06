@@ -49,9 +49,11 @@ jobs:
         run: |
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            # Find all built HTML files, look for your encryption flag, and lock them
+            # Scan all built HTML files for common Chirpy layout elements or specific filenames
             find _site -name "*.html" -type f | while read -r file; do
-              if grep -q "encrypted: true" "$file"; then
+              # Alternative: If you know the exact file name, you can target it directly
+              if grep -q 'class="post"' "$file" || grep -q 'id="post-wrapper"' "$file"; then
+                echo "Encrypting matching target file: $file"
                 npx staticrypt "$file" -p "$PROTECTOR_PASSWORD" -o "$file"
               fi
             done
