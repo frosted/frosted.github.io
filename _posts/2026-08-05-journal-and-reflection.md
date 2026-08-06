@@ -2,6 +2,8 @@
 title: Daily Work Journal and Reflection
 date: 2026-08-05 09:00:00 +0500
 encrypted: true
+hidden: true
+feed: false
 categories: [Private]
 tags: [journal]
 ---
