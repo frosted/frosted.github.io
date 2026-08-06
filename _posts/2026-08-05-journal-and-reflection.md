@@ -44,9 +44,11 @@ tags: [journal]
 ### [Date: Thursday, August 6, 2026]
 
 #### Running Daily Log
-* [Quick bullet on internal/external meetings held and key outcomes]
-* [Notes on ongoing deep-work tasks, active research, or documentation edits]
-* [Decisions made, minor conversations, or raw ideas to remember later]
+* ThreatLocker
+  * Finalized the PowerShell performance baseline script using verified process mappings and validated the metrics; we are now ready to begin migration testing.
+  * Dexter preparing his system for testing
+
+
 
 #### Tomorrow's Top 3 Priorities
 1. **[Priority 1]** - Crucial, non-negotiable morning focus item.
@@ -69,6 +71,8 @@ tags: [journal]
 * PXE Responder has been enabled in QA to mitigate the PXE boot issues observed after Microsoft's Secure Boot certificate updates. We are currently validating the results, and regardless of the outcome, this change modernizes our PXE boot configuration.
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Test PXE responder and secure boot issue.
-2. **[Priority 2]** - Performance metering script.
-3. **[Priority 3]** - Run final secure boot baseline report for Dave
+1. **[Priority 1]** - Enable complete memory dump on target systems
+2. **[Priority 2]** - ~~Performance metering script~~
+3. **[Priority 3]** - ~~Run final secure boot baseline report for Dave~~
+
+ECD9-89A2
