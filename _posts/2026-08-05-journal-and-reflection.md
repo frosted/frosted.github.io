@@ -6,8 +6,6 @@ categories: [Private]
 tags: [journal]
 ---
 
-
-# Daily Work Journal & Reflection
 <!--
 
 > **💡 HOW TO USE THIS JOURNAL:**
