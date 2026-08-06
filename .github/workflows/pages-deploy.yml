@@ -49,8 +49,8 @@ jobs:
         run: |
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            # Move inside your actual generated site directory
-            cd "_site${{ steps.pages.outputs.base_path }}"
+            # Move into the root build folder
+            cd _site
             
             # Download the complete, valid script pathway
             curl -sSL https://githubusercontent.com -o protect.js
