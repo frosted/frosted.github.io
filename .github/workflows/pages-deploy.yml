@@ -47,20 +47,38 @@ jobs:
 
       - name: Build site
         run: |
-          # 1. Compile the site using Chirpy's exact destination path parameters
-          bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
-          
-          if [ -n "$PROTECTOR_PASSWORD" ]; then
-            # 2. Automatically trace the exact compiled folder destination path
-            TARGET_FILE="_site${{ steps.pages.outputs.base_path }}/posts/journal-and-reflection/index.html"
-            
-            if [ -f "$TARGET_FILE" ]; then
-              echo "Encrypting matching target file: $TARGET_FILE"
-              # 3. Encrypt the file inline using absolute tool pathways
-              npx staticrypt "$TARGET_FILE" -p "$PROTECTOR_PASSWORD" -o "$TARGET_FILE"
-            else
-              echo "Error: Target file not found at $TARGET_FILE"
-            fi
+          set -euo pipefail
+
+          OUT_DIR="_site${{ steps.pages.outputs.base_path }}"
+          TARGET_FILE="$OUT_DIR/posts/journal-and-reflection/index.html"
+
+          echo "Building Jekyll output to: $OUT_DIR"
+          bundle exec jekyll b -d "$OUT_DIR"
+
+          if [ -z "${PROTECTOR_PASSWORD:-}" ]; then
+            echo "PROTECTOR_PASSWORD is empty; skipping encryption"
+            exit 0
+          fi
+
+          if [ ! -f "$TARGET_FILE" ]; then
+            echo "Expected compiled post was not found: $TARGET_FILE"
+            find "$OUT_DIR" -type f -name index.html | sed 's#^# - #' || true
+            exit 1
+          fi
+
+          echo "Encrypting: $TARGET_FILE"
+          npx --yes staticrypt "$TARGET_FILE" -p "$PROTECTOR_PASSWORD" -o "$TARGET_FILE"
+
+          # Chirpy PWA: force service worker byte change so browsers activate a fresh worker.
+          if [ -f "$OUT_DIR/sw.js" ]; then
+            echo "// cache-bust:${GITHUB_RUN_ID:-0}-${GITHUB_RUN_ATTEMPT:-0}" >> "$OUT_DIR/sw.js"
+          fi
+
+          # If Chirpy generated a precache manifest, remove this page from precache entries.
+          SWCACHE_FILE="$OUT_DIR/assets/js/data/swcache.js"
+          if [ -f "$SWCACHE_FILE" ]; then
+            sed -i '\|/posts/journal-and-reflection/|d' "$SWCACHE_FILE"
+            sed -i '\|/posts/journal-and-reflection/index.html|d' "$SWCACHE_FILE"
           fi
         env:
           JEKYLL_ENV: "production"

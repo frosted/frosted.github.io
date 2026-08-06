@@ -1,10 +1,11 @@
 ---
 title: Daily Work Journal and Reflection
 date: 2026-08-05 09:00:00 +0500
+encrypted: true
 categories: [Private]
 tags: [journal]
 ---
-<!-- encrypted: true -->
+
 
 # Daily Work Journal & Reflection
 <!--
