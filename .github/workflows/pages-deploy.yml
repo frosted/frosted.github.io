@@ -49,8 +49,12 @@ jobs:
         run: |
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            cd _site
-            node ../.github/protect.js
+            # Find all built HTML files, look for your encryption flag, and lock them
+            find _site -name "*.html" -type f | while read -r file; do
+              if grep -q "encrypted: true" "$file"; then
+                npx staticrypt "$file" -p "$PROTECTOR_PASSWORD" -o "$file"
+              fi
+            done
           fi
         env:
           JEKYLL_ENV: "production"
