@@ -6,10 +6,6 @@ categories: [Private]
 tags: [journal]
 ---
 
-{% if page.encrypted %}
-<!-- encrypted: true -->
-{% endif %}
-
 
 # Daily Work Journal & Reflection
 <!--

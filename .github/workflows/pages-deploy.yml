@@ -58,20 +58,41 @@ jobs:
             exit 0
           fi
 
-          echo "Scanning built HTML for encryption marker..."
-          FOUND=0
-          while IFS= read -r -d '' file; do
-            if grep -q "encrypted: true" "$file"; then
-              echo "Encrypting: $file"
-              npx --yes staticrypt "$file" -p "$PROTECTOR_PASSWORD" -o "$file"
-              FOUND=1
-            fi
-          done < <(find "$OUT_DIR" -name "*.html" -type f -print0)
+          echo "Discovering protected posts from source front matter..."
+          mapfile -t PROTECTED_SLUGS < <(
+            for src in _posts/*.md; do
+              [ -f "$src" ] || continue
 
-          if [ "$FOUND" -eq 0 ]; then
-            echo "No built HTML files contained marker: encrypted: true"
+              if awk '
+                BEGIN { in_fm=0; seen_start=0; enc=0 }
+                NR==1 && $0 ~ /^---[[:space:]]*$/ { in_fm=1; seen_start=1; next }
+                in_fm && $0 ~ /^---[[:space:]]*$/ { exit(enc ? 0 : 1) }
+                in_fm && $0 ~ /^[[:space:]]*encrypted:[[:space:]]*true([[:space:]]*#.*)?$/ { enc=1 }
+                END { if (!seen_start) exit 1 }
+              ' "$src"; then
+                name="$(basename "$src")"
+                slug="${name%.md}"
+                slug="${slug#????-??-??-}"
+                printf '%s\n' "$slug"
+              fi
+            done
+          )
+
+          if [ "${#PROTECTED_SLUGS[@]}" -eq 0 ]; then
+            echo "No posts found with front matter 'encrypted: true'"
             exit 1
           fi
+
+          for slug in "${PROTECTED_SLUGS[@]}"; do
+            target="$OUT_DIR/posts/$slug/index.html"
+            if [ ! -f "$target" ]; then
+              echo "Expected built file missing for encrypted post: $target"
+              exit 1
+            fi
+
+            echo "Encrypting: $target"
+            npx --yes staticrypt "$target" -p "$PROTECTOR_PASSWORD" -o "$target"
+          done
 
           # PWA cache-control: force SW refresh and keep protected page out of precache.
           if [ -f "$OUT_DIR/sw.js" ]; then
@@ -80,8 +101,10 @@ jobs:
 
           SWCACHE_FILE="$OUT_DIR/assets/js/data/swcache.js"
           if [ -f "$SWCACHE_FILE" ]; then
-            sed -i '\|/posts/journal-and-reflection/|d' "$SWCACHE_FILE"
-            sed -i '\|/posts/journal-and-reflection/index.html|d' "$SWCACHE_FILE"
+            for slug in "${PROTECTED_SLUGS[@]}"; do
+              sed -i "\\|/posts/$slug/|d" "$SWCACHE_FILE"
+              sed -i "\\|/posts/$slug/index.html|d" "$SWCACHE_FILE"
+            done
           fi
         env:
           JEKYLL_ENV: "production"
@@ -89,7 +112,7 @@ jobs:
 
       - name: Test site
         run: |
-          bundle exec htmlproofer _site \
+          bundle exec htmlproofer "_site${{ steps.pages.outputs.base_path }}" \
             \-\-disable-external=true \
             \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
 
