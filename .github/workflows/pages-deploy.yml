@@ -91,8 +91,19 @@ jobs:
             fi
 
             echo "Encrypting: $target"
-            tmp_out="$target.staticrypt.tmp.html"
-            npx --yes staticrypt@3 "$target" -p "$PROTECTOR_PASSWORD" -o "$tmp_out"
+            tmp_base="$target.staticrypt.tmp"
+            npx --yes staticrypt@3 "$target" -p "$PROTECTOR_PASSWORD" --output "$tmp_base"
+
+            if [ -f "$tmp_base" ]; then
+              tmp_out="$tmp_base"
+            elif [ -f "$tmp_base.html" ]; then
+              tmp_out="$tmp_base.html"
+            else
+              echo "Staticrypt did not produce expected output for: $target"
+              find "$(dirname "$target")" -maxdepth 1 -type f -name "index.html.staticrypt*" | sed 's#^# - #' || true
+              exit 1
+            fi
+
             mv "$tmp_out" "$target"
 
             # Verify output was transformed by staticrypt before upload.
