@@ -47,17 +47,24 @@ jobs:
 
       - name: Build site
         run: |
+                - name: Build site
+        run: |
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            # Scan all built HTML files for common Chirpy layout elements or specific filenames
-            find _site -name "*.html" -type f | while read -r file; do
-              # Alternative: If you know the exact file name, you can target it directly
-              if grep -q 'class="post"' "$file" || grep -q 'id="post-wrapper"' "$file"; then
-                echo "Encrypting matching target file: $file"
-                npx staticrypt "$file" -p "$PROTECTOR_PASSWORD" -o "$file"
-              fi
-            done
+            # Direct target targeting your specific file pathway
+            TARGET_FILE="_site/posts/journal-and-reflection/index.html"
+            
+            if [ -f "$TARGET_FILE" ]; then
+              echo "Encrypting matching target file: $TARGET_FILE"
+              npx staticrypt "$TARGET_FILE" -p "$PROTECTOR_PASSWORD" -o "$TARGET_FILE"
+            else
+              echo "Error: Target file not found at $TARGET_FILE"
+            fi
           fi
+        env:
+          JEKYLL_ENV: "production"
+          PROTECTOR_PASSWORD: ${{ secrets.PROTECTOR_PASSWORD }}
+
         env:
           JEKYLL_ENV: "production"
           PROTECTOR_PASSWORD: ${{ secrets.PROTECTOR_PASSWORD }}
