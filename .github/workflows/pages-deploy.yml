@@ -91,20 +91,18 @@ jobs:
             fi
 
             echo "Encrypting: $target"
-            tmp_base="$target.staticrypt.tmp"
-            npx --yes staticrypt@3 "$target" -p "$PROTECTOR_PASSWORD" --output "$tmp_base"
+            tmp_dir="$(mktemp -d)"
+            npx --yes staticrypt@3 "$target" -p "$PROTECTOR_PASSWORD" -d "$tmp_dir"
 
-            if [ -f "$tmp_base" ]; then
-              tmp_out="$tmp_base"
-            elif [ -f "$tmp_base.html" ]; then
-              tmp_out="$tmp_base.html"
-            else
+            tmp_out="$(find "$tmp_dir" -type f \( -name "index.html" -o -name "*.html" \) | head -n 1)"
+            if [ -z "$tmp_out" ] || [ ! -f "$tmp_out" ]; then
               echo "Staticrypt did not produce expected output for: $target"
-              find "$(dirname "$target")" -maxdepth 1 -type f -name "index.html.staticrypt*" | sed 's#^# - #' || true
+              find "$tmp_dir" -maxdepth 3 -type f | sed 's#^# - #' || true
               exit 1
             fi
 
             mv "$tmp_out" "$target"
+            rm -rf "$tmp_dir"
 
             # Verify output was transformed by staticrypt before upload.
             if ! grep -Eiq "staticrypt|decrypt" "$target"; then
