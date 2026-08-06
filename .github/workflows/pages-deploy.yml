@@ -91,7 +91,15 @@ jobs:
             fi
 
             echo "Encrypting: $target"
-            npx --yes staticrypt "$target" -p "$PROTECTOR_PASSWORD" -o "$target"
+            tmp_out="$target.staticrypt.tmp.html"
+            npx --yes staticrypt@3 "$target" -p "$PROTECTOR_PASSWORD" -o "$tmp_out"
+            mv "$tmp_out" "$target"
+
+            # Verify output was transformed by staticrypt before upload.
+            if ! grep -Eiq "staticrypt|decrypt" "$target"; then
+              echo "Staticrypt verification failed for: $target"
+              exit 1
+            fi
           done
 
           # PWA cache-control: force SW refresh and keep protected page out of precache.
