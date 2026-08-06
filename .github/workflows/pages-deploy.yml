@@ -49,15 +49,12 @@ jobs:
         run: |
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            # Direct target targeting your specific file pathway
-            TARGET_FILE="_site/posts/journal-and-reflection/index.html"
-            
-            if [ -f "$TARGET_FILE" ]; then
-              echo "Encrypting matching target file: $TARGET_FILE"
-              npx staticrypt "$TARGET_FILE" -p "$PROTECTOR_PASSWORD" -o "$TARGET_FILE"
-            else
-              echo "Error: Target file not found at $TARGET_FILE"
-            fi
+            # Find all built HTML files, look for your encryption flag, and lock them
+            find _site -name "*.html" -type f | while read -r file; do
+              if grep -q "encrypted: true" "$file"; then
+                npx staticrypt "$file" -p "$PROTECTOR_PASSWORD" -o "$file"
+              fi
+            done
           fi
         env:
           JEKYLL_ENV: "production"
