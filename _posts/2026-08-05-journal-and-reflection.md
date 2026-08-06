@@ -5,7 +5,6 @@ encrypted: true
 categories: [Private]
 tags: [journal]
 ---
-
 <!--
 
 > **💡 HOW TO USE THIS JOURNAL:**
