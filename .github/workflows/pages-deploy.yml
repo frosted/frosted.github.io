@@ -49,11 +49,12 @@ jobs:
         run: |
           bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
           if [ -n "$PROTECTOR_PASSWORD" ]; then
-            TARGET_FILE="_site/posts/journal-and-reflection/index.html"
+            # Direct project root targeting (No "cd _site" command)
+            TARGET_FILE="./_site/posts/journal-and-reflection/index.html"
             
             if [ -f "$TARGET_FILE" ]; then
               echo "Encrypting matching target file: $TARGET_FILE"
-              # Fixed: Removed --embed true so the secure login page replaces the broken theme container
+              # Overwrite the page directly inside the global directory framework
               npx staticrypt "$TARGET_FILE" -p "$PROTECTOR_PASSWORD" -o "$TARGET_FILE"
             else
               echo "Error: Target file not found at $TARGET_FILE"
