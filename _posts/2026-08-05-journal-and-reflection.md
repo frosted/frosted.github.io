@@ -40,7 +40,6 @@ tags: [journal]
 
 #### Today's Accomplishments & Wins
 * I started this daily journal, added it to my blog and encrypted it
-* PXE Responder has been enabled in QA to mitigate the PXE boot issues observed after Microsoft's Secure Boot certificate updates. We are currently validating the results, and regardless of the outcome, this change modernizes our PXE boot configuration.
 
 #### Running Daily Log
 * Team planning meeting 
@@ -53,6 +52,7 @@ tags: [journal]
     * Co-existence (ThreatLocker in Learning Mode)
     * Post-switch (ThreatLocker Enforce)
   * Due by EOW
+* PXE Responder has been enabled in QA to mitigate the PXE boot issues observed after Microsoft's Secure Boot certificate updates. We are currently validating the results, and regardless of the outcome, this change modernizes our PXE boot configuration.
 
 #### Tomorrow's Top 3 Priorities
 1. **[Priority 1]** - Test PXE responder and secure boot issue.
