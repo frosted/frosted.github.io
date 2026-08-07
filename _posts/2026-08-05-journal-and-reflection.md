@@ -48,12 +48,10 @@ tags: [journal]
   * Finalized the PowerShell performance baseline script using verified process mappings and validated the metrics; we are now ready to begin migration testing.
   * Dexter preparing his system for testing
 
-
-
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - TL migration performance baseline testing 
-2. **[Priority 2]** - 
-3. **[Priority 3]** - 
+1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
+2. **[Priority 2]** - Secure boot testing in QA
+3. **[Priority 3]** - TL migration performance baseline testing
 
 ### [Date: Wednesday, August 5, 2026]
 
