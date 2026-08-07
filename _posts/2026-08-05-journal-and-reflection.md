@@ -51,9 +51,9 @@ tags: [journal]
 
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Crucial, non-negotiable morning focus item.
-2. **[Priority 2]** - Secondary actionable task or follow-up.
-3. **[Priority 3]** - Quick administrative win or meeting preparation task.
+1. **[Priority 1]** - TL migration performance baseline testing 
+2. **[Priority 2]** - 
+3. **[Priority 3]** - 
 
 ### [Date: Wednesday, August 5, 2026]
 
@@ -71,8 +71,6 @@ tags: [journal]
 * PXE Responder has been enabled in QA to mitigate the PXE boot issues observed after Microsoft's Secure Boot certificate updates. We are currently validating the results, and regardless of the outcome, this change modernizes our PXE boot configuration.
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Enable complete memory dump on target systems
+1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
 2. **[Priority 2]** - ~~Performance metering script~~
 3. **[Priority 3]** - ~~Run final secure boot baseline report for Dave~~
-
-ECD9-89A2
