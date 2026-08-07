@@ -41,6 +41,16 @@ tags: [journal]
 ### This Week's Accomplishments & Wins
 * I started this daily journal, added it to my blog and encrypted it
 
+#### Running Daily Log
+* Marv questioning the WDS boot screen.  I reviewed the logs and everything looks good. The device is successfully PXE booting and receiving the task sequence. The PXE Responder is handling the requests, so I don't have any concerns based on what we're seeing so far - at least as far as who is steering the PXE requests.  Even when PXE Responder is enabled, wdsmgfw.efi is still used during parts of the PXE process.  So seeing a "WDS Boot Manager" screen does not automatically mean WDS is installed or handling PXE.  It's weird.
+* Marv tested a system that couldn't PXE boot in QA.  Even with PXE responder, the system still fails to PXE boot.  
+* Pre baseline captured on two systems.  Monday we will continue with c-existence and post capture.
+
+#### Tomorrow's Top 3 Priorities
+1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
+2. **[Priority 2]** - Secondary actionable task or follow-up.
+3. **[Priority 3]** - Send update to MSFT regarding Secure Boot testing
+
 ### [Date: Thursday, August 6, 2026]
 
 #### Running Daily Log
@@ -50,8 +60,8 @@ tags: [journal]
 
 #### Tomorrow's Top 3 Priorities
 1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
-2. **[Priority 2]** - Secure boot testing in QA
-3. **[Priority 3]** - TL migration performance baseline testing
+2. **[Priority 2]** - ~~Secure boot testing in QA~~
+3. **[Priority 3]** - ~~Start TL migration performance baseline testing~~
 
 ### [Date: Wednesday, August 5, 2026]
 
