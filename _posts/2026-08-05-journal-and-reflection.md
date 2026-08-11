@@ -38,8 +38,25 @@ tags: [journal]
 -->
 ## 2026
 
+#### This week's Accomplishments & Wins
+* [
+
+### [Date: Monday, August 10, 2026]
+
+#### Running Daily Log
+* Patch week, image update script needs to be fixed.  There's a process we follow that is in place for Edward's benefit - we should review this.
+* As a result of the  migration over the weekend, the baseline VPN version was somehow reset, deploying a new client version to everyone on connection.  This alone may not have been an issue, but I believe it is because we had a script to install an older version.  The install itself is not the issue, but the removal the PanGPS service could havebeen the culprit in many cases.  I modified our deployment to uninstall the current version and install the new version.  It's the same approach I want us to move away from , but in this case, we'll need to go this route.
+* Naim fixed issues with his image update script.  He worked on it all day
+
+#### Tomorrow's Top 3 Priorities
+1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
+2. **[Priority 2]** - Continue TL performance baseline testing
+3. **[Priority 3]** - Discuss user experience of GP deployment
+
 ### This Week's Accomplishments & Wins
 * I started this daily journal, added it to my blog and encrypted it
+
+### [Date: Friday, August 7, 2026]
 
 #### Running Daily Log
 * Marv questioning the WDS boot screen.  I reviewed the logs and everything looks good. The device is successfully PXE booting and receiving the task sequence. The PXE Responder is handling the requests, so I don't have any concerns based on what we're seeing so far - at least as far as who is steering the PXE requests.  Even when PXE Responder is enabled, wdsmgfw.efi is still used during parts of the PXE process.  So seeing a "WDS Boot Manager" screen does not automatically mean WDS is installed or handling PXE.  It's weird.
@@ -48,7 +65,7 @@ tags: [journal]
 
 #### Tomorrow's Top 3 Priorities
 1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
-2. **[Priority 2]** - Secondary actionable task or follow-up.
+2. **[Priority 2]** - Continue TL performance baseline testing
 3. **[Priority 3]** - Send update to MSFT regarding Secure Boot testing
 
 ### [Date: Thursday, August 6, 2026]
