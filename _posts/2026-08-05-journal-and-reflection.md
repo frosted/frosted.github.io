@@ -82,8 +82,8 @@ tags: [journal]
 	* POC: Alerts to Telegram
 	  * This was done, just put a demo together
   * Tasks (not started)
-	* Options to replace Software Install
-	* User Assignment - add for new/replacement devices
+	  * Options to replace Software Install
+	  * User Assignment - add for new/replacement devices
   
 
 #### Tomorrow's Top 3 Priorities
