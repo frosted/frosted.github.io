@@ -44,50 +44,51 @@ tags: [journal]
 * Notes for meeting with Dave:
   * Tasks (this week)
     * TL migration performance testing
-	  * script completed
-	  * gathering baseline from Dexter's test system
-	* BSOD folder clean-up (26GB)
-	* PXE boot issues
-	  * tested without WDS, still not fixed
-	  * planning change to remove DHCP options for discussion with Bill and Henry
-	* BSOD Tickets
-	  * ~~deploy full memory dumps configuration~~
-	  * ~~test configuration~~
-	  * send memory.dump, if approved
-	* Knowledge transfer: TS and image update
-	  * working on getting access (Mo)
-	* GlobalProtect deployment
-	  * Make a script available to fix service
+      * script completed
+      * gathering baseline from Dexter's test system (pre,co-exist,post)
+    * BSOD folder clean-up (26GB)
+      * code ready to add to BSOD automation
+    * PXE boot issues
+      * tested without WDS, still not fixed
+      * planning change to remove DHCP options for discussion with Bill and Henry
+    * BSOD Tickets
+      * ~~deploy full memory dumps configuration~~
+      * ~~test configuration~~
+      * send memory.dmp, if approved
+    * Knowledge transfer: TS and image update
+      * working on getting access (Mo)
+    * GlobalProtect deployment
+      * Make a script available to fix service
   * Tasks (started)
     * Recast
-	  * Planning prod implementation for SCR
+      * Planning prod implementation for SCR
     * Modernize OSD (replace MDT integration in TS)
-	  * working with Dexter on testing
-	* Reporting dashboard for WHEAs
-	* MECM Content Distribution Strategy Using DP Groups
-	  * Need to discuss with Bill
-	  * Script created to 
-	    * identify content distribution
-		* create distribution groups
-		* re-distribute content based on current assignments
-	  * Stil need to document
-	* Functional Folder Structure and Naming Conventions for Device Collections
-	  * Need to discuss with Bill
-	  * Once a structure is agreed on, we'll make changes in QA
-	  * Need to develop
-	    * Script to capture all objects and paths
-		* Script to create new structure
-		* Script to move objects 
-		* Script to rollback
-	* POC: Alerts to Telegram
-	  * This was done, just put a demo together
+	    * Working with Dexter on testing
+    * Reporting dashboard for WHEAs
+    * MECM Content Distribution Strategy Using DP Groups
+      * Need to discuss with Bill
+      * Script created to 
+        * identify content distribution
+      * create distribution groups
+      * re-distribute content based on current assignments
+      * Stil need to document
+    * Functional Folder Structure and Naming Conventions for Device Collections
+      * Need to discuss with Bill
+      * Once a structure is agreed on, we'll make changes in QA
+      * Need to develop
+        * Script to capture all objects and paths
+      * Script to create new structure
+      * Script to move objects 
+      * Script to rollback
+    * POC: Alerts to Telegram
+      * This was done, just put a demo together
   * Tasks (not started)
-	  * Options to replace Software Install
-	  * User Assignment - add for new/replacement devices
+    * Options to replace Software Install
+    * User Assignment - add for new/replacement devices
   
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority]** - Crucial, non-negotiable morning focus item.
+1. **[Priority]** - Show & Tell
 2. **[Priority]** - Secondary actionable task or follow-up.
 3. **[Priority]** - Quick administrative win or meeting preparation task.
 
