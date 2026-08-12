@@ -31,15 +31,114 @@ tags: [journal]
 * [Decisions made, minor conversations, or raw ideas to remember later]
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Crucial, non-negotiable morning focus item.
-2. **[Priority 2]** - Secondary actionable task or follow-up.
-3. **[Priority 3]** - Quick administrative win or meeting preparation task.
+1. **[Priority]** - Crucial, non-negotiable morning focus item.
+2. **[Priority]** - Secondary actionable task or follow-up.
+3. **[Priority]** - Quick administrative win or meeting preparation task.
 ---End Copy and paste region
 -->
 ## 2026
 
+### [Date: Wednesday, August 13, 2026]
+
+#### Running Daily Log
+* Notes for meeting with Dave:
+  * Tasks (this week)
+    * TL migration performance testing
+	  * script completed
+	  * gathering baseline from Dexter's test system
+	* BSOD folder clean-up (26GB)
+	* PXE boot issues
+	  * tested without WDS, still not fixed
+	  * planning change to remove DHCP options for discussion with Bill and Henry
+	* BSOD Tickets
+	  * ~~deploy full memory dumps configuration~~
+	  * ~~test configuration~~
+	  * send memory.dump, if approved
+	* Knowledge transfer: TS and image update
+	  * working on getting access (Mo)
+	* GlobalProtect deployment
+	  * Make a script available to fix service
+  * Tasks (started)
+    * Recast
+	  * Planning prod implementation for SCR
+    * Modernize OSD (replace MDT integration in TS)
+	  * working with Dexter on testing
+	* Reporting dashboard for WHEAs
+	* MECM Content Distribution Strategy Using DP Groups
+	  * Need to discuss with Bill
+	  * Script created to 
+	    * identify content distribution
+		* create distribution groups
+		* re-distribute content based on current assignments
+	  * Stil need to document
+	* Functional Folder Structure and Naming Conventions for Device Collections
+	  * Need to discuss with Bill
+	  * Once a structure is agreed on, we'll make changes in QA
+	  * Need to develop
+	    * Script to capture all objects and paths
+		* Script to create new structure
+		* Script to move objects 
+		* Script to rollback
+	* POC: Alerts to Telegram
+	  * This was done, just put a demo together
+  * Tasks (not started)
+	* Options to replace Software Install
+	* User Assignment - add for new/replacement devices
+  
+
+#### Tomorrow's Top 3 Priorities
+1. **[Priority]** - Crucial, non-negotiable morning focus item.
+2. **[Priority]** - Secondary actionable task or follow-up.
+3. **[Priority]** - Quick administrative win or meeting preparation task.
+
 #### This week's Accomplishments & Wins
-* [
+* An issue that blocked network access required a the VPN client upgrade. I quickly built and deployed a fix package for affected users. This update resolved the connection issue and provided a smooth, branded experience using PSADT templates. The incident proved my ability to handle urgent problems and deliver results under pressure.
+
+### [Date: Wednesday, August 12, 2026]
+
+#### Running Daily Log
+* Meeting with Dave
+  * Performance concerns regarding lack of transparency with team, attendance, responsiveness (teams, e-mail), having to be chased for updates - specifically for tasks from Dave.
+  * Plan to address concerns:
+    * Transparency
+	  * Prepare for one-on-one with all tasks currently on my plate so things can be prioritized or re/unassigned
+	  * Use these logs to send updates to team on what I'm doing
+	* Attendance
+	  * 3 days/week, this has to be planned and communicated at work and at home.  
+	* Responsiveness
+	  * I'm guessing this is more an issue with e-mail. Just keep this in mind, because I'm not sure that this is a problems
+	* Any asks from Dave will stay on the priority list until it's done
+* Task sequence updates will be handled by Dexter, currently working with Mohammad to get access
+* got a full memory dump captured on hmalik's device, waiting on Dave to get approval before sharing with MSFT
+* o=wF*t1q_cE|!A$<5)/^f
+  
+
+#### Tomorrow's Top 3 Priorities
+1. **[Priority]** - 
+2. **[Priority]** - Follow-up on access to Microsoft 365 Admin center product downloads (Mohammad)
+3. **[Priority]** - Update DB on TL testing
+
+### [Date: Tuesday, August 11, 2026]
+
+#### Running Daily Log
+* Configured the following users for complete memory dumps on any future BSODs
+  * ookanga
+  * gantonopoulos
+  * aliu
+  * hmalik
+* Tested complete capture on my system by triggering a BSOD, which resulted in c:\windows\memory.dmp
+  ```cmd
+  REM this triggers a CRITICAL_PROCESS_DIED or CRITICAL_PROCESS_ENDED BSOD
+  REM I ran this as SYSTEM
+  taskkill /f /im svchost.exe
+  ```
+* SCR 14270 is complete. The Global Protect client v6.2.8-c223 is now available for all laptops via Software Center.
+* modified performance baseline script to call a single phase 
+
+#### Tomorrow's Top 3 Priorities
+1. **[Priority]** - Continue TL performance baseline testing
+2. **[Priority]** - Patch image 
+3. **[Priority]** - 
 
 ### [Date: Monday, August 10, 2026]
 
@@ -49,9 +148,9 @@ tags: [journal]
 * Naim fixed issues with his image update script.  He worked on it all day
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
-2. **[Priority 2]** - Continue TL performance baseline testing
-3. **[Priority 3]** - Discuss user experience of GP deployment
+1. **[Priority]** - ~~Test script to enable complete memory dump on remote systems~~
+2. **[Priority]** - Continue TL performance baseline testing
+3. **[Priority]** - ~~Discuss user experience of GP deployment~~
 
 ### This Week's Accomplishments & Wins
 * I started this daily journal, added it to my blog and encrypted it
@@ -64,9 +163,9 @@ tags: [journal]
 * Pre baseline captured on two systems.  Monday we will continue with c-existence and post capture.
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
-2. **[Priority 2]** - Continue TL performance baseline testing
-3. **[Priority 3]** - Send update to MSFT regarding Secure Boot testing
+1. **[Priority]** - Test script to enable complete memory dump on remote systems
+2. **[Priority]** - Continue TL performance baseline testing
+3. **[Priority]** - Send update to MSFT regarding Secure Boot testing
 
 ### [Date: Thursday, August 6, 2026]
 
@@ -76,9 +175,9 @@ tags: [journal]
   * Dexter preparing his system for testing
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
-2. **[Priority 2]** - ~~Secure boot testing in QA~~
-3. **[Priority 3]** - ~~Start TL migration performance baseline testing~~
+1. **[Priority]** - Test script to enable complete memory dump on remote systems
+2. **[Priority]** - ~~Secure boot testing in QA~~
+3. **[Priority]** - ~~Start TL migration performance baseline testing~~
 
 ### [Date: Wednesday, August 5, 2026]
 
@@ -96,6 +195,6 @@ tags: [journal]
 * PXE Responder has been enabled in QA to mitigate the PXE boot issues observed after Microsoft's Secure Boot certificate updates. We are currently validating the results, and regardless of the outcome, this change modernizes our PXE boot configuration.
 
 #### Tomorrow's Top 3 Priorities
-1. **[Priority 1]** - Test script to enable complete memory dump on remote systems
-2. **[Priority 2]** - ~~Performance metering script~~
-3. **[Priority 3]** - ~~Run final secure boot baseline report for Dave~~
+1. **[Priority]** - Test script to enable complete memory dump on remote systems
+2. **[Priority]** - ~~Performance metering script~~
+3. **[Priority]** - ~~Run final secure boot baseline report for Dave~~
