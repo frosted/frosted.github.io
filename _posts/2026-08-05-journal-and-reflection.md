@@ -30,13 +30,82 @@ tags: [journal]
 * [Notes on ongoing deep-work tasks, active research, or documentation edits]
 * [Decisions made, minor conversations, or raw ideas to remember later]
 
-#### Tomorrow's Top 3 Priorities
+#### Today's Top Priorities
 1. **[Priority]** - Crucial, non-negotiable morning focus item.
 2. **[Priority]** - Secondary actionable task or follow-up.
 3. **[Priority]** - Quick administrative win or meeting preparation task.
 ---End Copy and paste region
 -->
+
+## The Four Quadrants (Impact vs. Effort)
+
+| | **Low Effort** | **High Effort** |
+| :--- | :--- | :--- |
+| **High Impact** | **1. Quick Wins**<br>Do these tasks first. They give you the best results for little work. | **2. Major Projects**<br>Plan these. They take more time but bring great long-term value. |
+| **Low Impact** | **3. Fill-ins**<br>Delegate these or do them when you have extra free time. | **4. Thankless Tasks**<br>Drop or avoid these. They waste time and add little value. |
+
 ## 2026
+
+#### This week's Accomplishments & Wins
+* [Insert concrete win or major completed milestone from today]
+* [Insert positive feedback received, a breakthrough, or a roadblock cleared]
+* [Insert a minor task you are proud of finally wrapping up]
+
+### [Date: Thursday, August 20, 2026]
+
+#### Running Daily Log
+* [Quick bullet on internal/external meetings held and key outcomes]
+* [Notes on ongoing deep-work tasks, active research, or documentation edits]
+* [Decisions made, minor conversations, or raw ideas to remember later]
+
+#### Today's Top Priorities
+1. **[Priority 1]** - write proposal to suppress all notifications (except restarts) for software updates
+2. **[Priority 1]** - Fix error 0x1(1) in Recast deployments
+3. **[Priority 3]** - Check that partner's system to see if it's compliant now
+
+### [Date: Wednesday, August 19, 2026]
+
+#### Running Daily Log
+* Contact by Service Desk reporting the repair option in the Global Protect deployment results is missing the portal address.  This is now fixed
+* Service Desk also reporting that a user who's system was fixed last week, found the deployment running again this morning.  I don't think this is possible without someone initiating the deployment.
+* At 1pm I was asked to investigate why one lawyer's Windows updates failed.  It took nearly 3 hours of my time to report on what was missing, possible root causes, and work on remediation.  I'm still not clear that this was actually critical, but I do feel this was a poor use of my time.  I asked Dave why this was so critical, I was told that this is the "culture" here.  The only thing that is coming out of this is the realization that the software updates are being deployed with all notifications on.  I will propose that this change as this is a call driver.  Dave agrees.
+
+#### Tomorrow's Top 3 Priorities
+1. **[Priority]** - write proposal to suppress all notifications (except restarts) for software updates
+2. **[Priority]** - Check that partner's system to see if it's compliant now
+3. **[Priority]** - Fix error 0x1(1) in Recast deployments
+
+### [Date: Tuesday, August 18, 2026]
+
+#### Running Daily Log
+* Helped service desk with another VPN issue.  This is becoming a daily occurance.
+* Reacast in QA
+  * Removed
+    * Setting > Installation command: `powershell.exe -ExecutionPolicy Bypass -File ".\RecastAM\Invoke-AppDeployToolkit.ps1" -DeploymentType Install -DeployMode Interactive`
+    * Setting > Uninstallation command: `powershell.exe -ExecutionPolicy Bypass -File ".\RecastAM\Invoke-AppDeployToolkit.ps1" -DeploymentType Uninstall -DeployMode Interactive`
+  * Replaced with
+    * Setting > Installation command: `.\RecastAM\Invoke-AppDeployToolkit.exe -DeploymentType Install -DeployMode Interactive`
+	* Setting > Uninstallation command: `.\RecastAM\Invoke-AppDeployToolkit.exe -DeploymentType Uninstall -DeployMode Interactive`
+  * This failed with 0x1(1) error.
+
+#### Tomorrow's Top 3 Priorities
+1. **[Priority]** - Fix error 0x1(1) in Recast deployments
+2. **[Priority]** - Modify BSOD report to only send data from the past 60 days
+3. **[Priority]** - User assignment script in the TS (Naim)
+
+### [Date: Monday, August 17, 2026]
+
+#### Running Daily Log
+* Finished Global Protect 6.2.8-223 package revision, adding options for reinstall and repair.
+  * Update in prod
+  * We should put this in QA
+* Requested Recast license for QA... and received.  
+
+#### Tomorrow's Top 3 Priorities
+1. **[Priority]** - Recast in QA, organize effort for presentation next week
+2. **[Priority]** - Finish TL migration performance testing capture
+3. **[Priority]** - Image update: test changes
+4. **[Priority]** - Copy Global Protect deployment to QA
 
 ### [Date: Wednesday, August 13, 2026]
 
@@ -54,34 +123,40 @@ tags: [journal]
     * BSOD Tickets
       * ~~deploy full memory dumps configuration~~
       * ~~test configuration~~
-      * send memory.dmp, if approved
+      * ~~send memory.dmp, if approved~~
     * Knowledge transfer: TS and image update
       * working on getting access (Mo)
     * GlobalProtect deployment
       * Make a script available to fix service
   * Tasks (started)
-    * Recast
-      * Planning prod implementation for SCR
-    * Modernize OSD (replace MDT integration in TS)
-	    * Working with Dexter on testing
-    * Reporting dashboard for WHEAs
-    * MECM Content Distribution Strategy Using DP Groups
-      * Need to discuss with Bill
-      * Script created to 
-        * identify content distribution
-      * create distribution groups
-      * re-distribute content based on current assignments
-      * Stil need to document
-    * Functional Folder Structure and Naming Conventions for Device Collections
-      * Need to discuss with Bill
-      * Once a structure is agreed on, we'll make changes in QA
-      * Need to develop
-        * Script to capture all objects and paths
-      * Script to create new structure
-      * Script to move objects 
-      * Script to rollback
-    * POC: Alerts to Telegram
-      * This was done, just put a demo together
+    * Priority 1
+    * Priority 2
+      * Recast
+        * Planning prod implementation for SCR
+        * POC for support meeting
+        * Contact Recast to extend QA license
+      * Modernize OSD (replace MDT integration in TS)
+        * Working with Dexter on testing
+      * MECM Content Distribution Strategy Using DP Groups
+        * Need to discuss with Bill
+        * Script (1st draft) created to 
+          * identify content distribution
+          * create distribution groups
+          * re-distribute content based on current assignments
+        * Still need to test and document
+      * Replace Fanny's Software Install solution
+    * Priority 3
+      * Reporting dashboard for WHEAs
+      * Functional Folder Structure and Naming Conventions for Device Collections
+        * Need to discuss with Bill
+        * Once a structure is agreed on, we'll make changes in QA
+        * Need to develop
+          * Script to capture all objects and paths
+          * Script to create new structure
+          * Script to move objects 
+          * Script to rollback
+      * POC: Alerts to Telegram
+        * This was done, just put a demo together    
   * Tasks (not started)
     * Options to replace Software Install
     * User Assignment - add for new/replacement devices
