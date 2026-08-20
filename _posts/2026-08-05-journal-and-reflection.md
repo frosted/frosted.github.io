@@ -37,12 +37,44 @@ tags: [journal]
 ---End Copy and paste region
 -->
 
-## The Four Quadrants (Impact vs. Effort)
+## The Four Quadrants Prioritization (Impact vs. Effort)
 
-| | **Low Effort** | **High Effort** |
-| :--- | :--- | :--- |
-| **High Impact** | **1. Quick Wins**<br>Do these tasks first. They give you the best results for little work. | **2. Major Projects**<br>Plan these. They take more time but bring great long-term value. |
-| **Low Impact** | **3. Fill-ins**<br>Delegate these or do them when you have extra free time. | **4. Thankless Tasks**<br>Drop or avoid these. They waste time and add little value. |
+<!--
+🟢 **Quick Win** (Do First) 
+🟡 **Fill-in** (Do Later)
+🔵 **Major Project** (Plan)
+🔴 **Thankless Task** (Drop)
+
+| Impact \ Effort | **1** | **2** | **3** | **4** | **5** |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| **1** | 🔵 **1.0** | 🔴 **0.5** | 🔴 **0.3** | 🔴 **0.2** | 🔴 **0.2** |
+| **2** | 🟢 **2.0** | 🔵 **1.0** | 🔴 **0.7** | 🔴 **0.5** | 🔴 **0.4** |
+| **3** | 🟢 **3.0** | 🔵 **1.5** | 🔵 **1.0** | 🔴 **0.8** | 🔴 **0.6** |
+| **4** | 🟢 **4.0** | 🟢 **2.0** | 🔵 **1.3** | 🔵 **1.0** | 🔴 **0.8** |
+| **5** | 🟢 **5.0** | 🟢 **2.5** | 🔵 **1.7** | 🔵 **1.2** | 🔵 **1.0** |
+
+New Line:
+| **** |  |  | **** |  |
+-->
+
+
+| Task / Feature | Impact (1-5) | Effort (1-5) | Priority Score | Quadrant / Action |
+| :--- | :---: | :---: | :---: | :--- |
+| **Self-Service VPN Client Deployment** | 4 | 2 | **2.0** | 🟢 **Quick Win** (Do First) |
+| **User Assignment in TS** | 2 | 1 | **2** | 🟢 **Quick Win** (Do First) |
+| **Limit BSOD Export to 60 days** | 2 | 1 | **2.0** | 🟢 **Quick Win** (Do First) |
+| **Recast Patching** | 5 | 4 | **1.2** | 🔵 **Major Project** (Plan) |
+| **Windows Patching Review** | 3 | 3 | **1.0** | 🔵 **Major Project** (Plan) |
+| **Chrome Deployment** | 3 | 2 | **1.5** | 🔵 **Major Project** (Plan) |
+| **PXE Boot Failures** | 3 | 3 | **1.0** | 🔵 **Major Project** (Plan) |
+| **Remediate and Replace Deprecated MDT Integration** | 4 | 4 | **1.0** | 🔵 **Major Project** (Plan) |
+| **Replace Legacy Software Install** | 5 | 4 | **1.2** | 🔵 **Major Project** (Plan) |
+| **Self-Service Remediation Tools** | 5 | 4 | **1.2** | 🔵 **Major Project** (Plan) |
+| **Functional Folder Structure and Naming Conventions for Device Collections** | 4 | 4 | **1.0** | 🔵 **Major Project** (Plan) |
+| **BSOD Repo Cleanup** | 1 | 2 | **0.5** | 🔴 **Thankless Task** (Drop) |
+| **Finish TL Migration Performance Testing** | 1 | 2 | **0.5** | 🔴 **Thankless Task** (Drop) |
+| **MECM Content Distribution Strategy** | 2 | 3 | **0.7** | 🔴 **Thankless Task** (Drop) |
+
 
 ## 2026
 
