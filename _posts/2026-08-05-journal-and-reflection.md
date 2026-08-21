@@ -42,7 +42,7 @@ tags: [journal]
 <!--
 🟢 **Quick Win** (Do First) 
 🟡 **Fill-in** (Do Later)
-🔵 **Major Project** (Plan)
+🔵 **Major Effort** (Plan)
 🔴 **Thankless Task** (Drop)
 
 | Impact \ Effort | **1** | **2** | **3** | **4** | **5** |
@@ -60,17 +60,18 @@ New Line:
 
 | Task / Feature | Impact (1-5) | Effort (1-5) | Priority Score | Quadrant / Action |
 | :--- | :---: | :---: | :---: | :--- |
-| **Self-Service VPN Client Deployment** | 4 | 2 | **2.0** | 🟢 **Quick Win** (Do First) |
+| ~~**Self-Service VPN Client Deployment**~~ | 4 | 2 | **2.0** | 🟢 **Quick Win** (Do First) |
 | **User Assignment in TS** | 2 | 1 | **2** | 🟢 **Quick Win** (Do First) |
-| **Limit BSOD Export to 60 days** | 2 | 1 | **2.0** | 🟢 **Quick Win** (Do First) |
-| **Recast Patching** | 5 | 4 | **1.2** | 🔵 **Major Project** (Plan) |
-| **Windows Patching Review** | 3 | 3 | **1.0** | 🔵 **Major Project** (Plan) |
-| **Chrome Deployment** | 3 | 2 | **1.5** | 🔵 **Major Project** (Plan) |
-| **PXE Boot Failures** | 3 | 3 | **1.0** | 🔵 **Major Project** (Plan) |
-| **Remediate and Replace Deprecated MDT Integration** | 4 | 4 | **1.0** | 🔵 **Major Project** (Plan) |
-| **Replace Legacy Software Install** | 5 | 4 | **1.2** | 🔵 **Major Project** (Plan) |
-| **Self-Service Remediation Tools** | 5 | 4 | **1.2** | 🔵 **Major Project** (Plan) |
-| **Functional Folder Structure and Naming Conventions for Device Collections** | 4 | 4 | **1.0** | 🔵 **Major Project** (Plan) |
+| ~~**Limit BSOD Export to 60 days**~~ | 2 | 1 | **2.0** | 🟢 **Quick Win** (Do First) |
+| **Windows Patching Review** | 3 | 1 | **3.0** | 🟢 **Quick Win** (Do First) |
+| ~~**Recast Patching QA**~~ | 5 | 4 | **1.2** | 🔵 **Major Effort** (Plan) |
+| **Recast Patching Prod** | 5 | 4 | **1.2** | 🔵 **Major Effort** (Plan) |
+| **Chrome Deployment** | 3 | 2 | **1.5** | 🔵 **Major Effort** (Plan) |
+| **PXE Boot Failures** | 3 | 3 | **1.0** | 🔵 **Major Effort** (Plan) |
+| **Remediate and Replace Deprecated MDT Integration** | 4 | 4 | **1.0** | 🔵 **Major Effort** (Plan) |
+| **Replace Legacy Software Install** | 5 | 4 | **1.2** | 🔵 **Major Effort** (Plan) |
+| **Self-Service Remediation Tools** | 5 | 4 | **1.2** | 🔵 **Major Effort** (Plan) |
+| **Functional Folder Structure and Naming Conventions for Device Collections** | 4 | 4 | **1.0** | 🔵 **Major Effort** (Plan) |
 | **BSOD Repo Cleanup** | 1 | 2 | **0.5** | 🔴 **Thankless Task** (Drop) |
 | **Finish TL Migration Performance Testing** | 1 | 2 | **0.5** | 🔴 **Thankless Task** (Drop) |
 | **MECM Content Distribution Strategy** | 2 | 3 | **0.7** | 🔴 **Thankless Task** (Drop) |
@@ -78,12 +79,14 @@ New Line:
 
 ## 2026
 
+<!--
+
 #### This week's Accomplishments & Wins
 * [Insert concrete win or major completed milestone from today]
 * [Insert positive feedback received, a breakthrough, or a roadblock cleared]
 * [Insert a minor task you are proud of finally wrapping up]
 
-### [Date: Thursday, August 20, 2026]
+### [Date: Monday, August 24, 2026]
 
 #### Running Daily Log
 * [Quick bullet on internal/external meetings held and key outcomes]
@@ -91,9 +94,71 @@ New Line:
 * [Decisions made, minor conversations, or raw ideas to remember later]
 
 #### Today's Top Priorities
+1. **[Priority 2]** - PXE Boot failures: plan removeing DHCP options
+2. **[Priority 1]** - User assignment in TS
+3. **[Priority 1]** - Create SCR for user notification settings in SU deployments
+-->
+
+#### This week's Accomplishments & Wins
+* This week I chaired a highly productive session on our upcoming Software Self-Service transition. Rather than running a standard passive briefing, I intentionally shifted my leadership approach to energize and unite the team. By calling out the external pressures and oversimplified expectations around this transition, I gave the group a shared challenge to solve. I highlighted that our team alone possesses the deep operational knowledge required to build a realistic, dependency-aware migration plan. Taking a assertive, high-conviction stance against unrealistic mandates successfully galvanized the team to take full ownership of the process.
+* Last week, Naheen from the service desk reached out to resolve an issue. Afterward, he mentioned his interest in learning PowerShell and Python, and asked about my experience and journey with PowerShell. I shared my background and gave him some tips that helped me over the years.  It is great to see team members who are eager to learn development. I let Naheen know this is a supportive place to build automation skills. It is rewarding to be seen as a subject matter expert in PowerShell and automation, and it makes me think we might have the interest to start an internal PowerShell user group one day.
+
+### [Date: Friday, August 21, 2026]
+
+#### Running Daily Log
+* Modified the BSOD report to report on the last 60 days.  Luckily, I already had a variable for this to limit the results it pulls from the DB
+* BSOD minidump cleanup, \\ts-isfs01.ohhllp.com\appgroupfs$\Tools\Modules\BSOD\BSOD-CentralLogParse_to_SQLite.ps1 Line 947.  Just need to remove whatif and change days from -365 to -60
+* Fixed issue where recast deployments returned error code 1 on install.  Updated the calls to start-adtmsiprocess to return exit code to a variable, and fixed post-initialization session error by generating InstallName before Open-ADTSession, since InstallName is read-only on the PSADT 4.1.5 DeploymentSession object.
+
+#### Today's Top Priorities
+1. ~~**[Priority 1]** - write proposal to suppress all notifications (except restarts) for software updates and request review of 5 day reboot policy~~
+2. ~~**[Priority 1]** - Fix error 0x1(1) in Recast deployments~~
+3. ~~**[Priority 1]** - Limit BSOD Export to 60 days~~
+
+### [Date: Thursday, August 20, 2026]
+
+#### Running Daily Log
+* Transitioning to Software Self-Service
+  * *Meeting Agenda: 
+    * **Goal:** Align the team on how to translate the legacy `installsoftware.ps1` script to MECM Software Center, establish a phased migration roadmap, and estimate the effort required.
+    * **1. Welcome & The Problem Statement: Our Custom Portal Overhead (10 Mins)**
+    * **2. Replicating the Legacy Script in MECM (15 Mins)**
+    * **3. Proposed Phased Migration Roadmap (20 Mins)**
+    * **4. Effort Estimation & Resource Allocation (10 Mins)**
+    ```
+     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+     │   PHASE 1    │     │   PHASE 2    │     │   PHASE 3    │     │   PHASE 4    │     │   PHASE 5    │
+     │  Discovery   │ ──> │ Standardize  │ ──> │    Infra     │ ──> │ Pilot Group  │ ──> │ Go-Live &    │
+     │   & Audit    │     │ & Packaging  │     │  & Branding    │   │   Testing    │     │ Decommission │
+     └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
+    ```
+  * Meeting Notes:
+  *  Security approval required for the installations packaged applications already in our catalog
+    *  Is this really needed?  I understand that historically the approach has been to limit the amount of applications are on a system because we were not updating them.  With tools like Recast, the improved application deployment experience and the additional resources we have on our team, I would recommend we move away from the need to get security involved in approving applications for users.
+    *  We need to publish an app catalogue.  Not all applications will be available firm-wide.  Users need to know what they can request.  We could leverage the request/approval options in MECM.  This is up for further discussion.
+    *  There are one-off requests, often from lawyers, for application installs.  In my opinion, we do not package applications meant for one user.  Can we leverage TL for self updating these apps?  This is up for further discussion.
+  *  JSON:
+    *  We should create a template for tracking information about the deployment in our environment, such as
+       *  Number of licenses, impacted/related applications, testing steps, security group needed, 
+    *  add this link to online documentation in the JSON file
+  *  Define effort
+    *  Creating a new package (new documentation, collecting information abour licenses, testing steps, access, exist in Recast catalogue etc.)
+    *  Packaging a new version of software (reviewing documented information is up-to-date, update testing steps, exist in Recast catalogue etc.)
+    *  We should track effort in the JSON file or in documentation
+  *  Branding:
+    *  Reach out to marketing now
+  *  Packaging Effort:
+    *  start with non-standard apps
+    *  core apps have quarterly apps (when is this?)
+    *  Fanny to estimate packaging effort for each title in the JSON file 
+    *  https://osler.cloudimanage.com/work/link/d/ADMIN_1!43911624.1
+  *  We will get together next week to estimate effort and timelines based on the packaging effort estimate
+* 
+
+#### Today's Top Priorities
 1. **[Priority 1]** - write proposal to suppress all notifications (except restarts) for software updates
 2. **[Priority 1]** - Fix error 0x1(1) in Recast deployments
-3. **[Priority 3]** - Check that partner's system to see if it's compliant now
+3. ~~**[Priority 3]** - Check that partner's system to see if it's compliant now~~
 
 ### [Date: Wednesday, August 19, 2026]
 
@@ -113,10 +178,10 @@ New Line:
 * Helped service desk with another VPN issue.  This is becoming a daily occurance.
 * Reacast in QA
   * Removed
-    * Setting > Installation command: `powershell.exe -ExecutionPolicy Bypass -File ".\RecastAM\Invoke-AppDeployToolkit.ps1" -DeploymentType Install -DeployMode Interactive`
-    * Setting > Uninstallation command: `powershell.exe -ExecutionPolicy Bypass -File ".\RecastAM\Invoke-AppDeployToolkit.ps1" -DeploymentType Uninstall -DeployMode Interactive`
+  * Setting > Installation command: `powershell.exe -ExecutionPolicy Bypass -File ".\RecastAM\Invoke-AppDeployToolkit.ps1" -DeploymentType Install -DeployMode Interactive`
+  * Setting > Uninstallation command: `powershell.exe -ExecutionPolicy Bypass -File ".\RecastAM\Invoke-AppDeployToolkit.ps1" -DeploymentType Uninstall -DeployMode Interactive`
   * Replaced with
-    * Setting > Installation command: `.\RecastAM\Invoke-AppDeployToolkit.exe -DeploymentType Install -DeployMode Interactive`
+  * Setting > Installation command: `.\RecastAM\Invoke-AppDeployToolkit.exe -DeploymentType Install -DeployMode Interactive`
 	* Setting > Uninstallation command: `.\RecastAM\Invoke-AppDeployToolkit.exe -DeploymentType Uninstall -DeployMode Interactive`
   * This failed with 0x1(1) error.
 
@@ -144,54 +209,54 @@ New Line:
 #### Running Daily Log
 * Notes for meeting with Dave:
   * Tasks (this week)
-    * TL migration performance testing
-      * script completed
-      * gathering baseline from Dexter's test system (pre,co-exist,post)
-    * BSOD folder clean-up (26GB)
-      * code ready to add to BSOD automation
-    * PXE boot issues
-      * tested without WDS, still not fixed
-      * planning change to remove DHCP options for discussion with Bill and Henry
-    * BSOD Tickets
-      * ~~deploy full memory dumps configuration~~
-      * ~~test configuration~~
-      * ~~send memory.dmp, if approved~~
-    * Knowledge transfer: TS and image update
-      * working on getting access (Mo)
-    * GlobalProtect deployment
-      * Make a script available to fix service
+  * TL migration performance testing
+    * script completed
+    * gathering baseline from Dexter's test system (pre,co-exist,post)
+  * BSOD folder clean-up (26GB)
+    * code ready to add to BSOD automation
+  * PXE boot issues
+    * tested without WDS, still not fixed
+    * planning change to remove DHCP options for discussion with Bill and Henry
+  * BSOD Tickets
+    * ~~deploy full memory dumps configuration~~
+    * ~~test configuration~~
+    * ~~send memory.dmp, if approved~~
+  * Knowledge transfer: TS and image update
+    * working on getting access (Mo)
+  * GlobalProtect deployment
+    * Make a script available to fix service
   * Tasks (started)
-    * Priority 1
-    * Priority 2
-      * Recast
-        * Planning prod implementation for SCR
-        * POC for support meeting
-        * Contact Recast to extend QA license
-      * Modernize OSD (replace MDT integration in TS)
-        * Working with Dexter on testing
-      * MECM Content Distribution Strategy Using DP Groups
-        * Need to discuss with Bill
-        * Script (1st draft) created to 
-          * identify content distribution
-          * create distribution groups
-          * re-distribute content based on current assignments
-        * Still need to test and document
-      * Replace Fanny's Software Install solution
-    * Priority 3
-      * Reporting dashboard for WHEAs
-      * Functional Folder Structure and Naming Conventions for Device Collections
-        * Need to discuss with Bill
-        * Once a structure is agreed on, we'll make changes in QA
-        * Need to develop
-          * Script to capture all objects and paths
-          * Script to create new structure
-          * Script to move objects 
-          * Script to rollback
-      * POC: Alerts to Telegram
-        * This was done, just put a demo together    
+  * Priority 1
+  * Priority 2
+    * Recast
+    * Planning prod implementation for SCR
+    * POC for support meeting
+    * Contact Recast to extend QA license
+    * Modernize OSD (replace MDT integration in TS)
+    * Working with Dexter on testing
+    * MECM Content Distribution Strategy Using DP Groups
+    * Need to discuss with Bill
+    * Script (1st draft) created to 
+      * identify content distribution
+      * create distribution groups
+      * re-distribute content based on current assignments
+    * Still need to test and document
+    * Replace Fanny's Software Install solution
+  * Priority 3
+    * Reporting dashboard for WHEAs
+    * Functional Folder Structure and Naming Conventions for Device Collections
+    * Need to discuss with Bill
+    * Once a structure is agreed on, we'll make changes in QA
+    * Need to develop
+      * Script to capture all objects and paths
+      * Script to create new structure
+      * Script to move objects 
+      * Script to rollback
+    * POC: Alerts to Telegram
+    * This was done, just put a demo together    
   * Tasks (not started)
-    * Options to replace Software Install
-    * User Assignment - add for new/replacement devices
+  * Options to replace Software Install
+  * User Assignment - add for new/replacement devices
   
 
 #### Tomorrow's Top 3 Priorities
@@ -208,7 +273,7 @@ New Line:
 * Meeting with Dave
   * Performance concerns regarding lack of transparency with team, attendance, responsiveness (teams, e-mail), having to be chased for updates - specifically for tasks from Dave.
   * Plan to address concerns:
-    * Transparency
+  * Transparency
 	  * Prepare for one-on-one with all tasks currently on my plate so things can be prioritized or re/unassigned
 	  * Use these logs to send updates to team on what I'm doing
 	* Attendance
@@ -296,9 +361,9 @@ New Line:
 * ThreatLocker project meeting
   * DB asked for performance metrics across all the three stages of this deployment.
   * Deployment stages:
-    * Pre-switch (Carbon Black baseline)
-    * Co-existence (ThreatLocker in Learning Mode)
-    * Post-switch (ThreatLocker Enforce)
+  * Pre-switch (Carbon Black baseline)
+  * Co-existence (ThreatLocker in Learning Mode)
+  * Post-switch (ThreatLocker Enforce)
   * Due by EOW
 * PXE Responder has been enabled in QA to mitigate the PXE boot issues observed after Microsoft's Secure Boot certificate updates. We are currently validating the results, and regardless of the outcome, this change modernizes our PXE boot configuration.
 
