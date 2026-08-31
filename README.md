@@ -1,40 +1,56 @@
-# Jekyll Starter
+# Chirpy Starter
 
-> Starting point for Jekyll sites using [Tailwind CSS](https://tailwindcss.com/)
-and [Alpine.js](https://github.com/alpinejs/alpine/).
+[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
+[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
 
-[![Use this template](https://img.shields.io/badge/template-Generate-green?style=for-the-badge)](https://github.com/mloberg/jekyll-starter/generate)
-[![Unlicense](https://img.shields.io/badge/license-Unlicense-blue?style=for-the-badge)](https://choosealicense.com/licenses/unlicense/)
+When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
+`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
+from the theme's gem. If you have ever installed this theme gem, you can use the command
+`bundle info --path jekyll-theme-chirpy` to locate these files.
 
-## Getting Started
+The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
+able to enjoy the out-of-the-box experience when using feature-rich themes.
 
-You'll need [Ruby](https://www.ruby-lang.org/en/), [Bundler](https://bundler.io/),
-and [Node.js](https://nodejs.org/en/) installed. Then install build dependencies
-with
+To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
+Jekyll site. The following is a list of targets:
 
-    npm install
+```shell
+.
+├── _config.yml
+├── _plugins
+├── _tabs
+└── index.html
+```
 
-_Tip_: Be sure to commit the generated `package-lock.json` and `Gemfile.lock` files.
+To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
+latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
 
-Then to build and serve the dev site, run
+## Prerequisites
 
-    npm start
+Follow the instructions in the [Jekyll Docs](https://jekyllrb.com/docs/installation/) to complete the installation of
+the basic environment. [Git](https://git-scm.com/) also needs to be installed.
 
-## What's Included
+## Installation
 
-This is not a Jekyll theme. It's a starting point to create a website using
-[Jekyll](https://jekyllrb.com/), [Tailwind CSS](https://tailwindcss.com/), and
-[Alpine.js](https://github.com/alpinejs/alpine/). The layout includes almost
-nothing, allowing you to start building right away instead of having to remove
-code you won't use.
+Sign in to GitHub and [**use this template**][use-template] to generate a brand new repository and name it
+`USERNAME.github.io`, where `USERNAME` represents your GitHub username.
 
-If you want to start creating posts and pages, we've included the
-[Jekyll::Compose](https://github.com/jekyll/jekyll-compose) plugin.
+Then clone it to your local machine and run:
 
-    bundle exec jekyll page "My New Page"
-    bundle exec jekyll post "My New Post"
+```console
+$ bundle
+```
 
-## Deploying
+## Usage
 
-Includes configuration for deploying to [Netlify](https://www.netlify.com/) and
-[GitHub Pages](https://pages.github.com/) (via GitHub Actions).
+Please see the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy#documentation).
+
+## License
+
+This work is published under [MIT][mit] License.
+
+[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
+[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
+[use-template]: https://github.com/cotes2020/chirpy-starter/generate
+[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
+[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
