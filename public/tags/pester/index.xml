@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pester on Ed Frost</title>
+    <link>http://localhost:1313/tags/pester/</link>
+    <description>Recent content in Pester on Ed Frost</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 24 Aug 2026 09:00:00 +0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/pester/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Scaling Your Scripts - Version Control and Collaboration with Azure DevOps</title>
+      <link>http://localhost:1313/posts/2026-08-24-scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</link>
+      <pubDate>Mon, 24 Aug 2026 09:00:00 +0500</pubDate>
+      <guid>http://localhost:1313/posts/2026-08-24-scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</guid>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;In the last post, we covered [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %}) and why exporting Intune configurations to JSON gives you an operational undo button.&lt;/p&gt;
+&lt;p&gt;The next step is bigger than backups: collaboration.&lt;/p&gt;
+&lt;p&gt;When your scripts grow from one-admin utilities into team-owned automation, you need more than a folder of &lt;code&gt;.ps1&lt;/code&gt; files. You need structure, review, and repeatable delivery. This is where Azure DevOps becomes a full collaboration suite for IT Ops.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

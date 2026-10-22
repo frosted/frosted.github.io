@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Intune | Ed Frost</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/tags/intune/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2fd9135862a3da866393a267370bb97cd812193a02eb63558b88b00f30ec3648.css" integrity="sha256-L9kTWGKj2oZjk6JnNwu5fNgSGToC62NVi4iwDzDsNkg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/intune/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/intune/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/tags/intune/">
+  <meta property="og:site_name" content="Ed Frost">
+  <meta property="og:title" content="Intune">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Intune">
+
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Ed Frost (Alt + H)">Ed Frost</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search">
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    Intune
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Building Your Sandbox - Automating a Disposable Microsoft Intune Lab
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction If you have ever stared at a PowerShell script and thought, “This looks right… but what if it deletes the wrong thing in production?”, you are not alone.
+That anxiety is real, especially with scripts that make changes at scale. A script like [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %}) is powerful, but running it first in a live environment is not a strategy. It is a risk.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-26T09:00:00+05:00'>August 26, 2026</span>&nbsp;·&nbsp;<span>11 min</span></footer>
+  <a class="entry-link" aria-label="post link to Building Your Sandbox - Automating a Disposable Microsoft Intune Lab" href="http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">The &#34;Self-Documenting&#34; Tenant - Exporting Intune to Markdown
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction Every Intune admin knows the documentation trap.
+You spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.
+Now your documentation is stale.
+That is documentation debt: the gap between what your environment is and what your docs claim it is. Manual documentation will always lose this race. The only real cure is automation.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-25T09:00:00+05:00'>August 25, 2026</span>&nbsp;·&nbsp;<span>5 min</span></footer>
+  <a class="entry-link" aria-label="post link to The &#34;Self-Documenting&#34; Tenant - Exporting Intune to Markdown" href="http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Scaling Your Scripts - Version Control and Collaboration with Azure DevOps
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction In the last post, we covered [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %}) and why exporting Intune configurations to JSON gives you an operational undo button.
+The next step is bigger than backups: collaboration.
+When your scripts grow from one-admin utilities into team-owned automation, you need more than a folder of .ps1 files. You need structure, review, and repeatable delivery. This is where Azure DevOps becomes a full collaboration suite for IT Ops.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-24T09:00:00+05:00'>August 24, 2026</span>&nbsp;·&nbsp;<span>4 min</span></footer>
+  <a class="entry-link" aria-label="post link to Scaling Your Scripts - Version Control and Collaboration with Azure DevOps" href="http://localhost:1313/posts/2026-08-24-scaling-your-scripts-version-control-and-collaboration-with-azure-devops/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Infrastructure as Code (IaC) for Intune - Moving Beyond Manual Management
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction If you have managed Intune long enough, you have probably lived this moment: a small manual change in the portal looks harmless, but hours later devices drift, settings conflict, and troubleshooting turns into guesswork.
+That is where Infrastructure as Code (IaC) changes the game.
+In the Intune world, IaC means defining your configurations as code and deploying them through repeatable automation instead of manual portal-clicking. It is not just a “developer” concept. For IT operations, this is how we make ops easy: fewer human errors, cleaner changes, faster rollbacks, and better scale.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-23T09:00:00+05:00'>August 23, 2026</span>&nbsp;·&nbsp;<span>5 min</span></footer>
+  <a class="entry-link" aria-label="post link to Infrastructure as Code (IaC) for Intune - Moving Beyond Manual Management" href="http://localhost:1313/posts/2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Configuration Profile Version Control
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction You make what looks like a tiny configuration change in Intune at 4:45 PM. Maybe it is a compliance setting tweak, maybe a settings catalog update for BitLocker, maybe a policy assignment adjustment.
+By 5:10 PM, helpdesk tickets start rolling in. Devices are reporting unexpected behavior, users cannot complete a task they could do an hour earlier, and everyone asks the same question: “What changed?”
+This is exactly where modern operations need an undo button.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-28T22:02:00+05:00'>July 28, 2026</span>&nbsp;·&nbsp;<span>6 min</span></footer>
+  <a class="entry-link" aria-label="post link to Configuration Profile Version Control" href="http://localhost:1313/posts/2026-07-28-configuration-profile-version-control/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Managing Intune Resources with PowerShell - Essential Commands and Tasks
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction Now that we’ve covered the basics of connecting to Microsoft Intune with PowerShell, it’s time to dive into managing Intune resources. In this post, I’ll introduce essential PowerShell commands for managing devices, configurations, and policies. By the end, you’ll have a toolkit of commands to simplify your day-to-day Intune administration tasks.
+All examples in this article use the current Microsoft Graph PowerShell SDK cmdlets.
+Why Manage Intune with PowerShell? While the Intune admin portal offers a robust UI, PowerShell allows you to automate repetitive tasks and handle complex scenarios efficiently. Whether you’re managing hundreds or thousands of devices, automating with PowerShell helps you keep the environment consistent, secure, and up-to-date.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2024-11-10T16:03:00+05:00'>November 10, 2024</span>&nbsp;·&nbsp;<span>4 min</span></footer>
+  <a class="entry-link" aria-label="post link to Managing Intune Resources with PowerShell - Essential Commands and Tasks" href="http://localhost:1313/posts/2024-11-10-essential-commands-and-tasks/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Automate Device Cleanup in Microsoft Intune with PowerShell
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.
+In this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2024-11-03T20:13:00+05:00'>November 3, 2024</span>&nbsp;·&nbsp;<span>4 min</span></footer>
+  <a class="entry-link" aria-label="post link to Automate Device Cleanup in Microsoft Intune with PowerShell" href="http://localhost:1313/posts/2024-11-03-automate-intune-device-cleanup/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Getting Started with PowerShell for Intune - Connecting to Intune
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction If you’re working with Microsoft Intune, automating tasks with PowerShell can make your life a lot easier. Before you can dive into creating scripts or managing Intune assets, you’ll need to set up a secure connection between PowerShell and your Intune environment.
+In this post, I’ll walk you through the step-by-step process of connecting to Intune using PowerShell, discuss the modules involved, and explain what’s happening behind the scenes.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2024-10-27T19:03:00+05:00'>October 27, 2024</span>&nbsp;·&nbsp;<span>5 min</span></footer>
+  <a class="entry-link" aria-label="post link to Getting Started with PowerShell for Intune - Connecting to Intune" href="http://localhost:1313/posts/2024-10-27-connecting-intune/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">Ed Frost</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

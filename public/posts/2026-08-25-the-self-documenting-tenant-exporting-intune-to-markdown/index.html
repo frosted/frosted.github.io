@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The &#34;Self-Documenting&#34; Tenant - Exporting Intune to Markdown | Ed Frost</title>
+<meta name="keywords" content="powershell, graph, intune, api, devops, documentation">
+<meta name="description" content="Introduction
+Every Intune admin knows the documentation trap.
+You spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.
+Now your documentation is stale.
+That is documentation debt: the gap between what your environment is and what your docs claim it is. Manual documentation will always lose this race. The only real cure is automation.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2fd9135862a3da866393a267370bb97cd812193a02eb63558b88b00f30ec3648.css" integrity="sha256-L9kTWGKj2oZjk6JnNwu5fNgSGToC62NVi4iwDzDsNkg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/">
+  <meta property="og:site_name" content="Ed Frost">
+  <meta property="og:title" content="The &#34;Self-Documenting&#34; Tenant - Exporting Intune to Markdown">
+  <meta property="og:description" content="Introduction Every Intune admin knows the documentation trap.
+You spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.
+Now your documentation is stale.
+That is documentation debt: the gap between what your environment is and what your docs claim it is. Manual documentation will always lose this race. The only real cure is automation.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-08-25T09:00:00+05:00">
+    <meta property="article:modified_time" content="2026-08-25T09:00:00+05:00">
+    <meta property="article:tag" content="Powershell">
+    <meta property="article:tag" content="Graph">
+    <meta property="article:tag" content="Intune">
+    <meta property="article:tag" content="Api">
+    <meta property="article:tag" content="Devops">
+    <meta property="article:tag" content="Documentation">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The &#34;Self-Documenting&#34; Tenant - Exporting Intune to Markdown">
+  <meta name="twitter:description" content="Introduction Every Intune admin knows the documentation trap.
+You spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.
+Now your documentation is stale.
+That is documentation debt: the gap between what your environment is and what your docs claim it is. Manual documentation will always lose this race. The only real cure is automation.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "The \"Self-Documenting\" Tenant - Exporting Intune to Markdown",
+      "item": "http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The \"Self-Documenting\" Tenant - Exporting Intune to Markdown",
+  "name": "The \u0022Self-Documenting\u0022 Tenant - Exporting Intune to Markdown",
+  "description": "Introduction Every Intune admin knows the documentation trap.\nYou spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.\nNow your documentation is stale.\nThat is documentation debt: the gap between what your environment is and what your docs claim it is. Manual documentation will always lose this race. The only real cure is automation.\n",
+  "keywords": [
+    "powershell", "graph", "intune", "api", "devops", "documentation"
+  ],
+  "articleBody": "Introduction Every Intune admin knows the documentation trap.\nYou spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.\nNow your documentation is stale.\nThat is documentation debt: the gap between what your environment is and what your docs claim it is. Manual documentation will always lose this race. The only real cure is automation.\nThe Goal: A Self-Documenting Tenant A self-documenting tenant is simple in concept:\nUse PowerShell + Microsoft Graph to pull Intune configuration data. Convert the exported data into readable Markdown. Store those Markdown files in Git. Run this on a schedule so docs update automatically. Result: your documentation reflects reality, not memory.\nThis is a practical #powershell #graph #intune #api pattern that builds directly on the same DevOps habits from recent posts: source control, repeatable scripts, and automation-first operations.\nWhy Markdown and Git? Markdown is easy for everyone to read and search, even outside admin tools. Git adds history, diffs, and accountability.\nTogether, they give you:\nHuman-readable technical documentation Version-controlled change tracking Simple collaboration through pull requests A built-in audit timeline without manual note-taking Technical Implementation The script below exports Intune configuration policies, extracts useful settings data, and writes one Markdown file per policy.\nImport-Module Microsoft.Graph.DeviceManagement Connect-MgGraph -Scopes \"DeviceManagementConfiguration.Read.All\" Select-MgProfile -Name \"beta\" $outputRoot = \"./docs/intune/configuration-policies\" if (-not (Test-Path $outputRoot)) { New-Item -Path $outputRoot -ItemType Directory -Force | Out-Null } $policies = Get-MgDeviceManagementConfigurationPolicy -All foreach ($policy in $policies) { $policyId = $policy.Id $policyName = $policy.Name $safeName = ($policyName -replace '[\\\\/:*?\"\u003c\u003e|]', '_') # Pull full policy details with settings $uri = \"https://graph.microsoft.com/beta/deviceManagement/configurationPolicies/$policyId?`$expand=settings\" $detail = Invoke-MgGraphRequest -Method GET -Uri $uri $lines = New-Object System.Collections.Generic.List[string] $lines.Add(\"# $policyName\") | Out-Null $lines.Add(\"\") | Out-Null $lines.Add(\"- **Policy ID**: $($detail.id)\") | Out-Null $lines.Add(\"- **Description**: $($detail.description)\") | Out-Null $lines.Add(\"- **Platforms**: $($detail.platforms)\") | Out-Null $lines.Add(\"- **Technologies**: $($detail.technologies)\") | Out-Null $lines.Add(\"- **Last Exported (UTC)**: $(Get-Date -AsUTC -Format 'yyyy-MM-dd HH:mm:ss')\") | Out-Null $lines.Add(\"\") | Out-Null $lines.Add(\"## Settings\") | Out-Null $lines.Add(\"\") | Out-Null $lines.Add(\"| Setting | Value |\") | Out-Null $lines.Add(\"|---|---|\") | Out-Null # Parse settings into a readable Markdown table foreach ($setting in $detail.settings) { $settingName = $setting.settingDefinitionId # Settings values can be nested; convert to compact JSON for readability $settingValue = ($setting | ConvertTo-Json -Depth 20 -Compress) # Escape markdown pipe characters to keep table structure intact $settingValue = $settingValue -replace '\\|', '\\|' $lines.Add(\"| $settingName | $settingValue |\") | Out-Null } if (-not $detail.settings -or $detail.settings.Count -eq 0) { $lines.Add(\"| _No explicit settings returned_ | _n/a_ |\") | Out-Null } $filePath = Join-Path $outputRoot \"$safeName.md\" $lines | Set-Content -Path $filePath -Encoding UTF8 Write-Host \"Exported markdown: $filePath\" } Parsing JSON into Useful Markdown Graph responses are rich, but not always immediately readable.\nA practical transformation approach:\nKeep policy metadata at the top (name, ID, platforms, timestamp). Flatten individual settings into rows. Store complex nested values as compact JSON for accuracy. Write one policy per Markdown file to keep docs modular. This gives your team docs that are both human-friendly and technically precise.\nDevOps Automation: Nightly Azure DevOps Pipeline To make this truly self-documenting, run the export automatically on a schedule.\nA nightly pipeline can:\nRun the export script. Detect file changes. Commit updated Markdown to the repo. Push changes, creating an automatic audit trail. Sample Azure DevOps pipeline:\ntrigger: none schedules: - cron: \"0 2 * * *\" displayName: Nightly Intune Markdown Export branches: include: - main always: true pool: vmImage: ubuntu-latest steps: - checkout: self persistCredentials: true - task: PowerShell@2 displayName: Export Intune policies to Markdown inputs: targetType: inline pwsh: true script: | Install-Module Microsoft.Graph -Scope CurrentUser -Force $tenantId = \"$(TENANT_ID)\" $clientId = \"$(CLIENT_ID)\" $clientSecret = \"$(CLIENT_SECRET)\" $secureSecret = ConvertTo-SecureString $clientSecret -AsPlainText -Force $credential = New-Object System.Management.Automation.PSCredential($clientId, $secureSecret) Connect-MgGraph -TenantId $tenantId -ClientSecretCredential $credential ./scripts/export-intune-markdown.ps1 - task: PowerShell@2 displayName: Commit and push documentation changes inputs: targetType: inline pwsh: true script: | git config user.email \"pipeline@frosted.local\" git config user.name \"Frosted Automation\" git add docs/intune/configuration-policies if (git diff --cached --quiet) { Write-Host \"No documentation changes detected.\" } else { git commit -m \"Nightly Intune documentation export\" git push origin HEAD:main } What this means operationally: if someone changes a setting in the Intune portal, the next pipeline run captures that drift in Markdown and commits it to source control automatically.\nValue Proposition: Making Audits and Handover Easy This approach removes fragile tribal knowledge from your operations model.\nFor compliance teams, you get historical, timestamped evidence of how configuration evolved. For new team members, you get searchable, current documentation without waiting for a handover call. For incident response, you can quickly compare yesterday vs today and identify what changed.\nThat is exactly what making ops easy looks like in practice: less guesswork, faster answers, and repeatable transparency.\nOperational Best Practices Keep generated docs in a dedicated folder (for example, docs/intune/configuration-policies). Use a service principal with least-privilege Graph permissions. Protect main with branch policies, even for automation commits if your workflow requires PRs. Add a summary index file that links all exported policy Markdown documents. Pair this pipeline with your existing version-control and IaC flows for a full lifecycle model. Conclusion A self-documenting tenant is not about writing better docs manually. It is about eliminating manual documentation as an operational dependency.\nBy exporting Intune through Graph, transforming it into Markdown, and committing those results automatically, you build living documentation that stays aligned with reality.\nFor modern IT Ops teams, this is a high-leverage move: better audits, easier collaboration, and fewer surprises.\nReferences Microsoft Graph PowerShell SDK Overview Get-MgDeviceManagementConfigurationPolicy Invoke-MgGraphRequest Azure DevOps Pipelines Documentation ",
+  "wordCount" : "937",
+  "inLanguage": "en",
+  "datePublished": "2026-08-25T09:00:00+05:00",
+  "dateModified": "2026-08-25T09:00:00+05:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ed Frost",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Ed Frost (Alt + H)">Ed Frost</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search">
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      The &#34;Self-Documenting&#34; Tenant - Exporting Intune to Markdown
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-08-25T09:00:00+05:00'>August 25, 2026</span>&nbsp;·&nbsp;<span>5 min</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+            <li>
+                <a href="#the-goal-a-self-documenting-tenant" aria-label="The Goal: A Self-Documenting Tenant">The Goal: A Self-Documenting Tenant</a></li>
+            <li>
+                <a href="#why-markdown-and-git" aria-label="Why Markdown and Git?">Why Markdown and Git?</a></li>
+            <li>
+                <a href="#technical-implementation" aria-label="Technical Implementation">Technical Implementation</a></li>
+            <li>
+                <a href="#parsing-json-into-useful-markdown" aria-label="Parsing JSON into Useful Markdown">Parsing JSON into Useful Markdown</a></li>
+            <li>
+                <a href="#devops-automation-nightly-azure-devops-pipeline" aria-label="DevOps Automation: Nightly Azure DevOps Pipeline">DevOps Automation: Nightly Azure DevOps Pipeline</a></li>
+            <li>
+                <a href="#value-proposition-making-audits-and-handover-easy" aria-label="Value Proposition: Making Audits and Handover Easy">Value Proposition: Making Audits and Handover Easy</a></li>
+            <li>
+                <a href="#operational-best-practices" aria-label="Operational Best Practices">Operational Best Practices</a></li>
+            <li>
+                <a href="#conclusion" aria-label="Conclusion">Conclusion</a></li>
+            <li>
+                <a href="#references" aria-label="References">References</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>Every Intune admin knows the documentation trap.</p>
+<p>You spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.</p>
+<p>Now your documentation is stale.</p>
+<p>That is documentation debt: the gap between what your environment is and what your docs claim it is. Manual documentation will always lose this race. The only real cure is automation.</p>
+<h3 id="the-goal-a-self-documenting-tenant">The Goal: A Self-Documenting Tenant<a hidden class="anchor" aria-hidden="true" href="#the-goal-a-self-documenting-tenant">#</a></h3>
+<p>A self-documenting tenant is simple in concept:</p>
+<ol>
+<li>Use PowerShell + Microsoft Graph to pull Intune configuration data.</li>
+<li>Convert the exported data into readable Markdown.</li>
+<li>Store those Markdown files in Git.</li>
+<li>Run this on a schedule so docs update automatically.</li>
+</ol>
+<p>Result: your documentation reflects reality, not memory.</p>
+<p>This is a practical <code>#powershell #graph #intune #api</code> pattern that builds directly on the same DevOps habits from recent posts: source control, repeatable scripts, and automation-first operations.</p>
+<h3 id="why-markdown-and-git">Why Markdown and Git?<a hidden class="anchor" aria-hidden="true" href="#why-markdown-and-git">#</a></h3>
+<p>Markdown is easy for everyone to read and search, even outside admin tools. Git adds history, diffs, and accountability.</p>
+<p>Together, they give you:</p>
+<ul>
+<li>Human-readable technical documentation</li>
+<li>Version-controlled change tracking</li>
+<li>Simple collaboration through pull requests</li>
+<li>A built-in audit timeline without manual note-taking</li>
+</ul>
+<h3 id="technical-implementation">Technical Implementation<a hidden class="anchor" aria-hidden="true" href="#technical-implementation">#</a></h3>
+<p>The script below exports Intune configuration policies, extracts useful settings data, and writes one Markdown file per policy.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Import-Module Microsoft.Graph.DeviceManagement
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Connect-MgGraph -Scopes <span style="color:#e6db74">&#34;DeviceManagementConfiguration.Read.All&#34;</span>
+</span></span><span style="display:flex;"><span>Select-MgProfile -Name <span style="color:#e6db74">&#34;beta&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$outputRoot = <span style="color:#e6db74">&#34;./docs/intune/configuration-policies&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">-not</span> (Test-Path $outputRoot)) {
+</span></span><span style="display:flex;"><span>    New-Item -Path $outputRoot -ItemType Directory -Force | Out-Null
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$policies = Get-MgDeviceManagementConfigurationPolicy -All
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> ($policy <span style="color:#66d9ef">in</span> $policies) {
+</span></span><span style="display:flex;"><span>    $policyId = $policy.Id
+</span></span><span style="display:flex;"><span>    $policyName = $policy.Name
+</span></span><span style="display:flex;"><span>    $safeName = ($policyName <span style="color:#f92672">-replace</span> <span style="color:#e6db74">&#39;[\\/:*?&#34;&lt;&gt;|]&#39;</span>, <span style="color:#e6db74">&#39;_&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Pull full policy details with settings</span>
+</span></span><span style="display:flex;"><span>    $uri = <span style="color:#e6db74">&#34;https://graph.microsoft.com/beta/deviceManagement/configurationPolicies/</span>$policyId<span style="color:#e6db74">?</span><span style="color:#ae81ff">`$</span><span style="color:#e6db74">expand=settings&#34;</span>
+</span></span><span style="display:flex;"><span>    $detail = Invoke-MgGraphRequest -Method GET -Uri $uri
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $lines = New-Object System.Collections.Generic.List[<span style="color:#66d9ef">string</span>]
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;# </span>$policyName<span style="color:#e6db74">&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;- **Policy ID**: </span>$($detail.id)<span style="color:#e6db74">&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;- **Description**: </span>$($detail.description)<span style="color:#e6db74">&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;- **Platforms**: </span>$($detail.platforms)<span style="color:#e6db74">&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;- **Technologies**: </span>$($detail.technologies)<span style="color:#e6db74">&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;- **Last Exported (UTC)**: </span>$(Get-Date -AsUTC -Format <span style="color:#e6db74">&#39;yyyy-MM-dd HH:mm:ss&#39;</span>)<span style="color:#e6db74">&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;## Settings&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;| Setting | Value |&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    $lines.Add(<span style="color:#e6db74">&#34;|---|---|&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Parse settings into a readable Markdown table</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span> ($setting <span style="color:#66d9ef">in</span> $detail.settings) {
+</span></span><span style="display:flex;"><span>        $settingName = $setting.settingDefinitionId
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Settings values can be nested; convert to compact JSON for readability</span>
+</span></span><span style="display:flex;"><span>        $settingValue = ($setting | ConvertTo-Json -Depth <span style="color:#ae81ff">20</span> -Compress)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Escape markdown pipe characters to keep table structure intact</span>
+</span></span><span style="display:flex;"><span>        $settingValue = $settingValue <span style="color:#f92672">-replace</span> <span style="color:#e6db74">&#39;\|&#39;</span>, <span style="color:#e6db74">&#39;\|&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $lines.Add(<span style="color:#e6db74">&#34;| </span>$settingName<span style="color:#e6db74"> | </span>$settingValue<span style="color:#e6db74"> |&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">-not</span> $detail.settings <span style="color:#f92672">-or</span> $detail.settings.Count <span style="color:#f92672">-eq</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        $lines.Add(<span style="color:#e6db74">&#34;| _No explicit settings returned_ | _n/a_ |&#34;</span>) | Out-Null
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $filePath = Join-Path $outputRoot <span style="color:#e6db74">&#34;</span>$safeName<span style="color:#e6db74">.md&#34;</span>
+</span></span><span style="display:flex;"><span>    $lines | Set-Content -Path $filePath -Encoding UTF8
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;Exported markdown: </span>$filePath<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="parsing-json-into-useful-markdown">Parsing JSON into Useful Markdown<a hidden class="anchor" aria-hidden="true" href="#parsing-json-into-useful-markdown">#</a></h3>
+<p>Graph responses are rich, but not always immediately readable.</p>
+<p>A practical transformation approach:</p>
+<ol>
+<li>Keep policy metadata at the top (name, ID, platforms, timestamp).</li>
+<li>Flatten individual settings into rows.</li>
+<li>Store complex nested values as compact JSON for accuracy.</li>
+<li>Write one policy per Markdown file to keep docs modular.</li>
+</ol>
+<p>This gives your team docs that are both human-friendly and technically precise.</p>
+<h3 id="devops-automation-nightly-azure-devops-pipeline">DevOps Automation: Nightly Azure DevOps Pipeline<a hidden class="anchor" aria-hidden="true" href="#devops-automation-nightly-azure-devops-pipeline">#</a></h3>
+<p>To make this truly self-documenting, run the export automatically on a schedule.</p>
+<p>A nightly pipeline can:</p>
+<ol>
+<li>Run the export script.</li>
+<li>Detect file changes.</li>
+<li>Commit updated Markdown to the repo.</li>
+<li>Push changes, creating an automatic audit trail.</li>
+</ol>
+<p>Sample Azure DevOps pipeline:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">trigger</span>: <span style="color:#ae81ff">none</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">schedules</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">cron</span>: <span style="color:#e6db74">&#34;0 2 * * *&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">displayName</span>: <span style="color:#ae81ff">Nightly Intune Markdown Export</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">include</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">always</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">pool</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">vmImage</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">checkout</span>: <span style="color:#ae81ff">self</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">persistCredentials</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">task</span>: <span style="color:#ae81ff">PowerShell@2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">displayName</span>: <span style="color:#ae81ff">Export Intune policies to Markdown</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetType</span>: <span style="color:#ae81ff">inline</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">pwsh</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      Install-Module Microsoft.Graph -Scope CurrentUser -Force
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      $tenantId = &#34;$(TENANT_ID)&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      $clientId = &#34;$(CLIENT_ID)&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      $clientSecret = &#34;$(CLIENT_SECRET)&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      $secureSecret = ConvertTo-SecureString $clientSecret -AsPlainText -Force
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      $credential = New-Object System.Management.Automation.PSCredential($clientId, $secureSecret)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      Connect-MgGraph -TenantId $tenantId -ClientSecretCredential $credential
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      ./scripts/export-intune-markdown.ps1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">task</span>: <span style="color:#ae81ff">PowerShell@2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">displayName</span>: <span style="color:#ae81ff">Commit and push documentation changes</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetType</span>: <span style="color:#ae81ff">inline</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">pwsh</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git config user.email &#34;pipeline@frosted.local&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git config user.name &#34;Frosted Automation&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git add docs/intune/configuration-policies
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      if (git diff --cached --quiet) {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Write-Host &#34;No documentation changes detected.&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      else {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        git commit -m &#34;Nightly Intune documentation export&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        git push origin HEAD:main
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      }</span>
+</span></span></code></pre></div><p>What this means operationally: if someone changes a setting in the Intune portal, the next pipeline run captures that drift in Markdown and commits it to source control automatically.</p>
+<h3 id="value-proposition-making-audits-and-handover-easy">Value Proposition: Making Audits and Handover Easy<a hidden class="anchor" aria-hidden="true" href="#value-proposition-making-audits-and-handover-easy">#</a></h3>
+<p>This approach removes fragile tribal knowledge from your operations model.</p>
+<p>For compliance teams, you get historical, timestamped evidence of how configuration evolved.
+For new team members, you get searchable, current documentation without waiting for a handover call.
+For incident response, you can quickly compare yesterday vs today and identify what changed.</p>
+<p>That is exactly what making ops easy looks like in practice: less guesswork, faster answers, and repeatable transparency.</p>
+<h3 id="operational-best-practices">Operational Best Practices<a hidden class="anchor" aria-hidden="true" href="#operational-best-practices">#</a></h3>
+<ol>
+<li>Keep generated docs in a dedicated folder (for example, <code>docs/intune/configuration-policies</code>).</li>
+<li>Use a service principal with least-privilege Graph permissions.</li>
+<li>Protect <code>main</code> with branch policies, even for automation commits if your workflow requires PRs.</li>
+<li>Add a summary index file that links all exported policy Markdown documents.</li>
+<li>Pair this pipeline with your existing version-control and IaC flows for a full lifecycle model.</li>
+</ol>
+<h3 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h3>
+<p>A self-documenting tenant is not about writing better docs manually. It is about eliminating manual documentation as an operational dependency.</p>
+<p>By exporting Intune through Graph, transforming it into Markdown, and committing those results automatically, you build living documentation that stays aligned with reality.</p>
+<p>For modern IT Ops teams, this is a high-leverage move: better audits, easier collaboration, and fewer surprises.</p>
+<h3 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/powershell/microsoftgraph/overview">Microsoft Graph PowerShell SDK Overview</a></li>
+<li><a href="https://learn.microsoft.com/powershell/module/microsoft.graph.devicemanagement/get-mgdevicemanagementconfigurationpolicy">Get-MgDeviceManagementConfigurationPolicy</a></li>
+<li><a href="https://learn.microsoft.com/powershell/module/microsoft.graph.authentication/invoke-mggraphrequest">Invoke-MgGraphRequest</a></li>
+<li><a href="https://learn.microsoft.com/azure/devops/pipelines/?view=azure-devops">Azure DevOps Pipelines Documentation</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/powershell/">Powershell</a></li>
+      <li><a href="http://localhost:1313/tags/graph/">Graph</a></li>
+      <li><a href="http://localhost:1313/tags/intune/">Intune</a></li>
+      <li><a href="http://localhost:1313/tags/api/">Api</a></li>
+      <li><a href="http://localhost:1313/tags/devops/">Devops</a></li>
+      <li><a href="http://localhost:1313/tags/documentation/">Documentation</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">Ed Frost</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

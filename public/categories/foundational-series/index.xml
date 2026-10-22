@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Foundational Series on Ed Frost</title>
+    <link>http://localhost:1313/categories/foundational-series/</link>
+    <description>Recent content in Foundational Series on Ed Frost</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 26 Aug 2026 09:00:00 +0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/foundational-series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building Your Sandbox - Automating a Disposable Microsoft Intune Lab</title>
+      <link>http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/</link>
+      <pubDate>Wed, 26 Aug 2026 09:00:00 +0500</pubDate>
+      <guid>http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/</guid>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;If you have ever stared at a PowerShell script and thought, &amp;ldquo;This looks right&amp;hellip; but what if it deletes the wrong thing in production?&amp;rdquo;, you are not alone.&lt;/p&gt;
+&lt;p&gt;That anxiety is real, especially with scripts that make changes at scale. A script like [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %}) is powerful, but running it first in a live environment is not a strategy. It is a risk.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Managing Intune Resources with PowerShell - Essential Commands and Tasks</title>
+      <link>http://localhost:1313/posts/2024-11-10-essential-commands-and-tasks/</link>
+      <pubDate>Sun, 10 Nov 2024 16:03:00 +0500</pubDate>
+      <guid>http://localhost:1313/posts/2024-11-10-essential-commands-and-tasks/</guid>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Now that we’ve covered the basics of connecting to Microsoft Intune with PowerShell, it’s time to dive into managing Intune resources. In this post, I’ll introduce essential PowerShell commands for managing devices, configurations, and policies. By the end, you’ll have a toolkit of commands to simplify your day-to-day Intune administration tasks.&lt;/p&gt;
+&lt;p&gt;All examples in this article use the current Microsoft Graph PowerShell SDK cmdlets.&lt;/p&gt;
+&lt;h3 id=&#34;why-manage-intune-with-powershell&#34;&gt;Why Manage Intune with PowerShell?&lt;/h3&gt;
+&lt;p&gt;While the Intune admin portal offers a robust UI, PowerShell allows you to automate repetitive tasks and handle complex scenarios efficiently. Whether you’re managing hundreds or thousands of devices, automating with PowerShell helps you keep the environment consistent, secure, and up-to-date.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Automate Device Cleanup in Microsoft Intune with PowerShell</title>
+      <link>http://localhost:1313/posts/2024-11-03-automate-intune-device-cleanup/</link>
+      <pubDate>Sun, 03 Nov 2024 20:13:00 +0500</pubDate>
+      <guid>http://localhost:1313/posts/2024-11-03-automate-intune-device-cleanup/</guid>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.&lt;/p&gt;
+&lt;p&gt;In this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Getting Started with PowerShell for Intune - Connecting to Intune</title>
+      <link>http://localhost:1313/posts/2024-10-27-connecting-intune/</link>
+      <pubDate>Sun, 27 Oct 2024 19:03:00 +0500</pubDate>
+      <guid>http://localhost:1313/posts/2024-10-27-connecting-intune/</guid>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;If you’re working with Microsoft Intune, automating tasks with PowerShell can make your life a lot easier. Before you can dive into creating scripts or managing Intune assets, you’ll need to set up a secure connection between PowerShell and your Intune environment.&lt;/p&gt;
+&lt;p&gt;In this post, I’ll walk you through the step-by-step process of connecting to Intune using PowerShell, discuss the modules involved, and explain what’s happening behind the scenes.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

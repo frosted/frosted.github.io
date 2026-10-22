@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Resume on Ed Frost</title>
+    <link>http://localhost:1313/tags/resume/</link>
+    <description>Recent content in Resume on Ed Frost</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 24 Aug 2026 00:00:00 +0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/resume/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CV</title>
+      <link>http://localhost:1313/posts/2026-08-26-cv/</link>
+      <pubDate>Mon, 24 Aug 2026 00:00:00 +0500</pubDate>
+      <guid>http://localhost:1313/posts/2026-08-26-cv/</guid>
+      <description>&lt;h1 id=&#34;ed-frost&#34;&gt;Ed Frost&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Senior Consultant | Endpoint Management Architect | PowerShell Automation Expert&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Driving Innovation, Fleet Health &amp;amp; Enterprise Automation&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;technical-specializations&#34;&gt;&lt;strong&gt;Technical Specializations&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PowerShell Automation:&lt;/strong&gt; Advanced scripting, error handling, robust script architecture, reusable modules, crash dump analysis, Microsoft Graph API integration&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Endpoint Management:&lt;/strong&gt; Microsoft Endpoint Configuration Manager (MECM), Microsoft Intune, Windows Autopilot, Software Center, OS Deployment (OSD), PSADT&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;System Configuration:&lt;/strong&gt; Windows 10/11, Group Policy (GPO), OS hardening, desktop imaging, compliance baselines&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Reporting &amp;amp; Dashboards:&lt;/strong&gt; Power BI, custom web/PowerShell compliance dashboards, real-time fleet telemetry&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Environments &amp;amp; Tools:&lt;/strong&gt; Azure AD / Entra ID, Windows Server, VMware Horizon, Visual Studio Code, AdminStudio, Ivanti, JAMF, AirWatch, GitHub&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

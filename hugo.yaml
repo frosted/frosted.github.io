@@ -1,0 +1,43 @@
+baseURL: "https://frosted.github.io/"
+title: "Ed Frost"
+theme: "PaperMod"
+
+paginate: 5
+enableRobotsTXT: true
+
+params:
+  env: "production"
+  defaultTheme: "auto"
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowCodeCopyButtons: true
+  ShowToc: true
+
+  # Profile / Hero mode on the homepage
+  profileMode:
+    enabled: true
+    title: "Ed Frost"
+    subtitle: "Senior Endpoint Architect & IT Automation Administrator"
+    buttons:
+      - name: "Posts"
+        url: "posts"
+      - name: "GitHub"
+        url: "https://github.com/frosted"
+
+  socialIcons:
+    - name: "github"
+      url: "https://github.com/frosted"
+    - name: "linkedin"
+      url: "https://linkedin.com/in/edfrost"
+
+menu:
+  main:
+    - name: "Posts"
+      url: "posts/"
+      weight: 10
+    - name: "Tags"
+      url: "tags/"
+      weight: 20
+    - name: "Search"
+      url: "search/"
+      weight: 30

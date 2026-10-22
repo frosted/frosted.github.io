@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>API Integrations on Ed Frost</title>
+    <link>http://localhost:1313/categories/api-integrations/</link>
+    <description>Recent content in API Integrations on Ed Frost</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 22 Jul 2026 15:26:00 +0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/api-integrations/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram</title>
+      <link>http://localhost:1313/posts/2026-07-22-building-a-personal-pagerduty/</link>
+      <pubDate>Wed, 22 Jul 2026 15:26:00 +0500</pubDate>
+      <guid>http://localhost:1313/posts/2026-07-22-building-a-personal-pagerduty/</guid>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;I used to carry a corporate-issued phone glued to my hip. It buzzed, chimed, and demanded my attention every time a server coughed. Recently, I transitioned to a new role where my responsibilities do not require a corporate device. It was a massive win for my work-life balance, but old habits die hard.&lt;/p&gt;
+&lt;p&gt;In this new environment, we have a lot of automated scripts running on schedules, but we have zero alerting around them. Even when a script does have alerting built-in, it sends an email, which does me absolutely no good if I am away from my laptop and don&amp;rsquo;t have a work phone to check it. I missed the peace of mind that came with knowing I would be notified if my scheduled automation tasks failed.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
