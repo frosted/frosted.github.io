@@ -6,22 +6,23 @@
     <description>Recent content in Api on Ed Frost</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Aug 2026 09:00:00 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 09:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/api/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Building Your Sandbox - Automating a Disposable Microsoft Intune Lab</title>
-      <link>http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/</link>
-      <pubDate>Wed, 26 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/</guid>
+      <link>http://localhost:1313/posts/building-your-sandbox-disposable-intune-lab/</link>
+      <pubDate>Wed, 26 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-your-sandbox-disposable-intune-lab/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;If you have ever stared at a PowerShell script and thought, &amp;ldquo;This looks right&amp;hellip; but what if it deletes the wrong thing in production?&amp;rdquo;, you are not alone.&lt;/p&gt;
-&lt;p&gt;That anxiety is real, especially with scripts that make changes at scale. A script like [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %}) is powerful, but running it first in a live environment is not a strategy. It is a risk.&lt;/p&gt;</description>
+&lt;p&gt;That anxiety is real, especially with scripts that make changes at scale. A script like &lt;a href=&#34;http://localhost:1313/posts/automate-intune-device-cleanup/&#34;&gt;Automate Device Cleanup in Microsoft Intune with PowerShell&lt;/a&gt; is powerful, but running it first in a live environment is not a strategy. It is a risk.&lt;/p&gt;
+&lt;p&gt;Modern operations needs a safe space to fail.&lt;/p&gt;</description>
     </item>
     <item>
       <title>The &#34;Self-Documenting&#34; Tenant - Exporting Intune to Markdown</title>
-      <link>http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/</link>
-      <pubDate>Tue, 25 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/</guid>
+      <link>http://localhost:1313/posts/the-self-documenting-tenant-exporting-intune-to-markdown/</link>
+      <pubDate>Tue, 25 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/the-self-documenting-tenant-exporting-intune-to-markdown/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;Every Intune admin knows the documentation trap.&lt;/p&gt;
 &lt;p&gt;You spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.&lt;/p&gt;
@@ -30,19 +31,19 @@
     </item>
     <item>
       <title>Scaling Your Scripts - Version Control and Collaboration with Azure DevOps</title>
-      <link>http://localhost:1313/posts/2026-08-24-scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</link>
-      <pubDate>Mon, 24 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-24-scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</guid>
+      <link>http://localhost:1313/posts/scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</link>
+      <pubDate>Mon, 24 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
-&lt;p&gt;In the last post, we covered [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %}) and why exporting Intune configurations to JSON gives you an operational undo button.&lt;/p&gt;
+&lt;p&gt;In the last post, we covered &lt;a href=&#34;http://localhost:1313/posts/configuration-profile-version-control/&#34;&gt;Configuration Profile Version Control&lt;/a&gt; and why exporting Intune configurations to JSON gives you an operational undo button.&lt;/p&gt;
 &lt;p&gt;The next step is bigger than backups: collaboration.&lt;/p&gt;
 &lt;p&gt;When your scripts grow from one-admin utilities into team-owned automation, you need more than a folder of &lt;code&gt;.ps1&lt;/code&gt; files. You need structure, review, and repeatable delivery. This is where Azure DevOps becomes a full collaboration suite for IT Ops.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Infrastructure as Code (IaC) for Intune - Moving Beyond Manual Management</title>
-      <link>http://localhost:1313/posts/2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management/</link>
-      <pubDate>Sun, 23 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management/</guid>
+      <link>http://localhost:1313/posts/infrastructure-as-code-for-intune-moving-beyond-manual-management/</link>
+      <pubDate>Sun, 23 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/infrastructure-as-code-for-intune-moving-beyond-manual-management/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;If you have managed Intune long enough, you have probably lived this moment: a small manual change in the portal looks harmless, but hours later devices drift, settings conflict, and troubleshooting turns into guesswork.&lt;/p&gt;
 &lt;p&gt;That is where Infrastructure as Code (IaC) changes the game.&lt;/p&gt;
@@ -50,9 +51,9 @@
     </item>
     <item>
       <title>Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram</title>
-      <link>http://localhost:1313/posts/2026-07-22-building-a-personal-pagerduty/</link>
-      <pubDate>Wed, 22 Jul 2026 15:26:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-07-22-building-a-personal-pagerduty/</guid>
+      <link>http://localhost:1313/posts/building-a-personal-pagerduty/</link>
+      <pubDate>Wed, 22 Jul 2026 15:26:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-a-personal-pagerduty/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;I used to carry a corporate-issued phone glued to my hip. It buzzed, chimed, and demanded my attention every time a server coughed. Recently, I transitioned to a new role where my responsibilities do not require a corporate device. It was a massive win for my work-life balance, but old habits die hard.&lt;/p&gt;
 &lt;p&gt;In this new environment, we have a lot of automated scripts running on schedules, but we have zero alerting around them. Even when a script does have alerting built-in, it sends an email, which does me absolutely no good if I am away from my laptop and don&amp;rsquo;t have a work phone to check it. I missed the peace of mind that came with knowing I would be notified if my scheduled automation tasks failed.&lt;/p&gt;</description>

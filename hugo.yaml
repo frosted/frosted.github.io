@@ -2,6 +2,12 @@ baseURL: "https://frosted.github.io/"
 title: "Ed Frost"
 theme: "PaperMod"
 
+outputs:
+  home:
+    - "HTML"
+    - "RSS"
+    - "JSON"
+
 paginate: 5
 enableRobotsTXT: true
 

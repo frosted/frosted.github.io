@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Automate Device Cleanup in Microsoft Intune with PowerShell | Ed Frost</title>
+<meta name="keywords" content="intune, powershell, graph">
+<meta name="description" content="Introduction
+Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.
+In this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/automate-intune-device-cleanup/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2fd9135862a3da866393a267370bb97cd812193a02eb63558b88b00f30ec3648.css" integrity="sha256-L9kTWGKj2oZjk6JnNwu5fNgSGToC62NVi4iwDzDsNkg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/automate-intune-device-cleanup/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/posts/automate-intune-device-cleanup/">
+  <meta property="og:site_name" content="Ed Frost">
+  <meta property="og:title" content="Automate Device Cleanup in Microsoft Intune with PowerShell">
+  <meta property="og:description" content="Introduction Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.
+In this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-03T20:13:00+00:00">
+    <meta property="article:modified_time" content="2024-11-03T20:13:00+00:00">
+    <meta property="article:tag" content="Intune">
+    <meta property="article:tag" content="Powershell">
+    <meta property="article:tag" content="Graph">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Automate Device Cleanup in Microsoft Intune with PowerShell">
+  <meta name="twitter:description" content="Introduction Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.
+In this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Automate Device Cleanup in Microsoft Intune with PowerShell",
+      "item": "http://localhost:1313/posts/automate-intune-device-cleanup/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Automate Device Cleanup in Microsoft Intune with PowerShell",
+  "name": "Automate Device Cleanup in Microsoft Intune with PowerShell",
+  "description": "Introduction Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.\nIn this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.\n",
+  "keywords": [
+    "intune", "powershell", "graph"
+  ],
+  "articleBody": "Introduction Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.\nIn this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.\nPrerequisites To follow along, ensure you have:\nMicrosoft Graph PowerShell SDK (v2+): Install with Install-Module Microsoft.Graph -Scope CurrentUser. Required delegated permissions: Reporting only: DeviceManagementManagedDevices.Read.All Deletions: DeviceManagementManagedDevices.Read.All and DeviceManagementManagedDevices.ReadWrite.All Administrator role: Intune Administrator (or an equivalent role) in Microsoft Entra ID. Use least-privilege access whenever possible: connect with read-only scope for inventory/reporting, and request read/write only when you intend to remove Intune managed device records.\nScript: Cleaning Up Inactive Devices Here’s a beginner-friendly script to identify devices inactive for 90 days or more and remove them from Intune. It includes:\nMicrosoft Graph PowerShell SDK cmdlets Retrieval of all managed devices Validation for devices that have no LastSyncDateTime A native -WhatIf safety mechanism before deletion Error handling with try/catch function Invoke-IntuneInactiveDeviceCleanup { [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')] param( [Parameter()] [ValidateRange(1, 3650)] [int]$InactivityThresholdDays = 90, [Parameter()] [switch]$DeleteInactiveDevices ) # Connect to Microsoft Graph with least-privilege scopes. $scopes = @(\"DeviceManagementManagedDevices.Read.All\") if ($DeleteInactiveDevices) { $scopes += \"DeviceManagementManagedDevices.ReadWrite.All\" } Connect-MgGraph -Scopes $scopes # Optional: confirm the current Graph context Get-MgContext $cutoffDate = (Get-Date).AddDays(-$InactivityThresholdDays) try { # Retrieve all managed devices from Intune $devices = Get-MgDeviceManagementManagedDevice -All } catch { Write-Error \"Failed to retrieve managed devices. $_\" return } # Split devices into those with and without LastSyncDateTime $devicesWithNoSync = @($devices | Where-Object { -not $_.LastSyncDateTime }) $inactiveDevices = @($devices | Where-Object { $_.LastSyncDateTime -and ([datetime]$_.LastSyncDateTime -lt $cutoffDate) }) if ($devicesWithNoSync.Count -gt 0) { Write-Host \"Devices with no LastSyncDateTime (review manually):\" -ForegroundColor Cyan $devicesWithNoSync | ForEach-Object { Write-Host \" - $($_.DeviceName)\" } Write-Host \"\" } Write-Host \"Devices inactive for over $InactivityThresholdDays days:\" -ForegroundColor Yellow $inactiveDevices | ForEach-Object { Write-Host \"$($_.DeviceName) - Last Sync: $($_.LastSyncDateTime)\" } if ($inactiveDevices.Count -eq 0) { Write-Host \"No inactive devices found.\" -ForegroundColor Green return } if (-not $DeleteInactiveDevices) { Write-Host \"Reporting mode: no deletions were attempted.\" -ForegroundColor Cyan Write-Host \"Re-run with -DeleteInactiveDevices to remove records.\" -ForegroundColor Cyan return } foreach ($device in $inactiveDevices) { try { if ($PSCmdlet.ShouldProcess($device.DeviceName, \"Delete Intune managed device record\")) { Remove-MgDeviceManagementManagedDevice -ManagedDeviceId $device.Id -ErrorAction Stop Write-Host \"Deleted $($device.DeviceName)\" -ForegroundColor Green } } catch { Write-Warning \"Failed to delete $($device.DeviceName). $_\" } } } # Reporting only (read scope) Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 # Preview deletions with WhatIf (read + read/write scopes) Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 -DeleteInactiveDevices -WhatIf # Perform actual deletions after review # Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 -DeleteInactiveDevices Explanation Connect to Microsoft Graph: We authenticate using Connect-MgGraph with delegated scopes based on intent. Reporting uses read scope; deletion mode adds read/write scope.\nDefine Inactivity Threshold: In this case, we set a threshold of 90 days, but this can be customized based on your organization’s needs.\nRetrieve Device Data: Using Get-MgDeviceManagementManagedDevice -All, we collect all devices managed by Intune.\nFilter Inactive Devices: We compare LastSyncDateTime (the last successful Intune synchronization) to the cutoff date. We also separate devices with null sync values so they can be reviewed safely.\nDelete Inactive Devices Safely: The function supports PowerShell’s built-in -WhatIf through SupportsShouldProcess, uses precise action text for deleting Intune managed device records, and keeps try/catch for reliability.\nOutcome This script helps you maintain a lean and efficient Intune environment by removing outdated devices that could otherwise clutter up the Microsoft Intune admin center. Be cautious, though, as deleted devices can’t be recovered.\nAlways test in a non-production tenant before running bulk deletions.\nNext Steps In future posts, I’ll dive deeper into Intune management with PowerShell, covering tasks like device enrollment management, reporting, and policy automation. If you have specific topics or questions, feel free to leave a comment or reach out!\nConclusion Automating Intune tasks with PowerShell isn’t just a time-saver, it’s a way to streamline operations and stay on top of device management in a dynamic IT environment. Using the Microsoft Graph PowerShell SDK keeps your automation aligned with Microsoft’s current guidance for Intune and Microsoft Entra ID.\nThanks for reading, and happy scripting!\n",
+  "wordCount" : "739",
+  "inLanguage": "en",
+  "datePublished": "2024-11-03T20:13:00Z",
+  "dateModified": "2024-11-03T20:13:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/automate-intune-device-cleanup/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ed Frost",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Ed Frost (Alt + H)">Ed Frost</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Automate Device Cleanup in Microsoft Intune with PowerShell
+    </h1>
+    <div class="post-meta">
+
+<span title='2024-11-03T20:13:00+00:00'>November 3, 2024</span>&nbsp;·&nbsp;<span>4 min</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+            <li>
+                <a href="#prerequisites" aria-label="Prerequisites">Prerequisites</a></li>
+            <li>
+                <a href="#script-cleaning-up-inactive-devices" aria-label="Script: Cleaning Up Inactive Devices">Script: Cleaning Up Inactive Devices</a></li>
+            <li>
+                <a href="#explanation" aria-label="Explanation">Explanation</a></li>
+            <li>
+                <a href="#outcome" aria-label="Outcome">Outcome</a></li>
+            <li>
+                <a href="#next-steps" aria-label="Next Steps">Next Steps</a></li>
+            <li>
+                <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.</p>
+<p>In this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.</p>
+<h3 id="prerequisites">Prerequisites<a hidden class="anchor" aria-hidden="true" href="#prerequisites">#</a></h3>
+<p>To follow along, ensure you have:</p>
+<ul>
+<li><strong>Microsoft Graph PowerShell SDK (v2+)</strong>: Install with <code>Install-Module Microsoft.Graph -Scope CurrentUser</code>.</li>
+<li><strong>Required delegated permissions</strong>:
+<ul>
+<li>Reporting only: <code>DeviceManagementManagedDevices.Read.All</code></li>
+<li>Deletions: <code>DeviceManagementManagedDevices.Read.All</code> and <code>DeviceManagementManagedDevices.ReadWrite.All</code></li>
+</ul>
+</li>
+<li><strong>Administrator role</strong>: Intune Administrator (or an equivalent role) in Microsoft Entra ID.</li>
+</ul>
+<p>Use least-privilege access whenever possible: connect with read-only scope for inventory/reporting, and request read/write only when you intend to remove Intune managed device records.</p>
+<h3 id="script-cleaning-up-inactive-devices">Script: Cleaning Up Inactive Devices<a hidden class="anchor" aria-hidden="true" href="#script-cleaning-up-inactive-devices">#</a></h3>
+<p>Here’s a beginner-friendly script to identify devices inactive for 90 days or more and remove them from Intune. It includes:</p>
+<ul>
+<li>Microsoft Graph PowerShell SDK cmdlets</li>
+<li>Retrieval of all managed devices</li>
+<li>Validation for devices that have no <code>LastSyncDateTime</code></li>
+<li>A native <code>-WhatIf</code> safety mechanism before deletion</li>
+<li>Error handling with <code>try/catch</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> Invoke-IntuneInactiveDeviceCleanup {
+</span></span><span style="display:flex;"><span>    [CmdletBinding(<span style="color:#a6e22e">SupportsShouldProcess</span> = $true, <span style="color:#a6e22e">ConfirmImpact</span> = <span style="color:#e6db74">&#39;High&#39;</span>)]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">param</span>(
+</span></span><span style="display:flex;"><span>        [Parameter()]
+</span></span><span style="display:flex;"><span>        [ValidateRange(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3650</span>)]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">int</span>]$InactivityThresholdDays = <span style="color:#ae81ff">90</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        [Parameter()]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">switch</span>]$DeleteInactiveDevices
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Connect to Microsoft Graph with least-privilege scopes.</span>
+</span></span><span style="display:flex;"><span>    $scopes = @(<span style="color:#e6db74">&#34;DeviceManagementManagedDevices.Read.All&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($DeleteInactiveDevices) {
+</span></span><span style="display:flex;"><span>        $scopes += <span style="color:#e6db74">&#34;DeviceManagementManagedDevices.ReadWrite.All&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    Connect-MgGraph -Scopes $scopes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Optional: confirm the current Graph context</span>
+</span></span><span style="display:flex;"><span>    Get-MgContext
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $cutoffDate = (Get-Date).AddDays(-$InactivityThresholdDays)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Retrieve all managed devices from Intune</span>
+</span></span><span style="display:flex;"><span>        $devices = Get-MgDeviceManagementManagedDevice -All
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">catch</span> {
+</span></span><span style="display:flex;"><span>        Write-Error <span style="color:#e6db74">&#34;Failed to retrieve managed devices. </span>$_<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Split devices into those with and without LastSyncDateTime</span>
+</span></span><span style="display:flex;"><span>    $devicesWithNoSync = @($devices | Where-Object { <span style="color:#f92672">-not</span> $_.LastSyncDateTime })
+</span></span><span style="display:flex;"><span>    $inactiveDevices = @($devices | Where-Object {
+</span></span><span style="display:flex;"><span>        $_.LastSyncDateTime <span style="color:#f92672">-and</span> ([<span style="color:#66d9ef">datetime</span>]$_.LastSyncDateTime <span style="color:#f92672">-lt</span> $cutoffDate)
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($devicesWithNoSync.Count <span style="color:#f92672">-gt</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;Devices with no LastSyncDateTime (review manually):&#34;</span> -ForegroundColor Cyan
+</span></span><span style="display:flex;"><span>        $devicesWithNoSync | ForEach-Object {
+</span></span><span style="display:flex;"><span>            Write-Host <span style="color:#e6db74">&#34; - </span>$($_.DeviceName)<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;Devices inactive for over </span>$InactivityThresholdDays<span style="color:#e6db74"> days:&#34;</span> -ForegroundColor Yellow
+</span></span><span style="display:flex;"><span>    $inactiveDevices | ForEach-Object {
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;</span>$($_.DeviceName)<span style="color:#e6db74"> - Last Sync: </span>$($_.LastSyncDateTime)<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($inactiveDevices.Count <span style="color:#f92672">-eq</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;No inactive devices found.&#34;</span> -ForegroundColor Green
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">-not</span> $DeleteInactiveDevices) {
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;Reporting mode: no deletions were attempted.&#34;</span> -ForegroundColor Cyan
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;Re-run with -DeleteInactiveDevices to remove records.&#34;</span> -ForegroundColor Cyan
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span> ($device <span style="color:#66d9ef">in</span> $inactiveDevices) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> ($PSCmdlet.ShouldProcess($device.DeviceName, <span style="color:#e6db74">&#34;Delete Intune managed device record&#34;</span>)) {
+</span></span><span style="display:flex;"><span>                Remove-MgDeviceManagementManagedDevice -ManagedDeviceId $device.Id -ErrorAction Stop
+</span></span><span style="display:flex;"><span>                Write-Host <span style="color:#e6db74">&#34;Deleted </span>$($device.DeviceName)<span style="color:#e6db74">&#34;</span> -ForegroundColor Green
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">catch</span> {
+</span></span><span style="display:flex;"><span>            Write-Warning <span style="color:#e6db74">&#34;Failed to delete </span>$($device.DeviceName)<span style="color:#e6db74">. </span>$_<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Reporting only (read scope)</span>
+</span></span><span style="display:flex;"><span>Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays <span style="color:#ae81ff">90</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Preview deletions with WhatIf (read + read/write scopes)</span>
+</span></span><span style="display:flex;"><span>Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays <span style="color:#ae81ff">90</span> -DeleteInactiveDevices -WhatIf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Perform actual deletions after review</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Invoke-IntuneInactiveDeviceCleanup -InactivityThresholdDays 90 -DeleteInactiveDevices</span>
+</span></span></code></pre></div><h3 id="explanation">Explanation<a hidden class="anchor" aria-hidden="true" href="#explanation">#</a></h3>
+<ol>
+<li>
+<p><strong>Connect to Microsoft Graph</strong>: We authenticate using <code>Connect-MgGraph</code> with delegated scopes based on intent. Reporting uses read scope; deletion mode adds read/write scope.</p>
+</li>
+<li>
+<p><strong>Define Inactivity Threshold</strong>: In this case, we set a threshold of 90 days, but this can be customized based on your organization’s needs.</p>
+</li>
+<li>
+<p><strong>Retrieve Device Data</strong>: Using <code>Get-MgDeviceManagementManagedDevice -All</code>, we collect all devices managed by Intune.</p>
+</li>
+<li>
+<p><strong>Filter Inactive Devices</strong>: We compare <code>LastSyncDateTime</code> (the last successful Intune synchronization) to the cutoff date. We also separate devices with null sync values so they can be reviewed safely.</p>
+</li>
+<li>
+<p><strong>Delete Inactive Devices Safely</strong>: The function supports PowerShell&rsquo;s built-in <code>-WhatIf</code> through <code>SupportsShouldProcess</code>, uses precise action text for deleting Intune managed device records, and keeps <code>try/catch</code> for reliability.</p>
+</li>
+</ol>
+<h3 id="outcome">Outcome<a hidden class="anchor" aria-hidden="true" href="#outcome">#</a></h3>
+<p>This script helps you maintain a lean and efficient Intune environment by removing outdated devices that could otherwise clutter up the Microsoft Intune admin center. Be cautious, though, as deleted devices can’t be recovered.</p>
+<p>Always test in a non-production tenant before running bulk deletions.</p>
+<h3 id="next-steps">Next Steps<a hidden class="anchor" aria-hidden="true" href="#next-steps">#</a></h3>
+<p>In future posts, I’ll dive deeper into Intune management with PowerShell, covering tasks like device enrollment management, reporting, and policy automation. If you have specific topics or questions, feel free to leave a comment or reach out!</p>
+<h3 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h3>
+<p>Automating Intune tasks with PowerShell isn’t just a time-saver, it’s a way to streamline operations and stay on top of device management in a dynamic IT environment. Using the Microsoft Graph PowerShell SDK keeps your automation aligned with Microsoft’s current guidance for Intune and Microsoft Entra ID.</p>
+<p>Thanks for reading, and happy scripting!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/intune/">Intune</a></li>
+      <li><a href="http://localhost:1313/tags/powershell/">Powershell</a></li>
+      <li><a href="http://localhost:1313/tags/graph/">Graph</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">Ed Frost</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

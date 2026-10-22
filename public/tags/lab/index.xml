@@ -6,16 +6,17 @@
     <description>Recent content in Lab on Ed Frost</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Aug 2026 09:00:00 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 09:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/lab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Building Your Sandbox - Automating a Disposable Microsoft Intune Lab</title>
-      <link>http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/</link>
-      <pubDate>Wed, 26 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/</guid>
+      <link>http://localhost:1313/posts/building-your-sandbox-disposable-intune-lab/</link>
+      <pubDate>Wed, 26 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-your-sandbox-disposable-intune-lab/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;If you have ever stared at a PowerShell script and thought, &amp;ldquo;This looks right&amp;hellip; but what if it deletes the wrong thing in production?&amp;rdquo;, you are not alone.&lt;/p&gt;
-&lt;p&gt;That anxiety is real, especially with scripts that make changes at scale. A script like [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %}) is powerful, but running it first in a live environment is not a strategy. It is a risk.&lt;/p&gt;</description>
+&lt;p&gt;That anxiety is real, especially with scripts that make changes at scale. A script like &lt;a href=&#34;http://localhost:1313/posts/automate-intune-device-cleanup/&#34;&gt;Automate Device Cleanup in Microsoft Intune with PowerShell&lt;/a&gt; is powerful, but running it first in a live environment is not a strategy. It is a risk.&lt;/p&gt;
+&lt;p&gt;Modern operations needs a safe space to fail.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

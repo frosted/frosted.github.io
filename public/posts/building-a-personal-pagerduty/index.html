@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram | Ed Frost</title>
+<meta name="keywords" content="powershell, api">
+<meta name="description" content="Introduction
+I used to carry a corporate-issued phone glued to my hip. It buzzed, chimed, and demanded my attention every time a server coughed. Recently, I transitioned to a new role where my responsibilities do not require a corporate device. It was a massive win for my work-life balance, but old habits die hard.
+In this new environment, we have a lot of automated scripts running on schedules, but we have zero alerting around them. Even when a script does have alerting built-in, it sends an email, which does me absolutely no good if I am away from my laptop and don&rsquo;t have a work phone to check it. I missed the peace of mind that came with knowing I would be notified if my scheduled automation tasks failed.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/building-a-personal-pagerduty/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2fd9135862a3da866393a267370bb97cd812193a02eb63558b88b00f30ec3648.css" integrity="sha256-L9kTWGKj2oZjk6JnNwu5fNgSGToC62NVi4iwDzDsNkg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/building-a-personal-pagerduty/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/posts/building-a-personal-pagerduty/">
+  <meta property="og:site_name" content="Ed Frost">
+  <meta property="og:title" content="Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram">
+  <meta property="og:description" content="Introduction I used to carry a corporate-issued phone glued to my hip. It buzzed, chimed, and demanded my attention every time a server coughed. Recently, I transitioned to a new role where my responsibilities do not require a corporate device. It was a massive win for my work-life balance, but old habits die hard.
+In this new environment, we have a lot of automated scripts running on schedules, but we have zero alerting around them. Even when a script does have alerting built-in, it sends an email, which does me absolutely no good if I am away from my laptop and don’t have a work phone to check it. I missed the peace of mind that came with knowing I would be notified if my scheduled automation tasks failed.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-07-22T15:26:00+00:00">
+    <meta property="article:modified_time" content="2026-07-22T15:26:00+00:00">
+    <meta property="article:tag" content="Powershell">
+    <meta property="article:tag" content="Api">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram">
+  <meta name="twitter:description" content="Introduction I used to carry a corporate-issued phone glued to my hip. It buzzed, chimed, and demanded my attention every time a server coughed. Recently, I transitioned to a new role where my responsibilities do not require a corporate device. It was a massive win for my work-life balance, but old habits die hard.
+In this new environment, we have a lot of automated scripts running on schedules, but we have zero alerting around them. Even when a script does have alerting built-in, it sends an email, which does me absolutely no good if I am away from my laptop and don’t have a work phone to check it. I missed the peace of mind that came with knowing I would be notified if my scheduled automation tasks failed.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram",
+      "item": "http://localhost:1313/posts/building-a-personal-pagerduty/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram",
+  "name": "Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram",
+  "description": "Introduction I used to carry a corporate-issued phone glued to my hip. It buzzed, chimed, and demanded my attention every time a server coughed. Recently, I transitioned to a new role where my responsibilities do not require a corporate device. It was a massive win for my work-life balance, but old habits die hard.\nIn this new environment, we have a lot of automated scripts running on schedules, but we have zero alerting around them. Even when a script does have alerting built-in, it sends an email, which does me absolutely no good if I am away from my laptop and don\u0026rsquo;t have a work phone to check it. I missed the peace of mind that came with knowing I would be notified if my scheduled automation tasks failed.\n",
+  "keywords": [
+    "powershell", "api"
+  ],
+  "articleBody": "Introduction I used to carry a corporate-issued phone glued to my hip. It buzzed, chimed, and demanded my attention every time a server coughed. Recently, I transitioned to a new role where my responsibilities do not require a corporate device. It was a massive win for my work-life balance, but old habits die hard.\nIn this new environment, we have a lot of automated scripts running on schedules, but we have zero alerting around them. Even when a script does have alerting built-in, it sends an email, which does me absolutely no good if I am away from my laptop and don’t have a work phone to check it. I missed the peace of mind that came with knowing I would be notified if my scheduled automation tasks failed.\nIf you have ever set up a scheduled task, like the automated Intune Device Clean-up Script from my last post, and hated the blind spot of not knowing if it ran properly, this one is for you. Today, we are going to build our own personal alert hub.\nWhy Telegram Instead of WhatsApp? My first idea was WhatsApp, but automating WhatsApp for personal alerting is usually expensive and/or restrictive.\nTelegram is a cleaner fit for this scenario:\nFree for personal use Fast setup with no business onboarding Simple HTTP API that works great from PowerShell Reliable delivery to your phone even when you are away from your laptop Step 1: Create Your Telegram Bot Open Telegram and search for @BotFather. Run /newbot and follow the prompts for bot name and username. Copy the bot token that BotFather returns. Open your new bot chat and click Start. Step 2: Get Your Personal Chat ID Search for @chatid_echo_bot (or any trusted chat ID bot). Click Start. Copy your numeric chat ID. You now have the two values required for alerting:\nBot token Chat ID Step 3: Set the Required Environment Variables Before using the function, set both environment variables in PowerShell.\nFor the current PowerShell session only:\n$env:TELEGRAM_BOT_TOKEN = '123456789:AAExampleTokenFromBotFather' $env:TELEGRAM_CHAT_ID = '123456789' To persist them for your user profile (available in new sessions):\n[System.Environment]::SetEnvironmentVariable('TELEGRAM_BOT_TOKEN', '123456789:AAExampleTokenFromBotFather', 'User') [System.Environment]::SetEnvironmentVariable('TELEGRAM_CHAT_ID', '123456789', 'User') After setting persistent variables, close and reopen PowerShell so the new session can read them.\nStep 4: Add Alerting to Your Scheduled Script Below is a reusable function you can drop into any scheduled PowerShell script. It sends a success notification when the script completes, and a failure notification with the error message if it crashes.\nfunction Send-PSETAlert { \u003c# .SYNOPSIS Sends an alert message to a Telegram chat. .DESCRIPTION Sends a message using the Telegram Bot API. You can pass the bot token and chat ID directly, or rely on environment variables TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID. .PARAMETER Message The alert text to send to Telegram. .PARAMETER BotToken Telegram bot token. Defaults to environment variable TELEGRAM_BOT_TOKEN. .PARAMETER ChatId Telegram chat ID (user, group, or channel). Defaults to environment variable TELEGRAM_CHAT_ID. .PARAMETER ParseMode Optional Telegram parse mode. Supported values: None, Markdown, MarkdownV2, HTML. .EXAMPLE Send-PSETAlert -Message 'Scheduled task completed successfully.' .EXAMPLE Send-PSETAlert -Message '*Warning:* deployment failed.' -ParseMode Markdown #\u003e [CmdletBinding()] param( [Parameter(Mandatory = $true)] [ValidateNotNullOrEmpty()] [string]$Message, [Parameter()] [ValidateNotNullOrEmpty()] [string]$BotToken = $env:TELEGRAM_BOT_TOKEN, [Parameter()] [ValidateNotNullOrEmpty()] [string]$ChatId = $env:TELEGRAM_CHAT_ID, [Parameter()] [ValidateSet('None', 'Markdown', 'MarkdownV2', 'HTML')] [string]$ParseMode = 'None' ) process { if ([string]::IsNullOrWhiteSpace($BotToken)) { throw 'Bot token is required. Pass -BotToken or set TELEGRAM_BOT_TOKEN.' } if ([string]::IsNullOrWhiteSpace($ChatId)) { throw 'Chat ID is required. Pass -ChatId or set TELEGRAM_CHAT_ID.' } $uri = \"https://api.telegram.org/bot$BotToken/sendMessage\" $body = @{ chat_id = $ChatId text = $Message } if ($ParseMode -ne 'None') { $body['parse_mode'] = $ParseMode } try { Write-Verbose \"Sending Telegram alert to chat '$ChatId'.\" $response = Invoke-RestMethod -Uri $uri -Method Post -Body $body -ErrorAction Stop if (-not $response.ok) { $description = if ($response.description) { $response.description } else { 'Unknown Telegram API failure.' } throw \"Telegram API returned a failure response: $description\" } return $response } catch { $message = \"Failed to send Telegram alert. $($_.Exception.Message)\" $exception = New-Object System.InvalidOperationException($message, $_.Exception) $errorRecord = New-Object System.Management.Automation.ErrorRecord($exception, 'SendPSETAlertFailed', [System.Management.Automation.ErrorCategory]::OperationStopped, $ChatId) $PSCmdlet.ThrowTerminatingError($errorRecord) } } } Step 5: Use the Function Once the function is loaded into your session (or script), you can send alerts like this:\n# Basic message (uses TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID from environment variables) Send-PSETAlert -Message 'Scheduled task completed successfully.' # Markdown formatted message Send-PSETAlert -Message '*Warning:* Intune cleanup failed on server APP01.' -ParseMode Markdown Inside your scheduled script, call it in your try/catch block:\ntry { # Your task logic Send-PSETAlert -Message '*Success:* Nightly cleanup completed.' -ParseMode Markdown } catch { Send-PSETAlert -Message \"*Failure:* Nightly cleanup crashed.`nError: $($_.Exception.Message)\" -ParseMode Markdown throw } Step 6: Test Before Scheduling Before wiring this into Task Scheduler, run the script manually.\nRun once with normal logic to confirm a success alert. Force a failure (for example, by temporarily using an invalid command) to confirm error alerting. Review the Telegram message format and adjust text to match your preference. This quick validation prevents silent failures later when the script runs unattended.\nExample Result Here is what a real Telegram notification looks like:\n{: .normal }\nTroubleshooting Tips No message received: Confirm you clicked Start in the bot chat and that the chat ID is correct. 401/403 errors: Re-check the bot token and regenerate it from BotFather if needed. Script runs but no alerts: Verify outbound HTTPS access to api.telegram.org from the machine running the task. Graph command failures: Confirm module installation and Graph scopes for device read/write operations. Conclusion This function gives you a lightweight personal alerting system without depending on email, paid messaging platforms, or a full incident-management stack. If a scheduled script succeeds, you know right away. If it fails, you get the error instantly on your phone.\nFor admin workflows like Intune cleanup, that visibility is often the difference between proactive maintenance and discovering issues days later.\nThanks for reading, and happy automating!\n",
+  "wordCount" : "967",
+  "inLanguage": "en",
+  "datePublished": "2026-07-22T15:26:00Z",
+  "dateModified": "2026-07-22T15:26:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/building-a-personal-pagerduty/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ed Frost",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Ed Frost (Alt + H)">Ed Frost</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Building a Personal PagerDuty - Send PowerShell Script Alerts to Telegram
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-07-22T15:26:00+00:00'>July 22, 2026</span>&nbsp;·&nbsp;<span>5 min</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+            <li>
+                <a href="#why-telegram-instead-of-whatsapp" aria-label="Why Telegram Instead of WhatsApp?">Why Telegram Instead of WhatsApp?</a></li>
+            <li>
+                <a href="#step-1-create-your-telegram-bot" aria-label="Step 1: Create Your Telegram Bot">Step 1: Create Your Telegram Bot</a></li>
+            <li>
+                <a href="#step-2-get-your-personal-chat-id" aria-label="Step 2: Get Your Personal Chat ID">Step 2: Get Your Personal Chat ID</a></li>
+            <li>
+                <a href="#step-3-set-the-required-environment-variables" aria-label="Step 3: Set the Required Environment Variables">Step 3: Set the Required Environment Variables</a></li>
+            <li>
+                <a href="#step-4-add-alerting-to-your-scheduled-script" aria-label="Step 4: Add Alerting to Your Scheduled Script">Step 4: Add Alerting to Your Scheduled Script</a></li>
+            <li>
+                <a href="#step-5-use-the-function" aria-label="Step 5: Use the Function">Step 5: Use the Function</a></li>
+            <li>
+                <a href="#step-6-test-before-scheduling" aria-label="Step 6: Test Before Scheduling">Step 6: Test Before Scheduling</a></li>
+            <li>
+                <a href="#example-result" aria-label="Example Result">Example Result</a></li>
+            <li>
+                <a href="#troubleshooting-tips" aria-label="Troubleshooting Tips">Troubleshooting Tips</a></li>
+            <li>
+                <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>I used to carry a corporate-issued phone glued to my hip. It buzzed, chimed, and demanded my attention every time a server coughed. Recently, I transitioned to a new role where my responsibilities do not require a corporate device. It was a massive win for my work-life balance, but old habits die hard.</p>
+<p>In this new environment, we have a lot of automated scripts running on schedules, but we have zero alerting around them. Even when a script does have alerting built-in, it sends an email, which does me absolutely no good if I am away from my laptop and don&rsquo;t have a work phone to check it. I missed the peace of mind that came with knowing I would be notified if my scheduled automation tasks failed.</p>
+<p>If you have ever set up a scheduled task, like the automated Intune Device Clean-up Script from my last post, and hated the blind spot of not knowing if it ran properly, this one is for you. Today, we are going to build our own personal alert hub.</p>
+<h3 id="why-telegram-instead-of-whatsapp">Why Telegram Instead of WhatsApp?<a hidden class="anchor" aria-hidden="true" href="#why-telegram-instead-of-whatsapp">#</a></h3>
+<p>My first idea was WhatsApp, but automating WhatsApp for personal alerting is usually expensive and/or restrictive.</p>
+<p>Telegram is a cleaner fit for this scenario:</p>
+<ul>
+<li>Free for personal use</li>
+<li>Fast setup with no business onboarding</li>
+<li>Simple HTTP API that works great from PowerShell</li>
+<li>Reliable delivery to your phone even when you are away from your laptop</li>
+</ul>
+<h3 id="step-1-create-your-telegram-bot">Step 1: Create Your Telegram Bot<a hidden class="anchor" aria-hidden="true" href="#step-1-create-your-telegram-bot">#</a></h3>
+<ol>
+<li>Open Telegram and search for <code>@BotFather</code>.</li>
+<li>Run <code>/newbot</code> and follow the prompts for bot name and username.</li>
+<li>Copy the bot token that BotFather returns.</li>
+<li>Open your new bot chat and click <strong>Start</strong>.</li>
+</ol>
+<h3 id="step-2-get-your-personal-chat-id">Step 2: Get Your Personal Chat ID<a hidden class="anchor" aria-hidden="true" href="#step-2-get-your-personal-chat-id">#</a></h3>
+<ol>
+<li>Search for <code>@chatid_echo_bot</code> (or any trusted chat ID bot).</li>
+<li>Click <strong>Start</strong>.</li>
+<li>Copy your numeric chat ID.</li>
+</ol>
+<p>You now have the two values required for alerting:</p>
+<ul>
+<li>Bot token</li>
+<li>Chat ID</li>
+</ul>
+<h3 id="step-3-set-the-required-environment-variables">Step 3: Set the Required Environment Variables<a hidden class="anchor" aria-hidden="true" href="#step-3-set-the-required-environment-variables">#</a></h3>
+<p>Before using the function, set both environment variables in PowerShell.</p>
+<p>For the current PowerShell session only:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$env:TELEGRAM_BOT_TOKEN = <span style="color:#e6db74">&#39;123456789:AAExampleTokenFromBotFather&#39;</span>
+</span></span><span style="display:flex;"><span>$env:TELEGRAM_CHAT_ID   = <span style="color:#e6db74">&#39;123456789&#39;</span>
+</span></span></code></pre></div><p>To persist them for your user profile (available in new sessions):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">System.Environment</span>]::SetEnvironmentVariable(<span style="color:#e6db74">&#39;TELEGRAM_BOT_TOKEN&#39;</span>, <span style="color:#e6db74">&#39;123456789:AAExampleTokenFromBotFather&#39;</span>, <span style="color:#e6db74">&#39;User&#39;</span>)
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">System.Environment</span>]::SetEnvironmentVariable(<span style="color:#e6db74">&#39;TELEGRAM_CHAT_ID&#39;</span>, <span style="color:#e6db74">&#39;123456789&#39;</span>, <span style="color:#e6db74">&#39;User&#39;</span>)
+</span></span></code></pre></div><p>After setting persistent variables, close and reopen PowerShell so the new session can read them.</p>
+<h3 id="step-4-add-alerting-to-your-scheduled-script">Step 4: Add Alerting to Your Scheduled Script<a hidden class="anchor" aria-hidden="true" href="#step-4-add-alerting-to-your-scheduled-script">#</a></h3>
+<p>Below is a reusable function you can drop into any scheduled PowerShell script. It sends a success notification when the script completes, and a failure notification with the error message if it crashes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> Send-PSETAlert {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    .</span><span style="color:#e6db74">SYNOPSIS</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Sends an alert message to a Telegram chat.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    .</span><span style="color:#e6db74">DESCRIPTION</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Sends a message using the Telegram Bot API. You can pass the bot token and
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        chat ID directly, or rely on environment variables TELEGRAM_BOT_TOKEN and
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        TELEGRAM_CHAT_ID.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    .PARAMETER Message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        The alert text to send to Telegram.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    .PARAMETER BotToken
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Telegram bot token. Defaults to environment variable TELEGRAM_BOT_TOKEN.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    .PARAMETER ChatId
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Telegram chat ID (user, group, or channel). Defaults to environment variable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        TELEGRAM_CHAT_ID.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    .PARAMETER ParseMode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Optional Telegram parse mode. Supported values: None, Markdown, MarkdownV2, HTML.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    .</span><span style="color:#e6db74">EXAMPLE</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Send-PSETAlert -Message &#39;Scheduled task completed successfully.&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    .</span><span style="color:#e6db74">EXAMPLE</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Send-PSETAlert -Message &#39;*Warning:* deployment failed.&#39; -ParseMode Markdown
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    #&gt;</span>
+</span></span><span style="display:flex;"><span>    [CmdletBinding()]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">param</span>(
+</span></span><span style="display:flex;"><span>        [Parameter(<span style="color:#a6e22e">Mandatory</span> = $true)]
+</span></span><span style="display:flex;"><span>        [ValidateNotNullOrEmpty()]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">string</span>]$Message,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        [Parameter()]
+</span></span><span style="display:flex;"><span>        [ValidateNotNullOrEmpty()]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">string</span>]$BotToken =  $env:TELEGRAM_BOT_TOKEN,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        [Parameter()]
+</span></span><span style="display:flex;"><span>        [ValidateNotNullOrEmpty()]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">string</span>]$ChatId = $env:TELEGRAM_CHAT_ID,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        [Parameter()]
+</span></span><span style="display:flex;"><span>        [ValidateSet(<span style="color:#e6db74">&#39;None&#39;</span>, <span style="color:#e6db74">&#39;Markdown&#39;</span>, <span style="color:#e6db74">&#39;MarkdownV2&#39;</span>, <span style="color:#e6db74">&#39;HTML&#39;</span>)]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">string</span>]$ParseMode = <span style="color:#e6db74">&#39;None&#39;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">process</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ([<span style="color:#66d9ef">string</span>]::IsNullOrWhiteSpace($BotToken)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#e6db74">&#39;Bot token is required. Pass -BotToken or set TELEGRAM_BOT_TOKEN.&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ([<span style="color:#66d9ef">string</span>]::IsNullOrWhiteSpace($ChatId)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#e6db74">&#39;Chat ID is required. Pass -ChatId or set TELEGRAM_CHAT_ID.&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $uri = <span style="color:#e6db74">&#34;https://api.telegram.org/bot</span>$BotToken<span style="color:#e6db74">/sendMessage&#34;</span>
+</span></span><span style="display:flex;"><span>        $body = @{
+</span></span><span style="display:flex;"><span>            chat_id = $ChatId
+</span></span><span style="display:flex;"><span>            text    = $Message
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($ParseMode <span style="color:#f92672">-ne</span> <span style="color:#e6db74">&#39;None&#39;</span>) {
+</span></span><span style="display:flex;"><span>            $body[<span style="color:#e6db74">&#39;parse_mode&#39;</span>] = $ParseMode
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            Write-Verbose <span style="color:#e6db74">&#34;Sending Telegram alert to chat &#39;</span>$ChatId<span style="color:#e6db74">&#39;.&#34;</span>
+</span></span><span style="display:flex;"><span>            $response = Invoke-RestMethod -Uri $uri -Method Post -Body $body -ErrorAction Stop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">-not</span> $response.ok) {
+</span></span><span style="display:flex;"><span>                $description = <span style="color:#66d9ef">if</span> ($response.description) { $response.description } <span style="color:#66d9ef">else</span> { <span style="color:#e6db74">&#39;Unknown Telegram API failure.&#39;</span> }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#e6db74">&#34;Telegram API returned a failure response: </span>$description<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> $response
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">catch</span> {
+</span></span><span style="display:flex;"><span>            $message = <span style="color:#e6db74">&#34;Failed to send Telegram alert. </span>$($_.Exception.Message)<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            $exception = New-Object System.InvalidOperationException($message, $_.Exception)
+</span></span><span style="display:flex;"><span>            $errorRecord = New-Object System.Management.Automation.ErrorRecord($exception, <span style="color:#e6db74">&#39;SendPSETAlertFailed&#39;</span>, [<span style="color:#66d9ef">System.Management.Automation.ErrorCategory</span>]::OperationStopped, $ChatId)
+</span></span><span style="display:flex;"><span>            $PSCmdlet.ThrowTerminatingError($errorRecord)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="step-5-use-the-function">Step 5: Use the Function<a hidden class="anchor" aria-hidden="true" href="#step-5-use-the-function">#</a></h3>
+<p>Once the function is loaded into your session (or script), you can send alerts like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Basic message (uses TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID from environment variables)</span>
+</span></span><span style="display:flex;"><span>Send-PSETAlert -Message <span style="color:#e6db74">&#39;Scheduled task completed successfully.&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Markdown formatted message</span>
+</span></span><span style="display:flex;"><span>Send-PSETAlert -Message <span style="color:#e6db74">&#39;*Warning:* Intune cleanup failed on server APP01.&#39;</span> -ParseMode Markdown
+</span></span></code></pre></div><p>Inside your scheduled script, call it in your <code>try/catch</code> block:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Your task logic</span>
+</span></span><span style="display:flex;"><span>    Send-PSETAlert -Message <span style="color:#e6db74">&#39;*Success:* Nightly cleanup completed.&#39;</span> -ParseMode Markdown
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">catch</span> {
+</span></span><span style="display:flex;"><span>    Send-PSETAlert -Message <span style="color:#e6db74">&#34;*Failure:* Nightly cleanup crashed.</span><span style="color:#ae81ff">`n</span><span style="color:#e6db74">Error: </span>$($_.Exception.Message)<span style="color:#e6db74">&#34;</span> -ParseMode Markdown
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="step-6-test-before-scheduling">Step 6: Test Before Scheduling<a hidden class="anchor" aria-hidden="true" href="#step-6-test-before-scheduling">#</a></h3>
+<p>Before wiring this into Task Scheduler, run the script manually.</p>
+<ol>
+<li>Run once with normal logic to confirm a success alert.</li>
+<li>Force a failure (for example, by temporarily using an invalid command) to confirm error alerting.</li>
+<li>Review the Telegram message format and adjust text to match your preference.</li>
+</ol>
+<p>This quick validation prevents silent failures later when the script runs unattended.</p>
+<h3 id="example-result">Example Result<a hidden class="anchor" aria-hidden="true" href="#example-result">#</a></h3>
+<p>Here is what a real Telegram notification looks like:</p>
+<p><img alt="telegram notification" loading="lazy" src="/images/2026-07-22_screenshot112800.png">{: .normal }</p>
+<h3 id="troubleshooting-tips">Troubleshooting Tips<a hidden class="anchor" aria-hidden="true" href="#troubleshooting-tips">#</a></h3>
+<ol>
+<li><strong>No message received</strong>: Confirm you clicked <strong>Start</strong> in the bot chat and that the chat ID is correct.</li>
+<li><strong>401/403 errors</strong>: Re-check the bot token and regenerate it from BotFather if needed.</li>
+<li><strong>Script runs but no alerts</strong>: Verify outbound HTTPS access to <code>api.telegram.org</code> from the machine running the task.</li>
+<li><strong>Graph command failures</strong>: Confirm module installation and Graph scopes for device read/write operations.</li>
+</ol>
+<h3 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h3>
+<p>This function gives you a lightweight personal alerting system without depending on email, paid messaging platforms, or a full incident-management stack. If a scheduled script succeeds, you know right away. If it fails, you get the error instantly on your phone.</p>
+<p>For admin workflows like Intune cleanup, that visibility is often the difference between proactive maintenance and discovering issues days later.</p>
+<p>Thanks for reading, and happy automating!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/powershell/">Powershell</a></li>
+      <li><a href="http://localhost:1313/tags/api/">Api</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">Ed Frost</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

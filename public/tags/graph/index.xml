@@ -6,22 +6,23 @@
     <description>Recent content in Graph on Ed Frost</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Aug 2026 09:00:00 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 09:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/graph/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Building Your Sandbox - Automating a Disposable Microsoft Intune Lab</title>
-      <link>http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/</link>
-      <pubDate>Wed, 26 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/</guid>
+      <link>http://localhost:1313/posts/building-your-sandbox-disposable-intune-lab/</link>
+      <pubDate>Wed, 26 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-your-sandbox-disposable-intune-lab/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;If you have ever stared at a PowerShell script and thought, &amp;ldquo;This looks right&amp;hellip; but what if it deletes the wrong thing in production?&amp;rdquo;, you are not alone.&lt;/p&gt;
-&lt;p&gt;That anxiety is real, especially with scripts that make changes at scale. A script like [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %}) is powerful, but running it first in a live environment is not a strategy. It is a risk.&lt;/p&gt;</description>
+&lt;p&gt;That anxiety is real, especially with scripts that make changes at scale. A script like &lt;a href=&#34;http://localhost:1313/posts/automate-intune-device-cleanup/&#34;&gt;Automate Device Cleanup in Microsoft Intune with PowerShell&lt;/a&gt; is powerful, but running it first in a live environment is not a strategy. It is a risk.&lt;/p&gt;
+&lt;p&gt;Modern operations needs a safe space to fail.&lt;/p&gt;</description>
     </item>
     <item>
       <title>The &#34;Self-Documenting&#34; Tenant - Exporting Intune to Markdown</title>
-      <link>http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/</link>
-      <pubDate>Tue, 25 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-25-the-self-documenting-tenant-exporting-intune-to-markdown/</guid>
+      <link>http://localhost:1313/posts/the-self-documenting-tenant-exporting-intune-to-markdown/</link>
+      <pubDate>Tue, 25 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/the-self-documenting-tenant-exporting-intune-to-markdown/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;Every Intune admin knows the documentation trap.&lt;/p&gt;
 &lt;p&gt;You spend an afternoon writing clean internal docs for your configuration profiles, assignment strategy, and baseline settings. It looks perfect on day one. Then someone updates a profile in the portal, tweaks a setting during an incident, or rolls out a quick exception for a pilot group.&lt;/p&gt;
@@ -30,19 +31,19 @@
     </item>
     <item>
       <title>Scaling Your Scripts - Version Control and Collaboration with Azure DevOps</title>
-      <link>http://localhost:1313/posts/2026-08-24-scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</link>
-      <pubDate>Mon, 24 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-24-scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</guid>
+      <link>http://localhost:1313/posts/scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</link>
+      <pubDate>Mon, 24 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/scaling-your-scripts-version-control-and-collaboration-with-azure-devops/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
-&lt;p&gt;In the last post, we covered [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %}) and why exporting Intune configurations to JSON gives you an operational undo button.&lt;/p&gt;
+&lt;p&gt;In the last post, we covered &lt;a href=&#34;http://localhost:1313/posts/configuration-profile-version-control/&#34;&gt;Configuration Profile Version Control&lt;/a&gt; and why exporting Intune configurations to JSON gives you an operational undo button.&lt;/p&gt;
 &lt;p&gt;The next step is bigger than backups: collaboration.&lt;/p&gt;
 &lt;p&gt;When your scripts grow from one-admin utilities into team-owned automation, you need more than a folder of &lt;code&gt;.ps1&lt;/code&gt; files. You need structure, review, and repeatable delivery. This is where Azure DevOps becomes a full collaboration suite for IT Ops.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Infrastructure as Code (IaC) for Intune - Moving Beyond Manual Management</title>
-      <link>http://localhost:1313/posts/2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management/</link>
-      <pubDate>Sun, 23 Aug 2026 09:00:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management/</guid>
+      <link>http://localhost:1313/posts/infrastructure-as-code-for-intune-moving-beyond-manual-management/</link>
+      <pubDate>Sun, 23 Aug 2026 09:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/infrastructure-as-code-for-intune-moving-beyond-manual-management/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;If you have managed Intune long enough, you have probably lived this moment: a small manual change in the portal looks harmless, but hours later devices drift, settings conflict, and troubleshooting turns into guesswork.&lt;/p&gt;
 &lt;p&gt;That is where Infrastructure as Code (IaC) changes the game.&lt;/p&gt;
@@ -50,9 +51,9 @@
     </item>
     <item>
       <title>Configuration Profile Version Control</title>
-      <link>http://localhost:1313/posts/2026-07-28-configuration-profile-version-control/</link>
-      <pubDate>Tue, 28 Jul 2026 22:02:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2026-07-28-configuration-profile-version-control/</guid>
+      <link>http://localhost:1313/posts/configuration-profile-version-control/</link>
+      <pubDate>Tue, 28 Jul 2026 22:02:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/configuration-profile-version-control/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;You make what looks like a tiny configuration change in Intune at 4:45 PM. Maybe it is a compliance setting tweak, maybe a settings catalog update for BitLocker, maybe a policy assignment adjustment.&lt;/p&gt;
 &lt;p&gt;By 5:10 PM, helpdesk tickets start rolling in. Devices are reporting unexpected behavior, users cannot complete a task they could do an hour earlier, and everyone asks the same question: &amp;ldquo;What changed?&amp;rdquo;&lt;/p&gt;
@@ -60,9 +61,9 @@
     </item>
     <item>
       <title>Managing Intune Resources with PowerShell - Essential Commands and Tasks</title>
-      <link>http://localhost:1313/posts/2024-11-10-essential-commands-and-tasks/</link>
-      <pubDate>Sun, 10 Nov 2024 16:03:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2024-11-10-essential-commands-and-tasks/</guid>
+      <link>http://localhost:1313/posts/essential-commands-and-tasks/</link>
+      <pubDate>Sun, 10 Nov 2024 16:03:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/essential-commands-and-tasks/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;Now that we’ve covered the basics of connecting to Microsoft Intune with PowerShell, it’s time to dive into managing Intune resources. In this post, I’ll introduce essential PowerShell commands for managing devices, configurations, and policies. By the end, you’ll have a toolkit of commands to simplify your day-to-day Intune administration tasks.&lt;/p&gt;
 &lt;p&gt;All examples in this article use the current Microsoft Graph PowerShell SDK cmdlets.&lt;/p&gt;
@@ -71,18 +72,18 @@
     </item>
     <item>
       <title>Automate Device Cleanup in Microsoft Intune with PowerShell</title>
-      <link>http://localhost:1313/posts/2024-11-03-automate-intune-device-cleanup/</link>
-      <pubDate>Sun, 03 Nov 2024 20:13:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2024-11-03-automate-intune-device-cleanup/</guid>
+      <link>http://localhost:1313/posts/automate-intune-device-cleanup/</link>
+      <pubDate>Sun, 03 Nov 2024 20:13:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/automate-intune-device-cleanup/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;Managing devices in Microsoft Intune is crucial to keeping your organization’s environment secure and efficient. Over time, however, inactive or obsolete devices can clutter up the Microsoft Intune admin center, making it harder to manage effectively. Manual cleanup is time-consuming, but with PowerShell, you can automate this process, save time, and keep your environment organized.&lt;/p&gt;
 &lt;p&gt;In this post, I’ll show you a PowerShell script that uses the Microsoft Graph PowerShell SDK (the Microsoft-recommended approach for Intune automation) to identify and remove inactive devices in Intune. By the end, you’ll have a reliable way to maintain a clean device inventory, which is especially helpful in large organizations.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Getting Started with PowerShell for Intune - Connecting to Intune</title>
-      <link>http://localhost:1313/posts/2024-10-27-connecting-intune/</link>
-      <pubDate>Sun, 27 Oct 2024 19:03:00 +0500</pubDate>
-      <guid>http://localhost:1313/posts/2024-10-27-connecting-intune/</guid>
+      <link>http://localhost:1313/posts/connecting-intune/</link>
+      <pubDate>Sun, 27 Oct 2024 19:03:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/connecting-intune/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;If you’re working with Microsoft Intune, automating tasks with PowerShell can make your life a lot easier. Before you can dive into creating scripts or managing Intune assets, you’ll need to set up a secure connection between PowerShell and your Intune environment.&lt;/p&gt;
 &lt;p&gt;In this post, I’ll walk you through the step-by-step process of connecting to Intune using PowerShell, discuss the modules involved, and explain what’s happening behind the scenes.&lt;/p&gt;</description>
