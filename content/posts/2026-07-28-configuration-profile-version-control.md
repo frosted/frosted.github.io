@@ -179,8 +179,8 @@ Keep these limitations in mind before you rely on exports for disaster recovery:
 
 ### References
 
-- [Getting Started with PowerShell for Intune - Connecting to Intune]({% post_url 2024-10-27-connecting-intune %})
-- [Managing Intune Resources with PowerShell - Essential Commands and Tasks]({% post_url 2024-11-10-essential-commands-and-tasks %})
+- [Getting Started with PowerShell for Intune - Connecting to Intune](/posts/2024-10-27-connecting-intune/)
+- [Managing Intune Resources with PowerShell - Essential Commands and Tasks](/posts/2024-11-10-essential-commands-and-tasks/)
 - [Microsoft Graph PowerShell SDK Overview](https://learn.microsoft.com/powershell/microsoftgraph/overview)
 - [Upgrade from Azure AD PowerShell to Microsoft Graph PowerShell](https://learn.microsoft.com/en-us/powershell/microsoftgraph/migration-steps)
 - [Connect-MgGraph](https://learn.microsoft.com/powershell/module/microsoft.graph.authentication/connect-mggraph)

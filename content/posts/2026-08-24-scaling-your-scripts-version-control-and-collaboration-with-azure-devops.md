@@ -7,7 +7,7 @@ tags: [powershell, graph, intune, api, devops, pester]     # TAG names should al
 
 ### Introduction
 
-In the last post, we covered [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %}) and why exporting Intune configurations to JSON gives you an operational undo button.
+In the last post, we covered [Configuration Profile Version Control](/posts/2026-07-28-configuration-profile-version-control/) and why exporting Intune configurations to JSON gives you an operational undo button.
 
 The next step is bigger than backups: collaboration.
 

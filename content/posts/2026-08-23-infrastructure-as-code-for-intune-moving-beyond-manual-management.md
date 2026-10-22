@@ -13,7 +13,7 @@ That is where Infrastructure as Code (IaC) changes the game.
 
 In the Intune world, IaC means defining your configurations as code and deploying them through repeatable automation instead of manual portal-clicking. It is not just a “developer” concept. For IT operations, this is how we make ops easy: fewer human errors, cleaner changes, faster rollbacks, and better scale.
 
-This post builds directly on [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %}) and the Foundational Series principles of connecting through Microsoft Graph and maintaining a clean, controlled environment.
+This post builds directly on [Configuration Profile Version Control](/posts/2026-07-28-configuration-profile-version-control/) and the Foundational Series principles of connecting through Microsoft Graph and maintaining a clean, controlled environment.
 
 ### Prerequisites
 
@@ -23,7 +23,7 @@ Before starting, make sure you have:
 - Permissions for Intune configuration policy read/write operations
 - An authenticated Graph session (`Connect-MgGraph`)
 
-If you need a refresher, review the connection workflow from [Getting Started with PowerShell for Intune - Connecting to Intune]({% post_url 2024-10-27-connecting-intune %}), and for environment hygiene, revisit [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %}).
+If you need a refresher, review the connection workflow from [Getting Started with PowerShell for Intune - Connecting to Intune](/posts/2024-10-27-connecting-intune/), and for environment hygiene, revisit [Automate Device Cleanup in Microsoft Intune with PowerShell](/posts/2024-11-03-automate-intune-device-cleanup/).
 
 ### Imperative vs Declarative Management
 
@@ -184,10 +184,10 @@ jobs:
 
 ### References
 
-- [Getting Started with PowerShell for Intune - Connecting to Intune]({% post_url 2024-10-27-connecting-intune %})
-- [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %})
-- [Managing Intune Resources with PowerShell - Essential Commands and Tasks]({% post_url 2024-11-10-essential-commands-and-tasks %})
-- [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %})
+- [Getting Started with PowerShell for Intune - Connecting to Intune](/posts/2024-10-27-connecting-intune/)
+- [Automate Device Cleanup in Microsoft Intune with PowerShell](/posts/2024-11-03-automate-intune-device-cleanup/)
+- [Managing Intune Resources with PowerShell - Essential Commands and Tasks](/posts/2024-11-10-essential-commands-and-tasks/)
+- [Configuration Profile Version Control](/posts/2026-07-28-configuration-profile-version-control/)
 - [Microsoft Graph PowerShell SDK Overview](https://learn.microsoft.com/powershell/microsoftgraph/overview)
 - [Connect-MgGraph](https://learn.microsoft.com/powershell/module/microsoft.graph.authentication/connect-mggraph)
 - [Get-MgDeviceManagementConfigurationPolicy](https://learn.microsoft.com/powershell/module/microsoft.graph.devicemanagement/get-mgdevicemanagementconfigurationpolicy)

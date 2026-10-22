@@ -10,7 +10,7 @@ tags: [powershell, graph, intune, api, lab, devops]     # TAG names should alway
 
 If you have ever stared at a PowerShell script and thought, "This looks right... but what if it deletes the wrong thing in production?", you are not alone.
 
-That anxiety is real, especially with scripts that make changes at scale. A script like [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %}) is powerful, but running it first in a live environment is not a strategy. It is a risk.
+That anxiety is real, especially with scripts that make changes at scale. A script like [Automate Device Cleanup in Microsoft Intune with PowerShell](/posts/2024-11-03-automate-intune-device-cleanup/) is powerful, but running it first in a live environment is not a strategy. It is a risk.
 
 Modern operations needs a safe space to fail.
 
@@ -185,7 +185,7 @@ My goal isn't simply to learn where things are in the Intune portal.
 
 I want to be able to manage Intune programmatically.
 
-If you need a refresher, see [Getting Started with PowerShell for Intune - Connecting to Intune]({% post_url 2024-10-27-connecting-intune %}).
+If you need a refresher, see [Getting Started with PowerShell for Intune - Connecting to Intune](/posts/2024-10-27-connecting-intune/).
 
 A basic connection looks something like this:
 
@@ -314,7 +314,7 @@ Absolutely try it.
 
 That's the point.
 
-For example, [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %}) is exactly the kind of script I want to test against a lab before trusting it against a production tenant.
+For example, [Automate Device Cleanup in Microsoft Intune with PowerShell](/posts/2024-11-03-automate-intune-device-cleanup/) is exactly the kind of script I want to test against a lab before trusting it against a production tenant.
 
 A disposable environment gives me somewhere to answer questions like:
 
@@ -355,7 +355,7 @@ When I need another environment, I rebuild it.
 
 ### Configuration Profile Version Control
 
-This approach also fits nicely with the idea of managing Intune configuration as code.  Rather than manually recreating a configuration profile every time, I can store the configuration and use automation to deploy it.  That's where [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %}) becomes useful.
+This approach also fits nicely with the idea of managing Intune configuration as code.  Rather than manually recreating a configuration profile every time, I can store the configuration and use automation to deploy it.  That's where [Configuration Profile Version Control](/posts/2026-07-28-configuration-profile-version-control/) becomes useful.
 
 The lab gives me somewhere to test the process:
 
@@ -384,7 +384,7 @@ Now the lab isn't just an Intune playground.  It's also a development environmen
 
 ### Infrastructure as Code
 
-The same concept applies to [Infrastructure as Code (IaC) for Intune: Moving Beyond Manual Management]({% post_url 2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management %}).
+The same concept applies to [Infrastructure as Code (IaC) for Intune: Moving Beyond Manual Management](/posts/2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management/).
 
 A disposable tenant gives me somewhere to test the idea that an Intune environment can be described and recreated from code.
 
@@ -487,10 +487,10 @@ That's how you build stronger scripts, cleaner policies, and more reliable autom
 
 ### References
 
-* [Getting Started with PowerShell for Intune - Connecting to Intune]({% post_url 2024-10-27-connecting-intune %})
-* [Automate Device Cleanup in Microsoft Intune with PowerShell]({% post_url 2024-11-03-automate-intune-device-cleanup %})
-* [Configuration Profile Version Control]({% post_url 2026-07-28-configuration-profile-version-control %})
-* [Infrastructure as Code (IaC) for Intune: Moving Beyond Manual Management]({% post_url 2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management %})
+* [Getting Started with PowerShell for Intune - Connecting to Intune](/posts/2024-10-27-connecting-intune/)
+* [Automate Device Cleanup in Microsoft Intune with PowerShell](/posts/2024-11-03-automate-intune-device-cleanup/)
+* [Configuration Profile Version Control](/posts/2026-07-28-configuration-profile-version-control/)
+* [Infrastructure as Code (IaC) for Intune: Moving Beyond Manual Management](/posts/2026-08-23-infrastructure-as-code-for-intune-moving-beyond-manual-management/)
 * [Microsoft Intune Free Trial](https://learn.microsoft.com/en-us/intune/fundamentals/free-trial-sign-up)
 * [Microsoft Intune Documentation](https://learn.microsoft.com/en-us/intune/)
 
