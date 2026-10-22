@@ -66,7 +66,27 @@ That anxiety is real, especially with scripts that make changes at scale. A scri
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        
+        document.querySelectorAll('pre code.language-mermaid').forEach(function (block) {
+            const pre = block.parentElement;
+            const div = document.createElement('div');
+            div.className = 'mermaid';
+            div.textContent = block.textContent;
+            pre.replaceWith(div);
+        });
+
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: localStorage.getItem("pref-theme") === "dark" ? "dark" : "default"
+        });
+        mermaid.run();
+    });
+</script>
+<meta property="og:url" content="http://localhost:1313/posts/2026-08-26-building-your-sandbox-disposable-intune-lab/">
   <meta property="og:site_name" content="Ed Frost">
   <meta property="og:title" content="Building Your Sandbox - Automating a Disposable Microsoft Intune Lab">
   <meta property="og:description" content="Introduction If you have ever stared at a PowerShell script and thought, “This looks right… but what if it deletes the wrong thing in production?”, you are not alone.

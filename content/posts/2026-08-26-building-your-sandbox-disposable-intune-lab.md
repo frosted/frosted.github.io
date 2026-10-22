@@ -1,6 +1,7 @@
 ---
 title: Building Your Sandbox - Automating a Disposable Microsoft Intune Lab
 date: 2026-08-26 09:00:00 +0500
+mermaid: true
 categories: [Foundational Series]
 tags: [powershell, graph, intune, api, lab, devops]     # TAG names should always be lowercase
 ---
